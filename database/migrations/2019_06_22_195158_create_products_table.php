@@ -33,6 +33,7 @@ class CreateProductsTable extends Migration
             $table->string('made_in')->nullable();
             $table->decimal('weight')->nullable();
             $table->text('description');
+            $table->text('model3d')->nullable();
             $table->string('cover',255)->nullable();
             $table->softDeletes();
             $table->timestamps();

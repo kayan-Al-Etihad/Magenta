@@ -36,10 +36,12 @@
                     <!-- Single-pro-slider Big-photo start -->
                     <div class="single-pro-slider single-big-photo view-lightbox slider-for">
                         <div>
-                            <img src="{{ ($product->cover) }}" alt="">
+                            {{-- <img src="{{ ($product->cover) }}" alt=""> --}}
+                            {!! $product->model3d !!}
                             <a class="view-full-screen" href="{{ ($product->cover) }}"  data-lightbox="roadtrip" data-title="My caption">
                                 <i class="zmdi zmdi-zoom-in"></i>
                             </a>
+                            
                         </div>
                     </div>
                     <!-- Single-pro-slider Big-photo end -->

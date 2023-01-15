@@ -16,58 +16,51 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
-//Route::get('/test', function () {
-//    return view('test');
-//})->name('test');
-
 Route::group(['middleware' => 'web'], function () {
-
-
     /********************---------------FRONT ROUTES------------------************************/
     Route::get('/', 'Front\homeController@home')->name('home');
     Route::get('/home', 'Front\homeController@home');
-    Route::get('/show/{slug}', 'Front\homeController@show')->name('front.show')
+    Route::get('/show/{slug}', 'Front\homeController@show')
+        ->name('front.show')
         ->where(['slug' => '[-A-Za-z0-9]+']);
-    Route::get('/showCategory/{slug}', 'Front\homeController@showCategory')->name('front.showCategory')
+    Route::get('/showCategory/{slug}', 'Front\homeController@showCategory')
+        ->name('front.showCategory')
         ->where(['slug' => '[-A-Za-z0-9]+']);
-    Route::get('/showBrand/{slug}', 'Front\homeController@showBrand')->name('front.showBrand')
+    Route::get('/showBrand/{slug}', 'Front\homeController@showBrand')
+        ->name('front.showBrand')
         ->where(['slug' => '[-A-Za-z0-9]+']);
     /*---------------Contact us------------------*/
-    Route::get('/contact', function() {
+    Route::get('/contact', function () {
         return view('Front.contact-us.contact-us');
     });
     /*---------------About us------------------*/
-    Route::get('/about', function() {
+    Route::get('/about', function () {
         return view('Front.about.about');
     });
     /*---------------Categories------------------*/
-    Route::get('/categories', function() {
+    Route::get('/categories', function () {
         return view('Front.categories.categories');
     });
     /*---------------brands------------------*/
-    Route::get('/brands', function() {
+    Route::get('/brands', function () {
         return view('Front.brands.brands');
     });
     /*---------------favourite------------------*/
-    Route::get('/favourite', function() {
+    Route::get('/favourite', function () {
         return view('Front.favourite.favourite');
     });
-
-
-
 
     /*---------------feedback------------------*/
     // Route::get('/feedback', function() {
     //     return view('Front.feedback.feedback');
     // });
 
-      /*---------------feedback------------------*/
-      Route::get('/feedback' , [FeedbackController::class,'index']);
-      Route::post('/feedback','FeedbackController@store')->name('feedback');
-    
+    /*---------------feedback------------------*/
+    Route::get('/feedback', [FeedbackController::class, 'index']);
+    Route::post('/feedback', 'FeedbackController@store')->name('feedback');
 
     /*---------------single category------------------*/
-    Route::get('/category', function() {
+    Route::get('/category', function () {
         return view('Front.categories.singleCategory');
     });
     /*---------------CHECKOUT------------------*/
@@ -85,10 +78,12 @@ Route::group(['middleware' => 'web'], function () {
 
     /*---------------LISTS------------------*/
     Route::match(['get', 'post'], '/products', 'Front\homeController@productsList')->name('front.productsList');
-    Route::match(['get', 'post'], '/products/{list}/{slug}', 'Front\homeController@list')->where([
-        'list' => '[A-za-z]+',
-        'slug' => '[-A-Za-z0-9]+'
-    ])->name('front.lists');
+    Route::match(['get', 'post'], '/products/{list}/{slug}', 'Front\homeController@list')
+        ->where([
+            'list' => '[A-za-z]+',
+            'slug' => '[-A-Za-z0-9]+',
+        ])
+        ->name('front.lists');
 
     /*---------------CART------------------*/
     Route::resource('/cart', 'Front\cartController')->except(['create', 'edit', 'update']);
@@ -114,14 +109,10 @@ Route::group(['middleware' => 'web'], function () {
     /*---------------GOOGLE------------------*/
     Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('auth.google');
     Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
-
 });
-
-
 
 /*------------------------------FRONT AUTH ROUTES------------------*/
 Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
-
     /*---------------ACCOUNT------------------*/
     Route::get('/profile', 'Front\accountController@profile')->name('front.profile');
     Route::get('/my-orders', 'Front\accountController@myOrders')->name('front.myOrders');
@@ -134,10 +125,7 @@ Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
     /*---------------COMMENTS------------------*/
     Route::post('comments', 'Admin\myCommentController@store')->name('comment.store');
     Route::match(['put', 'post'], 'comments/{comment}', '\Laravelista\Comments\CommentController@update');
-//    Route::post('comments/{comment}', '\Laravelista\Comments\CommentController@reply');
-
-
-  
+    //    Route::post('comments/{comment}', '\Laravelista\Comments\CommentController@reply');
 
     /*---------------FAVORITES------------------*/
     Route::post('/favorite', 'Front\accountController@favoritePost')->name('favorite');
@@ -146,12 +134,10 @@ Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
 
     /*---------------GIFT CARD------------------*/
     Route::post('/checkout/check-discount', 'Front\checkOutController@checkDiscount')->name('front.checkout.checkDiscount');
-
 });
 
 /*---------------***************ADMIN ROUTES******************------------------*/
 Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
-
     /*---------------USERS------------------*/
     Route::resource('/user', 'Admin\userController');
     Route::get('/user-address/{id}', 'Admin\userController@editAddress')->name('admin.address.edit');
@@ -169,9 +155,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     /*---------------Products Routes------------------*/
     Route::resource('product', 'Admin\productController');
 
-    Route::get('/product/create/second-step','Admin\productController@createSecondStep')->name('product.create2');
-    Route::post('/product/create/second-step','Admin\productController@storeSecondStep')->name('product.store2');
+    // create 3dModel
+    Route::resource('/product3d', 'Admin\create3DModel');
 
+    Route::get('/product/create/second-step', 'Admin\productController@createSecondStep')->name('product.create2');
+    Route::post('/product/create/second-step', 'Admin\productController@storeSecondStep')->name('product.store2');
 
     Route::post('product/sort', 'Admin\productController@sort')->name('product.index.sort');
     Route::get('product/index/trash', 'Admin\productController@withTrash')->name('product.index.trash');
@@ -181,11 +169,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     // Route::put('/product/{id}', [productController::class, 'productUpdate'])->name('products.update');
     // Route::put('product/{id}', 'Admin\productController@productUpdate')->name('products.update');
 
-
     Route::delete('/product/index/{id}', 'Admin\productController@destroy')->name('product.destroy');
 
     /*---------------ATTRIBUTES ROUTES------------------*/
-    Route::resource('attribute', 'Admin\attributeController')->except(['index', 'show']);
+    Route::resource('/attribute', 'Admin\attributeController')->except(['index', 'show']);
     Route::delete('attribute/value/{id}', 'Admin\attributeController@deleteValue')->name('attribute.deleteValue');
     //when create new attribute calling from show product
     Route::get('/attribute/createNew/{id}', 'Admin\attributeController@createNew')->name('attribute.createNew');
@@ -209,7 +196,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     Route::delete('orders/{id}', 'Admin\orderController@destroy')->name('order.destroy');
     Route::delete('orders/orders-status/{id}', 'Admin\orderController@detailDestroy')->name('order.detail.destroy');
     Route::get('orders/status/{id}/{status}', 'Admin\orderController@status')->name('order.status');
-//    Route::post('orders','Admin\orderController@sent')->name('order.sent');
+    //    Route::post('orders','Admin\orderController@sent')->name('order.sent');
     Route::get('/Admin/createNewProduct', 'Admin\orderController@create')->name('order.create');
     Route::post('/Admin/createNewProduct', 'Admin\orderController@storeorder')->name('order.store');
 
@@ -218,22 +205,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     Route::get('/comments/new', 'Admin\myCommentController@newComments')->name('comments.new');
     Route::post('/comments/{id}', 'Admin\myCommentController@approve')->name('comment.approve');
     Route::delete('/comments/{id}', 'Admin\myCommentController@destroy');
-//    Route::delete('/comments/{comment}', '\Laravelista\Comments\CommentController@destroy');
+    //    Route::delete('/comments/{comment}', '\Laravelista\Comments\CommentController@destroy');
 
     /*---------------****Feedback****------------------*/
     Route::get('/feedback', 'FeedbackController@showinAdminSide')->name('feedback.show');
     Route::get('/aprovedFeedback', 'FeedbackController@aproved')->name('feedback.aproved');
     Route::delete('/feedback/{id}', 'FeedbackController@destroy')->name('feedback.destroy');
     Route::get('/feedback/{id}', 'FeedbackController@updateStatus')->name('feedback.updateStatus');
-    
+
     /*---------------PAYMENTS------------------*/
     Route::resource('/payment', 'Admin\PaymentController')->except(['edit', 'update', 'create', 'store']);
     Route::get('/failed-payments', 'Admin\PaymentController@failed')->name('payment.failed');
 
     /*---------------SITE SETTINGS------------------*/
-    Route::resource('/settings', 'Admin\settingController')->except([
-        'create', 'show', 'edit', 'destroy'
-    ]);
-
+    Route::resource('/settings', 'Admin\settingController')->except(['create', 'show', 'edit', 'destroy']);
 });
 
+Route::get('/rakad', function () {
+    return view('rakad');
+});

@@ -127,23 +127,19 @@
                   <i class="ace-icon fa fa-eye bigger-120"></i>
                </a> --}}
                @can('order-edit')
-                  {{-- <a class="btn btn-warning btn-xs click_me" title="Edit"
+                  <a class="btn btn-warning btn-xs click_me" title="Edit"
                      href="" data-id="{{ $order->order_id }}">
                      <i class="ace-icon fa fa-pencil bigger-120"></i>
-                  </a> --}}
+                     edit
+                  </a>
 
-                  @if ($order->order_status == 2)
-                     {{-- <a class="btn btn-success btn-xs sent_me" title="Delivered"
+                  @if ($order->order_status == 0)
+                     <a class="btn btn-success btn-xs sent_me" title="Delivered"
                      href="{{ route('order.status',[$order->order_id,'delivered']) }}" data-status="delivered">
-                     <i class="ace-icon fa fa-thumbs-up bigger-120"></i>
-                  </a> --}}
+                        arpove
+                     </a>
                   @endif
-                  @if ($order->order_status == 1)
-                     {{-- <a class="btn btn-info btn-xs sent_me" title="Sent"
-                     href="{{ route('order.status',[$order->order_id,'sent']) }}" data-status="sent">
-                     <i class="ace-icon fa fa-send-o bigger-120"></i>
-                  </a> --}}
-                  @endif
+                  
                @endcan
                @can('order-delete')
                   <button class="btn btn-sm btn-danger delete_me" title="Delete" data-id="{{ $order->order_id }}">Delete

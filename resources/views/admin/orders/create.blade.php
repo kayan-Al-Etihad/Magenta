@@ -1,4 +1,7 @@
 @extends('layout.admin.app')
+@section('title')
+   @lang('models/products.plural') @lang('ext.list')
+@stop
 @section('content')
 
    <div class="container-fluid page__heading-container">
@@ -10,7 +13,6 @@
                <li class="breadcrumb-item active" aria-current="page">new order</li>
             </ol>
          </nav>
-
          <h1 class="m-0">Add New order</h1>
       </div>
    </div>
@@ -231,13 +233,6 @@
 
                </div>
             </form>
-            {{-- @if (\Session::has('success'))
-               <div class="alert alert-success">
-                  <ul>
-                     <li>{!! \Session::get('success') !!}</li>
-                  </ul>
-               </div>
-            @endif --}}
          </div>
       </div>
 

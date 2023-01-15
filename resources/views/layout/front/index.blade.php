@@ -7,6 +7,8 @@
 		<meta name="description" content="Hurst – Furniture Store eCommerce HTML Template is a clean and elegant design – suitable for selling flower, cookery, accessories, fashion, high fashion, accessories, digital, kids, watches, jewelries, shoes, kids, furniture, sports….. It has a fully responsive width adjusts automatically to any screen size or resolution.">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<meta name="generator" content="Geany 1.37.1" />
+
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('front-end-assets/img/favicon.ico') }}">
 		<!-- Place favicon.ico in the root directory -->
 
@@ -43,6 +45,11 @@
         <link rel="stylesheet" href="{{ asset('front-end-assets/style.min.css') }}">
 		<!-- modernizr css -->
 		<script src="{{ asset('front-end-assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
+
+
+		{{-- 3dmodel --}}
+			<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
+		{{--  --}}
 	</head>
 	<body>
 		<!-- WRAPPER START -->
@@ -375,6 +382,5 @@
             }
 
        </script>
-
 	</body>
 </html>

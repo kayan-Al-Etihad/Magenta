@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);@charset "UTF-8";
-/*!
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+/*
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
@@ -6703,6 +6703,7 @@ input[type=button].btn-block {
   padding: 0.25rem 0.25rem;
   text-align: center;
   border-radius: 2px;
+  color: #000;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge {

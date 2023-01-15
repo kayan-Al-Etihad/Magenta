@@ -345,6 +345,7 @@
                                   'icon' => 'fa-globe',
                                   'route_create' => 'product.create',
                                   'route_list' => 'product.index',
+                                  'create3DModels' => 'product3d.index',
                               ])
 
                               @include('layout.admin._menu', [
@@ -420,18 +421,6 @@
                                  </a>
                               </li>
                            @endcan
-
-
-
-
-
-
-
-                           {{-- <div class="sidebar-p-a">
-                                    <a href="https://themeforest.net/item/stack-admin-bootstrap-4-dashboard-template/22959011"
-                                       class="btn btn-primary btn-block">Purchase &dollar;35</a>
-                                </div> --}}
-
                      </div>
                   </div>
                </div>

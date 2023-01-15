@@ -72,6 +72,7 @@ class Product extends Model
         'made_in',
         'weight',
         'description',
+        'model3d',
         'cover',
         'category_id'
     ];
@@ -99,6 +100,7 @@ class Product extends Model
         'made_in' => 'string',
         'weight' => 'float',
         'description' => 'string',
+        'model3d' => 'string',
         'cover' => 'string'
     ];
 

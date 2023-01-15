@@ -6,16 +6,15 @@ use App\Models\brand;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Tag;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
-use App\Http\Requests\feedback;
+
 use App\Models\Feedback as ModelsFeedback;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\DB;
-use PhpParser\Comment;
+
 
 class homeController extends Controller
 {
