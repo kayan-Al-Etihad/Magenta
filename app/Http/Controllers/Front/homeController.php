@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 
 use App\Models\Feedback as ModelsFeedback;
+use App\Models\Rooms;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 
@@ -95,6 +96,13 @@ class homeController extends Controller
         return view('Front.categories.singleCategory', compact('category'));
     }
 
+    public function showRoomType(Request $request, $slug)
+    {
+        $this->validate($request, ['slug' => 'string']);
+        $category = Rooms::all()->where('name', "$slug")->first();
+        return view('Front.rooms.singleCategory', compact('category'));
+    }
+
 
     public function showBrand(Request $request, $slug)
     {
@@ -120,7 +128,7 @@ class homeController extends Controller
         $products = $this->product->orderBy("$request->sort", "$request->dcs")
             ->whereBetween('sale_price', [$request->priceMin, $request->priceMax])
             ->select(['product_id','product_slug', 'product_name', 'description', 'status',
-                    'data_available', 'is_off', 'off_price', 'cover', 'sale_price', 'created_at']
+                    'data_available', 'is_off', 'off_price', 'cover', 'model3d', 'sale_price', 'created_at']
             )->paginate($request->paginate);
 
         if ($request->ajax()) {

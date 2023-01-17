@@ -19,11 +19,11 @@ class CreateRoomsTable extends Migration
             $table->unsignedBigInteger('rooms_type_id');
             $table->string('name');
             $table->integer('price');
-            $table->string('description');
-            $table->string('embeded_code');
+            $table->text('description');
+            $table->text('embeded_code');
             $table->timestamps();
 
-            $table->foreign('rooms_type_id')->references('id')->on('rooms_type')->onDelete('cascade');
+            $table->foreign('rooms_type_id')->references('id')->on('rooms_types')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,7 @@ class CreateRoomsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('rooms');
     }
 }

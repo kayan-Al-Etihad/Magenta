@@ -24,6 +24,9 @@
          </div>
       </div>
    </div>
+   {{-- @php
+      dd($product);   
+      @endphp --}}
    <!-- HEADING-BANNER END -->
    <!-- PRODUCT-AREA START -->
    <div class="product-area pt-80 pb-80 product-style-2">
@@ -171,8 +174,14 @@
                                     <span class="pro-label new-label">comming soon!</span>
                                  @endif
                                  <span class="pro-price-2">$ {{ $product->price }}</span>
-                                 <a href="{{ route('front.show', $product->product_slug) }}"><img
-                                       src="{{ $product->cover }}" alt="" /></a>
+                                 <a href="{{ route('front.show', $product->product_slug) }}">
+                                   @if (is_null($product->model3d))
+                                   <img src="{{ $product->cover }}" alt="" />
+                                   @else
+                                   {!! $product->model3d !!}
+                                   @endif
+                                    
+                                 </a>
                               </div>
                               <div class="product-info clearfix text-center">
                                  <div class="fix">

@@ -229,6 +229,7 @@ class productController extends AppBaseController
         $product->quantity = $request->quantity;
         $product->weight = $request->weight;
         $product->description = $request->description;
+        $product->model3d = $request->model3d;
         $product->made_in = $request->made_in;
         $product->cover = $file_name;
         $product->image1 = $file_name1;
@@ -336,8 +337,4 @@ class productController extends AppBaseController
         return back()->withMessage('product form deleted');
     }
 
-
-    public function create3DModel(){
-        dd('askljd');
-    }
 }

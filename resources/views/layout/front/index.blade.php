@@ -136,6 +136,8 @@
 									</div>
 								</div>
 							</li>
+							<li><a href="/rooms">Rooms</a>
+							</li>
 							<li><a href="/brands">Brands</a></li>
 							<li><a href="/feedback">feedback</a></li>
 							<li><a href="/contact">contact us</a></li>

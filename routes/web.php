@@ -43,6 +43,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/categories', function () {
         return view('Front.categories.categories');
     });
+    /*---------------Rooms------------------*/
+    // Route::get('/room', function () {
+    //     return view('Front.rooms.categories');
+    // });
+    Route::get('/rooms', 'Front\RoomsController@index')->name('rooms');
+    Route::get('/rooms/{roomsType}', 'Front\RoomsController@show');
     /*---------------brands------------------*/
     Route::get('/brands', function () {
         return view('Front.brands.brands');

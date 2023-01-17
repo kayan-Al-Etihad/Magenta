@@ -64,11 +64,14 @@
                                 <div class="col-lg-10">
                                     <div class="single-pro-slider single-big-photo view-lightbox slider-for">
                                         <div>
+                                            @if (is_null($product->model3d))
                                             <img width="100%" src="{{ ($product->cover) }}" alt="" class="border rounded">
+                                            @else
                                             {!! $product->model3d !!}
-                                            {{-- <a class="view-full-screen" href="{{ ($product->cover) }}"  data-lightbox="roadtrip" data-title="My caption">
+                                            @endif
+                                            <a class="view-full-screen" href="{{ ($product->cover) }}"  data-lightbox="roadtrip" data-title="My caption">
                                                 <i class="zmdi zmdi-zoom-in"></i>
-                                            </a> --}}
+                                            </a>
 
                                         </div>
                                     </div>
