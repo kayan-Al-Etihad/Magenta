@@ -291,7 +291,7 @@
                                'route_createNewOrder' => 'order.create',
                            ])
 
-                           @include('layout.admin._menu', [
+                           {{-- @include('layout.admin._menu', [
                               'menu_name' => 'Rooms',
                               'number' => 'rooms',
                               'gate' => 'order',
@@ -301,7 +301,64 @@
                               'route_create' => 'order.not_sent',
                               'route_list' => 'order.index',
                               'route_createNewOrder' => 'order.create',
-                           ])
+                           ]) --}}
+
+                            @can('role-list')
+                            {{-- ======================================================== --}}
+                            <li class="sidebar-menu-item ">
+                            <a class="sidebar-menu-button" data-toggle="collapse" href="#Rooms">
+                                <span class="sidebar-menu-text">Rooms</span>
+                                <span class="ml-auto d-flex align-items-center">
+                                    <span class="sidebar-menu-toggle-icon"></span>
+                                </span>
+                            </a>
+                            <ul class="sidebar-submenu collapse " id="Rooms">
+                                <li class="sidebar-menu-item ">
+                                    <a class="sidebar-menu-button" href="{{ route('rooms.index') }}"
+                                        data-title="Rooms">
+                                        <span class="sidebar-menu-text"><i class="menu-icon fa fa-caret-right"></i>Brows</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-menu-item ">
+                                    <a class="sidebar-menu-button" href="{{ route('rooms.create') }}"
+                                        data-title="feedback">
+                                        <span class="sidebar-menu-text">Create</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            </li>
+                            {{-- ======================================================== --}}
+                            @endcan
+                            @can('role-list')
+                            {{-- ======================================================== --}}
+                            <li class="sidebar-menu-item ">
+                            <a class="sidebar-menu-button" data-toggle="collapse" href="#room-type">
+                                <span class="sidebar-menu-text">Rooms type</span>
+                                <span class="ml-auto d-flex align-items-center">
+                                    <span class="sidebar-menu-toggle-icon"></span>
+                                </span>
+                            </a>
+                            <ul class="sidebar-submenu collapse " id="room-type">
+                                <li class="sidebar-menu-item ">
+                                    <a class="sidebar-menu-button" href="{{ route('room-type.index') }}"
+                                        data-title="room type">
+                                        <span class="sidebar-menu-text"><i class="menu-icon fa fa-caret-right"></i>Brows</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-menu-item ">
+                                    <a class="sidebar-menu-button" href="{{ route('room-type.create') }}"
+                                        data-title="feedback">
+                                        <span class="sidebar-menu-text">Create</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            </li>
+                            {{-- ======================================================== --}}
+                            @endcan
 
                            @include('layout.admin._menu', [
                                'menu_name' => 'Payments',

@@ -48,8 +48,10 @@
 
 
 		{{-- 3dmodel --}}
-			<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
+			<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
 		{{--  --}}
+
+        @yield('extra-css')
 	</head>
 	<body>
 		<!-- WRAPPER START -->
@@ -76,6 +78,20 @@
 												<span>3</span>
 											</a>
 										</li>
+                                        @guest
+                                        <li>
+                                            <a class="nav-link font-weight-bold cart-icon" href="{{ route('login') }}"><i class="zmdi zmdi-sign-in"></i> Login</a>
+										</li>
+                                        @else
+                                        <li class="nav-item">
+                                          <a class="nav-link font-weight-bold"
+                                          onclick="event.preventDefault();document.getElementById('Logout').submit()" href="{{ route('logout') }}">{{ Auth::user()->name }}</a>
+
+                                          <form class=" d-none" id="Logout" action="{{ route('logout') }}" method="POST">
+                                          @csrf
+                                          </form>
+                                        </li>
+                                      @endguest
 									</ul>
 								</div>
 							</div>

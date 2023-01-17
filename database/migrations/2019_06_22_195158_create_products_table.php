@@ -35,6 +35,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->text('model3d')->nullable();
             $table->string('cover',255)->nullable();
+            $table->string('image1',255)->nullable();
+            $table->string('image2',255)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

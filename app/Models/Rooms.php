@@ -37,4 +37,8 @@ class Rooms extends Model
     //     'embeded_code' => 'string',
     // ];
 
+    public function roomType()
+    {
+        return $this->belongsTo(RoomsType::class);
+    }
 }

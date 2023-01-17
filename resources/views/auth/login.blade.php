@@ -60,14 +60,14 @@
                        <button type="submit" class="btn" onclick="document.getElementById('form-returning').submit();">
                           SIGN IN
                        </button>
-                       <div class="checkbox-group pull-right">
+                       {{-- <div class="checkbox-group pull-right">
                           <input type="checkbox" name="remember" id="checkBox2" {{ old('remember') ? 'checked' : '' }}>
                           <label for="checkBox2">
                              <span class="check"></span>
                              <span class="box"></span>
                              Remember me
                           </label>
-                       </div>
+                       </div> --}}
                     </div>
                     <div class="col-md-12 col-lg-9">
                        <ul class="additional-links">
@@ -80,7 +80,7 @@
                           </li>
 
                        </ul>
-                       <a href="{{ route('auth.google') }}" class="btn btn-full bg-blue"><span class="fa fa-google"></span>log in with google!</a>
+                       {{-- <a href="{{ route('auth.google') }}" class="btn btn-full bg-blue"><span class="fa fa-google"></span>log in with google!</a> --}}
 
                     </div>
                  </div>

@@ -13,8 +13,8 @@ class CreateRoomsTypeTable extends Migration
      */
     public function up()
     {
-        
-        Schema::create('rooms_type', function (Blueprint $table) {
+
+        Schema::create('rooms_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateRoomsTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms_type');
+        Schema::dropIfExists('rooms_types');
     }
 }

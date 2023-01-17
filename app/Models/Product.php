@@ -39,6 +39,8 @@ use willvincent\Rateable\Rateable;
  * @property number weight
  * @property string description
  * @property string cover
+ * @property string image1
+ * @property string image2
  */
 class Product extends Model
 {
@@ -74,6 +76,8 @@ class Product extends Model
         'description',
         'model3d',
         'cover',
+        'image1',
+        'image2',
         'category_id'
     ];
 
@@ -101,7 +105,9 @@ class Product extends Model
         'weight' => 'float',
         'description' => 'string',
         'model3d' => 'string',
-        'cover' => 'string'
+        'cover' => 'string',
+        'image1' => 'string',
+        'image2' => 'string',
     ];
 
     /**
@@ -124,6 +130,8 @@ class Product extends Model
         'quantity' => 'required',
         'description' => 'required',
         'cover' => 'required',
+        'image1' => 'required',
+        'image2' => 'required',
     ];
 
     /**

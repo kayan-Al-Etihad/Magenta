@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rooms;
+use App\Models\RoomsType;
 use Illuminate\Http\Request;
 
 class RoomsController extends Controller
@@ -13,7 +14,8 @@ class RoomsController extends Controller
     public function index()
     {
         $rooms = Rooms::all();
-        return view('admin.rooms.index', compact('rooms'));
+        $roomType = RoomsType::all();
+        return view('admin.rooms.index', compact('rooms','roomType'));
     }
 
     /**
@@ -23,7 +25,8 @@ class RoomsController extends Controller
      */
     public function create()
     {
-        //
+        $roomType = RoomsType::all();
+        return view('admin.rooms.create', compact('roomType'));
     }
 
     /**
@@ -34,7 +37,15 @@ class RoomsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room = new Rooms;
+        $room->name = $request->name;
+        $room->rooms_type_id = $request->rooms_type_id;
+        $room->price = $request->price;
+        $room->description = $request->description;
+        $room->embeded_code = $request->embeded_code;
+        $room->save();
+        // dd($room);
+        return redirect()->route('rooms.index')->with('status','Operation Seccess');
     }
 
     /**
@@ -56,7 +67,9 @@ class RoomsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $room = Rooms::findOrFail($id);
+        $roomType = RoomsType::all();
+        return view('admin.rooms.edit', compact('room','roomType'));
     }
 
     /**
@@ -68,7 +81,15 @@ class RoomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $room = Rooms::findOrFail($id);
+        $room->name = $request->name;
+        $room->rooms_type_id = $request->rooms_type_id;
+        $room->price = $request->price;
+        $room->description = $request->description;
+        $room->embeded_code = $request->embeded_code;
+        // dd($room);
+        $room->save();
+        return redirect()->route('rooms.index')->with('status','Operation Seccess');
     }
 
     /**
@@ -79,6 +100,9 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Rooms::findOrFail($id);
+
+        $data->delete();
+        return redirect()->route('rooms.index')->with('status','Operation Seccess');
     }
 }

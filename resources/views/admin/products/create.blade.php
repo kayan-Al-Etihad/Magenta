@@ -88,7 +88,7 @@
                               class="form-control" min="0" type="number">
                         </div>
                      </div>
-                     
+
                      <div class="form-group col-xs-6 col-md-6 col-lg-3">
                         <label class=" control-label no-padding-right" for="quantity">Quantity</label>
                         <div class="clearfix">
@@ -124,7 +124,7 @@
                      </div>
                   </div>
                   <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                     <div class="center col-xs-6 col-sm-6 col-lg-8 col-md-6">
+                    <div class="center col-xs-6 col-sm-6 col-lg-8 col-md-6">
 
                         <div class="form-group {{ $errors->has('cover') ? 'has-error' : '' }}">
                            <label class="bolder bigger-110 " for="brand_image">Cover</label>
@@ -132,6 +132,30 @@
                            <input type="file" name="cover" class="form-control" id="cover">
 
                            <span class="text-danger">{{ $errors->first('cover') }}</span>
+                        </div>
+                        <img id="show_image" src="" alt="" width="200" height="100"
+                           class="img-responsive img-thumbnail">
+                     </div>
+                     <div class="center col-xs-6 col-sm-6 col-lg-8 col-md-6">
+
+                        <div class="form-group {{ $errors->has('image1') ? 'has-error' : '' }}">
+                           <label class="bolder bigger-110 " for="brand_image">Image1</label>
+
+                           <input type="file" name="image1" class="form-control" id="image1">
+
+                           <span class="text-danger">{{ $errors->first('image1') }}</span>
+                        </div>
+                        <img id="show_image" src="" alt="" width="200" height="100"
+                           class="img-responsive img-thumbnail">
+                     </div>
+                     <div class="center col-xs-6 col-sm-6 col-lg-8 col-md-6">
+
+                        <div class="form-group {{ $errors->has('image2') ? 'has-error' : '' }}">
+                           <label class="bolder bigger-110 " for="brand_image">Image2</label>
+
+                           <input type="file" name="image2" class="form-control" id="image2">
+
+                           <span class="text-danger">{{ $errors->first('image2') }}</span>
                         </div>
                         <img id="show_image" src="" alt="" width="200" height="100"
                            class="img-responsive img-thumbnail">
@@ -170,7 +194,7 @@
                            <input type="submit" class="btn btn-info" value="SAVE">
                         </div>
                         <div class="btn-group">
-                           <a class="btn btn-danger" onclick="history.back()">BACK</a>
+                            <a href="{{ route('product.index') }}" class="btn  btn-dark mx-1">Back</a>
                         </div>
                      </div>
                   </div>

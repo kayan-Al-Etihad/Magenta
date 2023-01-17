@@ -44,7 +44,7 @@
          @if( ! env("APP_AJAX") )
             @method("PUT")
          @endif
-         
+
          <div class="col-xs-12">
             <div class="form-group col-xs-3">
                <label class="control-label no-padding-right" for="product_name"> Product Name </label>
@@ -125,9 +125,39 @@
             <textarea id="description" rows="6" class="form-control"
                       name="description">{{ old('description',$product->description) }}</textarea>
          </div>
-   
+
 
          <div class="form-group col-xs-12">
+            <div class="col-xs-6">
+               <!-- file input -->
+               <label for="Cover">Cover</label>
+               <label class="ace-file-input">
+                  <input type="file" name="cover" id="gallery-photo-add" multiple>
+                  <span class="ace-file-container" data-title="Choose"><span class="ace-file-name"
+                                                                             data-title="No Cover ..."><i
+                                class=" ace-icon fa fa-upload"></i></span></span>
+               </label>
+            </div>
+            <div class="col-xs-6">
+               <!-- file input -->
+               <label for="image1">Image1</label>
+               <label class="ace-file-input">
+                  <input type="file" name="image1" id="gallery-photo-add" multiple>
+                  <span class="ace-file-container" data-title="Choose"><span class="ace-file-name"
+                                                                             data-title="No image1 ..."><i
+                                class=" ace-icon fa fa-upload"></i></span></span>
+               </label>
+            </div>
+            <div class="col-xs-6">
+               <!-- file input -->
+               <label for="image2">Image2</label>
+               <label class="ace-file-input">
+                  <input type="file" name="image2" id="gallery-photo-add" multiple>
+                  <span class="ace-file-container" data-title="Choose"><span class="ace-file-name"
+                                                                             data-title="No image2 ..."><i
+                                class=" ace-icon fa fa-upload"></i></span></span>
+               </label>
+            </div>
             <div class="col-xs-6">
                <!-- file input -->
                <label for="photos">Photos</label>
@@ -192,7 +222,7 @@
                      <option {{ in_array($category->category_id,$p_categories) ? 'selected': '' }} value="{{ $category->category_id }}">{{ $category->category_name }}</option>
                      @endforeach
                   </select>
-   
+
                </div>
             </div>
             {{-- <div class="col-xs-6">
@@ -228,10 +258,10 @@
                      <option value="none" selected="" disabled="">Select a private Category</option>
                      @foreach ($colors as $color)
                      <option {{  in_array($color->color_id,$p_colors) ? 'selected' : '' }} value="{{ $color->color_id}}">{{ $color->color_name }}</option>
-                    
+
                      @endforeach
                   </select>
-   
+
                </div>
             </div>
          </div>
@@ -240,12 +270,12 @@
                <input type="submit" class="btn btn-success btn-block" id="submit" value="SAVE">
             </div>
             <div class="col-xs-6">
-               <a class="btn btn-danger btn-block" onclick="history.back()">Cancel</a>
+               <a class="btn btn-danger btn-block" href="{{ route('product.index') }}" onclick="history.back()">Cancel</a>
             </div>
          </div>
       </form>
          {{-- ======================== End edit Products=============================== --}}
-        
+
         </div>
     </div>
 
@@ -267,4 +297,4 @@
 </div>
 
 
-@endsection   
+@endsection

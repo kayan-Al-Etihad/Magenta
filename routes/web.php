@@ -12,6 +12,8 @@
 */
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\productController;
+use App\Http\Controllers\Admin\RoomsController;
+use App\Http\Controllers\Admin\RoomsTypeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -155,7 +157,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     /*---------------Products Routes------------------*/
     Route::resource('product', 'Admin\productController');
      /*---------------Products Routes------------------*/
-     Route::resource('rooms', 'Admin\RoomsController');
+     Route::resource('rooms', Admin\RoomsController::class);
 
     // create 3dModel
     Route::resource('/product3d', 'Admin\create3DModel');
@@ -221,6 +223,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
 
     /*---------------SITE SETTINGS------------------*/
     Route::resource('/settings', 'Admin\settingController')->except(['create', 'show', 'edit', 'destroy']);
+
+    /*---------------Room type------------------*/
+    Route::resource('room-type', Admin\RoomsTypeController::class);
+
 });
 
 Route::get('/rakad', function () {

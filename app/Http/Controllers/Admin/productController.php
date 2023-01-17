@@ -117,6 +117,7 @@ class productController extends AppBaseController
             'cover' => 'required',
         ]);
 
+
         $file_name = time() . '.' . request()->cover->getClientOriginalExtension();
         request()->cover->move(public_path('images'), $file_name);
 
@@ -138,10 +139,12 @@ class productController extends AppBaseController
         $product->model3d = $request->model3d;
         $product->made_in = $request->made_in;
         $product->cover = $file_name;
-
+        dd($product->cover);
         $product->save();
         // return $this->index();
         return redirect('admin.product.create3')->with('success', 'Product Data Add successfully');
+
+
     }
 
     public function create3()
@@ -203,28 +206,33 @@ class productController extends AppBaseController
         //     'cover'     =>'required',
         // ]);
 
+
         $file_name = time() . '.' . request()->cover->getClientOriginalExtension();
         request()->cover->move(public_path('images'), $file_name);
 
-        $product = new Product();
+        $file_name1 = time() . '.' . request()->image1->getClientOriginalExtension();
+        request()->image1->move(public_path('images'), $file_name1);
+
+        $file_name2 = time() . '.' . request()->image2->getClientOriginalExtension();
+        request()->image2->move(public_path('images'), $file_name2);
+
+        $product = new Product ;
+        // dd($product->orderBy('product_id', 'DESC')->first());
         $product->product_name = $request->product_name;
         $product->brand_id = $request->brand_id;
         $product->product_slug = $request->product_slug;
         $product->sku = $request->sku;
-        $product->product_ranking = $request->product_ranking;
-        // $product->status =1;
         $product->data_available = $request->data_available;
         $product->off_price = $request->off_price;
-        // $product->has_size = 1;
         $product->buy_price = $request->buy_price;
         $product->sale_price = $request->sale_price;
         $product->quantity = $request->quantity;
         $product->weight = $request->weight;
         $product->description = $request->description;
-        $product->model3d = $request->model3d;
         $product->made_in = $request->made_in;
         $product->cover = $file_name;
-
+        $product->image1 = $file_name1;
+        $product->image2 = $file_name2;
         $product->save();
         // return $this->index();
         return Redirect::back()->with('success', 'Operation Successful !');
@@ -272,7 +280,7 @@ class productController extends AppBaseController
 
     public function update(Request $request, $id)
     {
-        // dd($id);
+
 
         if ($request->image != '') {
             $file_name = time() . '.1' . request()->image->getClientOriginalExtension();
@@ -281,8 +289,16 @@ class productController extends AppBaseController
             $file_name = $request->hidden_image;
         }
 
-        $product = Product::find($id);
 
+        $cover = time() . '.' . request()->cover->getClientOriginalExtension();
+        request()->cover->move(public_path('images'), $cover);
+
+        $image1 = time() . '.' . request()->image1->getClientOriginalExtension();
+        request()->image1->move(public_path('images'), $image1);
+
+        $image2 = time() . '.' . request()->image2->getClientOriginalExtension();
+        request()->image2->move(public_path('images'), $image2);
+        $product = Product::find($id);
         $product->product_name = $request->product_name;
         $product->brand_id = $request->brand_id;
         $product->product_slug = $request->product_slug;
@@ -299,7 +315,10 @@ class productController extends AppBaseController
         $product->description = $request->description;
         $product->model3d = $request->model3d;
         $product->made_in = $request->made_in;
-        $product->cover = $file_name;
+        $product->cover = $cover;
+        $product->image1 = $image1;
+        $product->image2 = $image2;
+        // dd($product->cover);
 
         $product->save();
 
