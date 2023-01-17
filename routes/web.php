@@ -154,6 +154,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
 
     /*---------------Products Routes------------------*/
     Route::resource('product', 'Admin\productController');
+     /*---------------Products Routes------------------*/
+     Route::resource('rooms', 'Admin\RoomsController');
 
     // create 3dModel
     Route::resource('/product3d', 'Admin\create3DModel');

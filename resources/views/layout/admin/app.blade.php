@@ -292,6 +292,18 @@
                            ])
 
                            @include('layout.admin._menu', [
+                              'menu_name' => 'Rooms',
+                              'number' => 'rooms',
+                              'gate' => 'order',
+                              'icon' => 'fa-pencil-square-o',
+                              'secondSubMenu' => 'All Orders',
+                              'therdSubMenu' => 'create new order',
+                              'route_create' => 'order.not_sent',
+                              'route_list' => 'order.index',
+                              'route_createNewOrder' => 'order.create',
+                           ])
+
+                           @include('layout.admin._menu', [
                                'menu_name' => 'Payments',
                                'number' => 'payments',
                                'gate' => 'order-edit',
