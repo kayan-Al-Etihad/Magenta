@@ -8,11 +8,11 @@ Home
    <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
          @foreach ($setting as $setting)
-            <img src="/front-end-assets/img/slider/slider-2/{{ $setting->slider_image1 }}" alt=""
+            <img src="{{ asset('images') }}/{{ $setting->slider_image1 }}" alt=""
                title="#slider-direction-1" />
-            <img src="/front-end-assets/img/slider/slider-2/{{ $setting->slider_image2 }}" alt=""
+            <img src="{{ asset('images') }}/{{ $setting->slider_image2 }}" alt=""
                title="#slider-direction-2" />
-            <img src="/front-end-assets/img/slider/slider-2/{{ $setting->slider_image3 }}" alt=""
+            <img src="{{ asset('images') }}/{{ $setting->slider_image3 }}" alt=""
                title="#slider-direction-3" />
          @endforeach
       </div>
@@ -103,7 +103,7 @@ Home
       <div class="section-title text-center">
          <h2 class="title-border">Categories</h2>
       </div>
-      <div class="row">
+      <div class="row justify-content-center">
          <div class="product-slider style-2 arrow-left-right">
             @foreach ($categories as $category)
                <div class="col-md-3 mt-2">
@@ -158,7 +158,7 @@ Home
    </div>
 </div>
 <!-- PRODUCT-AREA END -->
-<!-- DISCOUNT-PRODUCT START -->
+{{-- <!-- DISCOUNT-PRODUCT START -->
 <div class="discount-product-area discount-2">
    <div class="section-title text-center">
       <h2 class="title-border">Discount</h2>
@@ -289,7 +289,7 @@ Home
       </div>
    </div>
 </div>
-<!-- DISCOUNT-PRODUCT END -->
+<!-- DISCOUNT-PRODUCT END --> --}}
 <!-- PURCHASE-ONLINE-AREA START -->
 <div class="purchase-online-area pt-80 product-style-2">
    <div class="container">
@@ -304,10 +304,9 @@ Home
          <div class="col-lg-12  text-center">
             <!-- Nav tabs -->
             <ul class="tab-menu nav clearfix">
-               <li><a class="active" href="#new-arrivals" data-bs-toggle="tab">New Arrivals</a></li>
-               <li><a href="#best-seller" data-bs-toggle="tab">Best Seller </a></li>
-               <li><a href="#most-view" data-bs-toggle="tab">Most View </a></li>
-               <li><a href="#discounts" data-bs-toggle="tab">Discounts</a></li>
+               <li class="m-0 mx-2"><a class="active" href="#new-arrivals" data-bs-toggle="tab">New Arrivals</a></li>
+               <li class="m-0 mx-2"><a href="#best-seller" data-bs-toggle="tab">Best Seller </a></li>
+               <li class="m-0 mx-2"><a href="#most-view" data-bs-toggle="tab">Most View </a></li>
             </ul>
          </div>
          <div class="col-lg-12">

@@ -51,7 +51,8 @@ class homeController extends Controller
         $feedbacks=ModelsFeedback::all()->where('status' , '==' , '1');
         // dd($feedbacks);
         $firstRow = ModelsFeedback::all()->where('status' , '==' , '1')->last();
-        return view('Front.home', compact('products' ,'feedbacks', 'firstRow'));
+        $settings = Setting::all()->first();
+        return view('Front.home', compact('products' ,'feedbacks', 'firstRow', 'settings'));
 
     }
 
@@ -108,7 +109,7 @@ class homeController extends Controller
     {
         $this->validate($request, ['slug' => 'string']);
         $brand = brand::all()->where('brand_slug', "$slug")->first();
-        $setting = Setting::all();
+        $setting = Setting::all()->first();
         return view('Front.brands.singleBrand', compact('brand','setting'));
     }
 
@@ -299,7 +300,7 @@ class homeController extends Controller
 
     }
 
- 
+
 
     /**
      * validate requests for isting products

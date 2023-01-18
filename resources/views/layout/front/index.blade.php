@@ -46,18 +46,89 @@
 		<!-- modernizr css -->
 		<script src="{{ asset('front-end-assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
 
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 		{{-- 3dmodel --}}
 			<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
 		{{--  --}}
 
+        <style>
+            .navbar li .nav-link{
+                font-family: Lato, sans-serif !important;
+            }
+            nav.navbar{
+                margin-left: 25px;
+                z-index: 100000;
+            }
+            @media screen and (max-width:800px){
+                nav{
+                margin-left: 0px;
+                z-index: 1000000 !important;
+            }
+            .slider-style-2{
+                margin-top: 60px !important
+            }
+            .product-area .container{
+                width: 100% !important;
+            }
+            .navbar-brand img{
+                width: 200px;
+            }
+            .navbar-nav{
+                margin: 0 !important;
+            }
+            .container-fluid{
+                margin: 0 !important;
+            }
+            }
+        </style>
         @yield('extra-css')
 	</head>
 	<body>
 		<!-- WRAPPER START -->
 		<div class="wrapper bg-dark-white">
 
-			<!-- HEADER-AREA START -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top m-0 shadow">
+                <div class="container-fluid mx-5">
+                    <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/magenta_logo.png') }}" width="300px" height="300px" alt="" /></a>
+                    <button class="navbar-toggler border border-0 fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-justify fs-2"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end gap-5" id="navbarNavDropdown">
+                      <ul class="navbar-nav mx-5">
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" aria-current="page" href="{{ route('home') }}">home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="{{ route('front.productsList') }}">products</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="/categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="/rooms">Rooms</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="/brands">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="/feedback">feedback</a></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="/contact">contact us</a></a>
+                        </li>
+                      </ul>
+                      <ul class="navbar-nav">
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" aria-current="page" href="{{ route('home') }}"><i class="bi bi-heart"></i></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-6" href="{{ route('front.productsList') }}"><i class="bi bi-person-fill"></i></a>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+              </nav>
+			{{-- <!-- HEADER-AREA START -->
 			<header id="sticky-menu" class="header header-2">
 				<div class="header-area">
 					<div class="container-fluid">
@@ -65,7 +136,7 @@
 							<div class="col-md-4 offset-md-4 col-7">
 								<div class="logo text-md-center">
 									@foreach ($setting as $setting)
-                                    <a href="{{ route('home') }}"><img src="{{ asset('front-end-assets/img/logo') }}/{{ $setting->site_logo }}" alt="" /></a>
+                                    <a href="{{ route('home') }}"><img src="{{ asset('images') }}/{{ $setting->site_logo }}" alt="" /></a>
                                     @endforeach
 								</div>
 							</div>
@@ -195,7 +266,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Mobile-menu end -->
+			<!-- Mobile-menu end --> --}}
 
             @yield('content')
 
@@ -210,9 +281,9 @@
 								<div class="single-footer">
 									<h3 class="footer-title  title-border">Contact Us</h3>
 									<ul class="footer-contact">
-										<li><span>Address :</span>{{ $setting->site_address }}</li>
+										{{-- <li><span>Address :</span>{{ $setting->site_address }}</li>
 										<li><span>Cell-Phone :</span>{{ $setting->site_phone }}</li>
-										<li><span>Email :</span>{{ $setting->site_email }}</li>
+										<li><span>Email :</span>{{ $setting->site_email }}</li> --}}
 									</ul>
 								</div>
 							</div>
