@@ -55,6 +55,13 @@ class RoomsController extends Controller
         return view('Front.rooms.show', compact('roomsType', 'rooms', 'availableRooms'));
     }
 
+    public function showSingleProduct(Rooms $roomId)
+    {
+        $room = Rooms::where('id', '=', $roomId->id)->get();
+        $availableRooms = Rooms::all();
+        return view('Front.rooms.singleProductshow', compact('roomId', 'room', 'availableRooms'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

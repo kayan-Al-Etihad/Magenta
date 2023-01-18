@@ -58,11 +58,11 @@
                                             <div class="col-lg-4 col-md-6 category">
                                                 <div class="single-product">
                                                     <div class="product-img">
-                                                        <a href="{{ route('front.show',$product->name) }}"><img src="{{ $product->embeded_code }}" alt="" /></a>
+                                                        <a href="{{ url('room/' . $product->id) }}">{!! $product->embeded_code !!}</a>
                                                     </div>
                                                     <div class="product-info clearfix text-center">
                                                         <div class="fix">
-                                                            <h4 class="post-title"><a href="{{ route('front.show',$product->name) }}">{{ $product->name }}</a></h4>
+                                                            <h4 class="post-title"><a href="{{ url('room/' . $product->id) }}">{{ $product->name }}</a></h4>
                                                         </div>
                                                         <div class="product-action clearfix d-flex align-items-center justify-content-center">
                                                             <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
