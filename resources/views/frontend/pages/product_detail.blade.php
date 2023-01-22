@@ -40,12 +40,12 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="row">
-									<div class="col-lg-6 col-12">
+									<div class="col-lg-9 col-12">
 										<!-- Product Slider -->
 										<div class="product-gallery">
 											<!-- Images slider -->
 											<div class="flexslider-thumbnails">
-												<ul class="slides">
+												<ul class="slides" style="width:100px !important;">
 													{!! $product_detail->embeded_code !!}
 													{{-- @php
 														$photo=explode(',',$product_detail->photo);
@@ -61,9 +61,8 @@
 										</div>
 										<!-- End Product slider -->
 									</div>
-									<div class="col-lg-6 col-12">
+									<div class="col-lg-3 col-12">
 										<div class="product-des">
-											<!-- Description -->
 											<div class="short">
 												<h4>{{$product_detail->title}}</h4>
 												<div class="rating-main">
@@ -87,8 +86,7 @@
 												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
-											<!--/ End Description -->
-											<!-- Color -->
+
 											{{-- <div class="color">
 												<h4>Available Options <span>Color</span></h4>
 												<ul>
@@ -98,22 +96,19 @@
 													<li><a href="#" class="four"><i class="ti-check"></i></a></li>
 												</ul>
 											</div> --}}
-											<!--/ End Color -->
-											<!-- Size -->
-											@if($product_detail->size)
+											{{-- @if($product_detail->size)
 												<div class="size mt-4">
 													<h4>Size</h4>
 													<ul>
 														@php
 															$sizes=explode(',',$product_detail->size);
-															// dd($sizes);
 														@endphp
 														@foreach($sizes as $size)
 														<li><a href="#" class="one">{{$size}}</a></li>
 														@endforeach
 													</ul>
 												</div>
-											@endif
+											@endif --}}
 											<!--/ End Size -->
 											<!-- Product Buy -->
 											<div class="product-buy">
