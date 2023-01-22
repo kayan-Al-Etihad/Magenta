@@ -135,6 +135,14 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+
+        <div class="form-group">
+          <label for="embeded_code" class="col-form-label">Embeded Code</label>
+          <textarea class="form-control" id="embeded_code" name="embeded_code">{{$product->embeded_code}}</textarea>
+          @error('embeded_code')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
         
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>

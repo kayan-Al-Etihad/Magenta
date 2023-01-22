@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->text('summary');
             $table->longText('description')->nullable();
             $table->text('photo');
+            $table->text('embeded_code');
             $table->integer('stock')->default(1);
             $table->string('size')->default('M')->nullable();
             $table->enum('condition',['default','new','hot'])->default('default');

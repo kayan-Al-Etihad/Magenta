@@ -46,15 +46,15 @@
 											<!-- Images slider -->
 											<div class="flexslider-thumbnails">
 												<ul class="slides">
-													@php
+													{!! $product_detail->embeded_code !!}
+													{{-- @php
 														$photo=explode(',',$product_detail->photo);
-													// dd($photo);
 													@endphp
 													@foreach($photo as $data)
 														<li data-thumb="{{$data}}" rel="adjustX:10, adjustY:">
 															<img src="{{$data}}" alt="{{$data}}">
 														</li>
-													@endforeach
+													@endforeach --}}
 												</ul>
 											</div>
 											<!-- End Images slider -->
@@ -507,7 +507,7 @@
 		float: right;
 		padding-left: 2px;
 		cursor: pointer;
-		color: #d60d13;
+		color: #c8a165;
 		font-size: 16px;
 		margin-top: 5px;
 		}

@@ -50,9 +50,9 @@
                      <ul style="list-style:none">
                           @for($i=1; $i<=5;$i++)
                           @if($review->rate >=$i)
-                            <li style="float:left;color:#d60d13;"><i class="fa fa-star"></i></li>
+                            <li style="float:left;color:#c8a165;"><i class="fa fa-star"></i></li>
                           @else
-                            <li style="float:left;color:#d60d13;"><i class="far fa-star"></i></li>
+                            <li style="float:left;color:#c8a165;"><i class="far fa-star"></i></li>
                           @endif
                         @endfor
                      </ul>

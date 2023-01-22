@@ -9,11 +9,11 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="{{asset('backend/img/logo2.png')}}" alt="#"></a>
-							</div>
-							@php
+								@php
 								$settings=DB::table('settings')->get();
 							@endphp
+								<a href="index.html"><img style="height: 60px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
+							</div>	
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
