@@ -75,7 +75,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-12">
 							<div class="centr text-center">
-								<p>Copyright © {{date('Y')}} <a href="https://kayanaletihad.com/" target="_blank">Kayan Al Etihad</a>  -  All Rights Reserved.</p>
+								<p>Copyright © {{date('Y')}} - <a href="https://kayanaletihad.com/" target="_blank">Kayan Al Etihad</a> - All Rights Reserved.</p>
 							</div>
 						</div>
 					</div>

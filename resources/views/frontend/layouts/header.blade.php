@@ -3,7 +3,7 @@
     <div class="topbar">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-12">
+                <div class="col-lg-8 col-md-12 col-12">
                     <!-- Top Left -->
                     <div class="top-left">
                         <ul class="list-main">
@@ -13,8 +13,7 @@
                         <a href="{{route('home')}}"><img style="height: 35px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
                         <li class="{{Request::path()=='home' ? 'active' : ''}}"><a href="{{route('home')}}">Home</a></li>
                                             <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">About Us</a></li>
-                                            {{-- <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">Products</a><span class="@if(Request::path()=='product-grids'||Request::path()=='product-lists') New @endif new">New</span></li>
-                                                {{Helper::getHeaderCategory()}} --}}
+                                            <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">Products</a></li>
                                             <li class="{{Request::path()=='blog' ? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>
 
                                             <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact.home')}}">Contact Us</a></li>
@@ -22,7 +21,7 @@
                     </div>
                     <!--/ End Top Left -->
                 </div>
-                <div class="col-lg-6 col-md-12 col-12">
+                <div class="col-lg-4 col-md-12 col-12">
                     <div class="right-content">
                         <ul class="list-main">
                             <li><div class="sinlge-bar shopping">
