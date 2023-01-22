@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -162,26 +162,24 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
+        // unisharp
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Package Service Providers...
          */
-
-        Intervention\Image\ImageServiceProvider::class,
-        willvincent\Rateable\RateableServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\viewComposer::class,
 
     ],
 
@@ -215,6 +213,7 @@ return [
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Http' => Illuminate\Support\Facades\Http::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
@@ -233,11 +232,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // unisharp
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
-
     ],
-    
 
 ];

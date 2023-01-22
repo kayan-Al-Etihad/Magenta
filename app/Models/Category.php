@@ -3,77 +3,51 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Kalnoy\Nestedset\NodeTrait;
 
-/**
- * Class Category
- * @package App\Models
- * @version January 24, 2020, 3:21 pm +0330
- *
- * @property \Illuminate\Database\Eloquent\Collection products
- * @property string category_name
- * @property string category_slug
- * @property integer _lft
- * @property integer _rgt
- * @property integer parent_id
- */
 class Category extends Model
 {
-    use NodeTrait;
+    protected $fillable=['title','slug','summary','photo','status','is_parent','parent_id','added_by'];
 
-    public $table = 'categories';
-    protected $primaryKey = 'category_id';
-
-
-    public $fillable = [
-        'category_name',
-        'category_slug',
-        '_lft',
-        '_rgt',
-        'parent_id'
-    ];
-
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'category_id' => 'integer',
-        'category_name' => 'string',
-        'category_slug' => 'string',
-        '_lft' => 'integer',
-        '_rgt' => 'integer',
-        'parent_id' => 'integer'
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        'category_name' => 'required|string',
-        'category_slug' => 'required|string|unique:categories,category_slug',
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id');
+    public function parent_info(){
+        return $this->hasOne('App\Models\Category','id','parent_id');
+    }
+    public static function getAllCategory(){
+        return  Category::orderBy('id','DESC')->with('parent_info')->paginate(10);
     }
 
-    /**
-     * Relation to children.
-     *
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(get_class($this), $this->getParentIdName())
-            ->setModel($this)->with('children')->select(['category_id', 'category_slug', 'category_name']);
+    public static function shiftChild($cat_id){
+        return Category::whereIn('id',$cat_id)->update(['is_parent'=>1]);
+    }
+    public static function getChildByParentID($id){
+        return Category::where('parent_id',$id)->orderBy('id','ASC')->pluck('title','id');
+    }
+
+    public function child_cat(){
+        return $this->hasMany('App\Models\Category','parent_id','id')->where('status','active');
+    }
+    public static function getAllParentWithChild(){
+        return Category::with('child_cat')->where('is_parent',1)->where('status','active')->orderBy('title','ASC')->get();
+    }
+    public function products(){
+        return $this->hasMany('App\Models\Product','cat_id','id')->where('status','active');
+    }
+    public function sub_products(){
+        return $this->hasMany('App\Models\Product','child_cat_id','id')->where('status','active');
+    }
+    public static function getProductByCat($slug){
+        // dd($slug);
+        return Category::with('products')->where('slug',$slug)->first();
+        // return Product::where('cat_id',$id)->where('child_cat_id',null)->paginate(10);
+    }
+    public static function getProductBySubCat($slug){
+        // return $slug;
+        return Category::with('sub_products')->where('slug',$slug)->first();
+    }
+    public static function countActiveCategory(){
+        $data=Category::where('status','active')->count();
+        if($data){
+            return $data;
+        }
+        return 0;
     }
 }

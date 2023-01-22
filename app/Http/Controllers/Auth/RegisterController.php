@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Mail\Message;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -31,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -51,9 +49,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if ($data['input']){
-            abort(404);
-        }
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -74,18 +69,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    /**
-     * The user has been registered.
-     * Send a welcome msg
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-//        SendWelcomeEmailsJob::dispatch($user)->delay(now()->addMinute(1));
     }
 }

@@ -1,129 +1,97 @@
-# LARAVEL FREE E-COMMERCE APPLICATION 
-Fully featured e-commerce platform with Laravel 
-###  [See screenshots and documentation](http://findhossein.com/e-plus/overview "See screenshots and documention")
+
+### Features :
+- ##### PWA (progressive web app)
+# ====== FRONT-END =======
+
+- Responsive Layout
+- Shopping Cart, Wishlist, Product Reviews
+- Coupons & Discounts
+- Product attributes: cost price, promotion price, stock, size...
+- Blog: category, tag, content, web page 
+- Module/Extension: Shipping, payment, discount, ...
+- Upload manager: banner, images,..
+- SEO support: customer URL b
+- Newsletter management
+- Contact forms with the real-time notification (Laravel Pusher)
+- Related Products, Recommendations for you in our categories
+- A Product search form
+- Laravel Socialite implement(Facebook, Google & twitter) & Customer login
+- Product Share and follow from different social platform...
+- Payment integration(Paypal)
+- Order Tracking system
+- Multi-level comment system
+many more......
+
+## ======= ADMIN =======
+
+- Admin roles, permission
+- Product manager
+- Media manager using unisharp laravel file manager
+- Banner manager
+- Order management
+- Category management
+- Brand management
+- Shipping Management
+- Review Management
+- Blog, Category & Tag manager
+- User Management
+- Coupon Management
+- System config: email setting, info shop, maintain status,...
+- Line Chart & Pie chart ...
+- Generate order in pdf form...
+- Real time message & notification
+- Profile Settings
+Many more....
 
 
-
-# Setup 
-1. - `composer update `
-2. - `php artisan migrate`
-3. - `php artisan db:seed`
-
-# Contributor
-[Author: hossein haghparast](http://findhossein.com "author: hossein haghparast")
+## ======= USER DASHBOARD =======
 
 
-# OverView
-E-Plus is a Free E-Commerce Application with Laravel that come with:
+- Order management
+- Review Management
+- Comment Management
+- Profile Settings
 
-- Modern ,Fast ,Responsible (Both admin panel and front) and Secure;
+### Set up :
 
-- Customizable product, sku ,Multiple photos,  cover image, quantity, price ,Discount , Brand  and more ...
+1. Clone the repo and cd into it
+2. In your terminal ```composer install```
+3. Rename or copy ```.env.example``` file to ``.env``
+4. php artisan key:generate
+5. Set your database credentials in your ```.env``` file
+6. Set your Braintree credentials in your ```.env``` file if you want to use PayPal
+7. Import db file(```database/e-shop.sql```) into your database (```mysql,sql```)
+8. ```npm install```
+9. ```npm run watch```
+10. run command[laravel file manager]:-  ```php artisan storage:link```
+11. Edit ```.env``` file :- remove APP_URL
+10. ```php artisan serve``` or use virtual host
+11. Visit ```localhost:8000``` in your browser
+12. Visit /admin if you want to access the admin panel. Admin Email/Password: ```admin@gmail.com```/```1111```. User Email/Password: ```user@gmail.com```/```1111```
 
-- Fully Ajax checkout and shopping Cart system ,
-guest checkout system also supported!
-
-- PayPal, ready for payment processing
-
-- Role and permission management system
-
-- Gift card system
-
-# Features
-
-#### Products :
-- Multiple product images with cover
-- Configure SKU, name, description, price and quantity,
-- Add Discount and Availabel Date
-- Size and colors for products like Clothes
-- Product list ordering and sorting , with price in admin and Front
-- get products with Brands , Tags or Category 
-- Enable / Disable products
-- Full searchable of products in admin and front store,
-- Product image zooming ability
-- Show related products in Front
-- Show special offers and popular products in Front navbar
-- Ratable and comment system for all products
-
-#### Shopping Cart
-- Add any item Ajax to the shopping cart
-- Delete or edit shopping cart with Ajax
-
-#### CheckOut
-- Ability to checkout the items and pay
-- Guest checkout
-- Save Address 
-- Apply gift card for Auth user
-- Receive emails after payment 
-
-#### Authentication
-- Laravel authentication with customized view
-- Google Log-in is ready to use
-- Users with roles will direct to admin panel
-- a super-admin with : email: admin@eplus.com 
-                and password: 12345678
-                is available
-
-#### Categories
-- Parent-child categories for 
-
-#### Customers
--  can a modify profiles 
--  track orders with track-code 
--  save default addresses
--  use gift Cards 
--  Favorite  system 
--  Can write Comment
-
-#### Orders
-- See an overview of your orders in admin and user profile
-- Detailed view of the order comes with: list of items purchased, delivery address, order status , payment status.
-- Users can track order with tracking code
-
-#### Role management system
-
--  Add and modified Roles for the users and employees
--  Add or delete any permissions for the Roles
-
-#### Settings
-
--  create or update Logo ,icon ,  phone call  , fax ,address , email for the website
-
-#### Brands
-
-- create or edit your brands with the cover photo
-- Take products related brands 
-
-#### Gift card
-
--   create or edit gift cards
--   create or edit unique gift code
--  enable or disable gift cards
-
-#### Comments
-
--  show only approved comments in front
--  get all comments and non approved comments in admin panel 
-
-#### Home Page
-- Load products with Ajax and windows scroll in Front Home page
-- Auto complete search with Ajax 
-
-#### Mobile
-
-- Mobile responsive design for the admin and front store
-- Access anywhere your admin and front store
+<p style="text-align:center">Thank You so much for your time !!!</p>
 
 
+### Screenshots :
+![screencapture-e-shop-loc-admin-2020-08-15-15_47_37](https://user-images.githubusercontent.com/29488275/90719413-13b82200-e2d4-11ea-8ca0-f0e5551c4c9d.png)
 
-# Documentation
-###  [See screenshots and documentation](http://findhossein.com/e-plus/overview "See screenshots and documention")
+![screencapture-e-shop-loc-admin-category-2020-08-14-19_45_55](https://user-images.githubusercontent.com/29488275/90719470-3813fe80-e2d4-11ea-8f63-e6001855a945.png)
 
+![screencapture-e-shop-loc-admin-product-2020-08-14-19_44_49](https://user-images.githubusercontent.com/29488275/90719534-61348f00-e2d4-11ea-8a81-409daee0ad94.png)
 
-# Licence
-The MIT License (MIT). Please see [License File](https://github.com/beyondcode/laravel-er-diagram-generator/blob/master/LICENSE.md "License File")
- for more information.
+![screencapture-e-shop-loc-user-order-show-1-2020-08-14-18_57_06](https://user-images.githubusercontent.com/29488275/90719557-71e50500-e2d4-11ea-97cf-befb1d525643.png)
 
+![screencapture-e-shop-loc-user-profile-2020-08-14-18_58_06](https://user-images.githubusercontent.com/29488275/90719563-7a3d4000-e2d4-11ea-9e6a-56caac13b146.png)
+
+![screencapture-e-shop-loc-admin-post-2020-08-14-16_00_07](https://user-images.githubusercontent.com/29488275/90719572-81644e00-e2d4-11ea-9fe5-3325ab427f88.png)
+
+![screencapture-e-shop-loc-2020-08-14-18_19_46](https://user-images.githubusercontent.com/29488275/90719631-a1940d00-e2d4-11ea-89a3-eb36960d687d.png)
+
+![screencapture-e-shop-loc-blog-2020-08-14-18_36_21](https://user-images.githubusercontent.com/29488275/90719648-a8228480-e2d4-11ea-9c57-5ed7aef50e26.png)
+
+![screencapture-e-shop-loc-blog-detail-where-can-i-get-some-2020-08-14-18_43_01](https://user-images.githubusercontent.com/29488275/90719658-ace73880-e2d4-11ea-9cb2-13f2b3b0c4d2.png)
+
+![screencapture-e-shop-loc-product-track-2020-08-14-18_51_07](https://user-images.githubusercontent.com/29488275/90719682-bbcdeb00-e2d4-11ea-8e4e-7d6bfab1c421.png)
 
 
 

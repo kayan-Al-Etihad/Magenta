@@ -8,17 +8,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
-    | as Stripe, Mailgun, SparkPost and others. This file provides a sane
-    | default location for this type of information, allowing packages
-    | to have a conventional place to find your various credentials.
+    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
     |
     */
-
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
-    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
@@ -35,19 +29,20 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
-    'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-        'webhook' => [
-            'secret' => env('STRIPE_WEBHOOK_SECRET'),
-            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
-        ],
-    ],
+    'github' => [
+        'client_id' => '24fbd0edd46019058da7', //Github API
+        'client_secret' => '4500e6ab7a9bb70608600fbdee37969276bb0685', //Github Secret
+        'redirect' => 'http://localhost:8000/login/github/callback',
+     ],
+     'google' => [
+        'client_id' => '122886334250-fsfd8ugugkr0hjrkakukbgnnruomjn95.apps.googleusercontent.com', //Google API
+        'client_secret' => 'eyuwbzXGBgbebzPXNiqSOods', //Google Secret
+        'redirect' => 'http://localhost:8000/login/google/callback',
+     ],
+     'facebook' => [
+        'client_id' => '1494792524037846', //Facebook API
+        'client_secret' => '1bf13c2faf680f4ae2b97bdafa92c7d2', //Facebook Secret
+        'redirect' => 'http://localhost:8000/login/facebook/callback',
+     ],
 
 ];

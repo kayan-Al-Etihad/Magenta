@@ -2,279 +2,48 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
-use Laravelista\Comments\Commentable;
-use willvincent\Rateable\Rateable;
-
-/**
- * Class Product
- * @package App\Models
- * @version January 24, 2020, 3:37 pm +0330
- *
- * @property \App\Models\Brand brand
- * @property \Illuminate\Database\Eloquent\Collection attributes
- * @property \Illuminate\Database\Eloquent\Collection categories
- * @property \Illuminate\Database\Eloquent\Collection colors
- * @property \Illuminate\Database\Eloquent\Collection orders
- * @property \Illuminate\Database\Eloquent\Collection users
- * @property \Illuminate\Database\Eloquent\Collection tags
- * @property integer product_id
- * @property integer brand_id
- * @property string product_name
- * @property string product_slug
- * @property string sku
- * @property boolean status
- * @property string data_available
- * @property boolean is_off
- * @property integer off_price
- * @property boolean has_size
- * @property integer buy_price
- * @property integer sale_price
- * @property integer price
- * @property integer quantity
- * @property string made_in
- * @property number weight
- * @property string description
- * @property string cover
- * @property string image1
- * @property string image2
- */
+use App\Models\Cart;
 class Product extends Model
 {
-    use SoftDeletes, Commentable, Rateable;
+    protected $fillable=['title','slug','summary','description','cat_id','child_cat_id','price','brand_id','discount','status','photo','size','stock','is_featured','condition'];
 
-    public $table = 'products';
-
-    protected $primaryKey = 'product_id';
-
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-
-    protected $dates = ['deleted_at'];
-
-
-
-    public $fillable = [
-        'brand_id',
-        'product_name',
-        'product_slug',
-        'product_ranking',
-        'sku',
-        'status',
-        'data_available',
-        'is_off',
-        'off_price',
-        'has_size',
-        'buy_price',
-        'sale_price',
-        'quantity',
-        'made_in',
-        'weight',
-        'description',
-        'model3d',
-        'cover',
-        'image1',
-        'image2',
-        'category_id'
-    ];
-
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'product_id' => 'integer',
-        'brand_id' => 'integer',
-        'product_name' => 'string',
-        'product_slug' => 'string',
-        'product_ranking' => 'string',
-        'sku' => 'string',
-        'status' => 'boolean',
-        'data_available' => 'date',
-        'is_off' => 'boolean',
-        'off_price' => 'integer',
-        'has_size' => 'boolean',
-        'buy_price' => 'integer',
-        'sale_price' => 'integer',
-        'quantity' => 'integer',
-        'made_in' => 'string',
-        'weight' => 'float',
-        'description' => 'string',
-        'model3d' => 'string',
-        'cover' => 'string',
-        'image1' => 'string',
-        'image2' => 'string',
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        'brand_id' => 'required',
-        'product_name' => 'required',
-        'product_slug' => 'required',
-        'product_ranking' => 'required',
-        'sku' => 'required',
-        'status' => 'required',
-        'is_off' => 'required',
-        'off_price' => 'required',
-        'has_size' => 'required',
-        'buy_price' => 'required',
-        'sale_price' => 'required',
-        'quantity' => 'required',
-        'description' => 'required',
-        'cover' => 'required',
-        'image1' => 'required',
-        'image2' => 'required',
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
-     */
-    public function brands()
-    {
-        return $this->belongsTo(brand::class, 'brand_id');
+    public function cat_info(){
+        return $this->hasOne('App\Models\Category','id','cat_id');
     }
-
-    public function productRanking(){
-        return $this->belongsTo(productRanking::class);
+    public function sub_cat_info(){
+        return $this->hasOne('App\Models\Category','id','child_cat_id');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
-     */
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
+    public static function getAllProduct(){
+        return Product::with(['cat_info','sub_cat_info'])->orderBy('id','desc')->paginate(10);
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
-     */
-    public function colors()
-    {
-        return $this->belongsToMany(Color::class, 'color_product', 'product_id', 'color_id');
+    public function rel_prods(){
+        return $this->hasMany('App\Models\Product','cat_id','cat_id')->where('status','active')->orderBy('id','DESC')->limit(8);
     }
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\morphMany
-     */
-    public function photos()
-    {
-        return $this->morphMany(Photo::class, 'products', 'photoable_type', 'photoable_id');
+    public function getReview(){
+        return $this->hasMany('App\Models\ProductReview','product_id','id')->with('user_info')->where('status','active')->orderBy('id','DESC');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'product_tags', 'product_id', 'tag_id');
+    public static function getProductBySlug($slug){
+        return Product::with(['cat_info','rel_prods','getReview'])->where('slug',$slug)->first();
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function attributes()
-    {
-        return $this->hasMany(Attribute::class,'product_id', 'product_id')->with('attributeValues');
-    }
-
-    /**
-     * @return boolean
-     */
-    public function favorited()
-    {
-        return (bool) Favorite::where('user_id', auth()->id())
-            ->where('product_id', $this->product_id)
-            ->first();
-    }
-
-
-    /**
-     * get created at in diffForHumans forma
-     * @return string
-     * @throws \Exception
-     */
-    public function getCreatedAtAttribute()
-    {
-        return Carbon::createFromTimeStamp(strtotime($this->attributes['created_at']))->diffForHumans();
-    }
-
-    /**
-     * save slug in true form
-     * @param $value
-     * @return string
-     */
-    public function setProductSlugAttribute($value)
-    {
-        return $this->attributes['product_slug'] = Str::slug($value);
-    }
-
-    /**get cover path
-     * @return string
-     */
-    public function getCoverAttribute()
-    {
-        return asset(env('IMAGE_PATH') . $this->attributes['cover']);
-    }
-
-    /**get THUMBNAIL path
-     * @return string
-     */
-    public function getThumbnailAttribute()
-    {
-        return asset(env('THUMBNAIL_PATH') . "T" . $this->attributes['cover']);
-    }
-
-    /**
-     * GET PRICE AFTER DISCOUNT
-     * @return string
-     */
-    public function getPriceAttribute()
-    {
-        if ($this->attributes['off_price'] == null) {
-            $this->attributes['off_price'] = 0;
+    public static function countActiveProduct(){
+        $data=Product::where('status','active')->count();
+        if($data){
+            return $data;
         }
-        return number_format($this->attributes['sale_price'] - $this->attributes['off_price']);
+        return 0;
     }
 
-    /**
-     * GET PERCENTAGE OF OFF PRICE
-     * @return bool|string
-     */
-    public function getOffAttribute()
-    {
-        $off = ($this->attributes['sale_price'] - ($this->attributes['sale_price'] - $this->attributes['off_price'])) / $this->attributes['sale_price'] * 100;
-        return substr($off, 0, 3);
+    public function carts(){
+        return $this->hasMany(Cart::class)->whereNotNull('order_id');
     }
 
-
-    /**
-     * Get the index name for the model.
-     *
-     * @return string
-     */
-    public function searchableAs()
-    {
-        return 'product_index';
+    public function wishlists(){
+        return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
     }
 
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        return array('product_name' => $array['product_name'], 'product_slug' => $array['product_slug']);
+    public function brand(){
+        return $this->hasOne(Brand::class,'id','brand_id');
     }
+
 }

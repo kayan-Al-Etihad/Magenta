@@ -1,9 +1,5 @@
-@extends('layout.front.index')
-@section('title')
-    Reset Password
-@endsection
-@section('extra_css')
-@endsection
+@extends('layouts.app')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

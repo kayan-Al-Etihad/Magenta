@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\JoinFormController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,232 +13,185 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\Admin\productController;
-use App\Http\Controllers\Admin\RoomsController;
-use App\Http\Controllers\Admin\RoomsTypeController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
+Auth::routes(['register'=>false]);
+
+Route::get('user/login','FrontendController@login')->name('login.form');
+Route::post('user/login','FrontendController@loginSubmit')->name('login.submit');
+Route::get('user/logout','FrontendController@logout')->name('user.logout');
+
+Route::get('user/register','FrontendController@register')->name('register.form');
+Route::post('user/register','FrontendController@registerSubmit')->name('register.submit');
+// Reset password
+Route::post('password-reset', 'FrontendController@showResetForm')->name('password.reset');
+// Socialite
+Route::get('login/{provider}/', 'Auth\LoginController@redirect')->name('login.redirect');
+Route::get('login/{provider}/callback/', 'Auth\LoginController@Callback')->name('login.callback');
+
+Route::get('/','FrontendController@home')->name('home');
+// join front
+Route::get('/join', 'JoinFormController@index')->name('join.home');
+Route::post('/join', 'JoinFormController@store')->name('join.store');
+// join back
+Route::get('/admi-join', 'JoinFormController@AdminHomePage')->name('join.AdminHomePage');
+Route::delete('/admi-join/{id}', 'JoinFormController@destroy')->name('join.destroy');
+// contact front
+Route::get('/contact', 'ContactFormController@index')->name('contact.home');
+Route::post('/contact', 'ContactFormController@store')->name('contactForm.store');
+// contact back
+Route::get('/admi-contact', 'ContactFormController@AdminHomePage')->name('contact.AdminHomePage');
+Route::delete('/admi-contact/{id}', 'ContactFormController@destroy')->name('contact.destroy');
+
+// Frontend Routes
+Route::get('/home', 'FrontendController@index');
+Route::get('/about-us','FrontendController@aboutUs')->name('about-us');
+Route::post('/contact/message','MessageController@store')->name('contact.store');
+Route::get('product-detail/{slug}','FrontendController@productDetail')->name('product-detail');
+Route::post('/product/search','FrontendController@productSearch')->name('product.search');
+Route::get('/product-cat/{slug}','FrontendController@productCat')->name('product-cat');
+Route::get('/product-sub-cat/{slug}/{sub_slug}','FrontendController@productSubCat')->name('product-sub-cat');
+Route::get('/product-brand/{slug}','FrontendController@productBrand')->name('product-brand');
+// Cart section
+Route::get('/add-to-cart/{slug}','CartController@addToCart')->name('add-to-cart')->middleware('user');
+Route::post('/add-to-cart','CartController@singleAddToCart')->name('single-add-to-cart')->middleware('user');
+Route::get('cart-delete/{id}','CartController@cartDelete')->name('cart-delete');
+Route::post('cart-update','CartController@cartUpdate')->name('cart.update');
+
+Route::get('/cart',function(){
+    return view('frontend.pages.cart');
+})->name('cart');
+Route::get('/checkout','CartController@checkout')->name('checkout')->middleware('user');
+// Wishlist
+Route::get('/wishlist',function(){
+    return view('frontend.pages.wishlist');
+})->name('wishlist');
+Route::get('/wishlist/{slug}','WishlistController@wishlist')->name('add-to-wishlist')->middleware('user');
+Route::get('wishlist-delete/{id}','WishlistController@wishlistDelete')->name('wishlist-delete');
+Route::post('cart/order','OrderController@store')->name('cart.order');
+Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
+Route::get('/income','OrderController@incomeChart')->name('product.order.income');
+// Route::get('/user/chart','AdminController@userPieChart')->name('user.piechart');
+Route::get('/product-grids','FrontendController@productGrids')->name('product-grids');
+Route::get('/product-lists','FrontendController@productLists')->name('product-lists');
+Route::match(['get','post'],'/filter','FrontendController@productFilter')->name('shop.filter');
+// Order Track
+Route::get('/product/track','OrderController@orderTrack')->name('order.track');
+Route::post('product/track/order','OrderController@productTrackOrder')->name('product.track.order');
+// Blog
+Route::get('/blog','FrontendController@blog')->name('blog');
+Route::get('/blog-detail/{slug}','FrontendController@blogDetail')->name('blog.detail');
+Route::get('/blog/search','FrontendController@blogSearch')->name('blog.search');
+Route::post('/blog/filter','FrontendController@blogFilter')->name('blog.filter');
+Route::get('blog-cat/{slug}','FrontendController@blogByCategory')->name('blog.category');
+Route::get('blog-tag/{slug}','FrontendController@blogByTag')->name('blog.tag');
+
+// NewsLetter
+Route::post('/subscribe','FrontendController@subscribe')->name('subscribe');
+
+// Product Review
+Route::resource('/review','ProductReviewController');
+Route::post('product/{slug}/review','ProductReviewController@store')->name('review.store');
+
+// Post Comment
+Route::post('post/{slug}/comment','PostCommentController@store')->name('post-comment.store');
+Route::resource('/comment','PostCommentController');
+// Coupon
+Route::post('/coupon-store','CouponController@couponStore')->name('coupon-store');
+// Payment
+Route::get('payment', 'PayPalController@payment')->name('payment');
+Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
+Route::get('payment/success', 'PayPalController@success')->name('payment.success');
 
 
-Route::group(['middleware' => 'web'], function () {
-    /********************---------------FRONT ROUTES------------------************************/
-    Route::get('/', 'Front\homeController@home')->name('home');
-    Route::get('/home', 'Front\homeController@home');
-    Route::get('/show/{slug}', 'Front\homeController@show')
-        ->name('front.show')
-        ->where(['slug' => '[-A-Za-z0-9]+']);
-    Route::get('/showCategory/{slug}', 'Front\homeController@showCategory')
-        ->name('front.showCategory')
-        ->where(['slug' => '[-A-Za-z0-9]+']);
-    Route::get('/showBrand/{slug}', 'Front\homeController@showBrand')
-        ->name('front.showBrand')
-        ->where(['slug' => '[-A-Za-z0-9]+']);
-    /*---------------Contact us------------------*/
-    Route::get('/contact', function () {
-        return view('Front.contact-us.contact-us');
-    });
-    /*---------------About us------------------*/
-    Route::get('/about', function () {
-        return view('Front.about.about');
-    });
-    /*---------------Categories------------------*/
-    Route::get('/categories', function () {
-        return view('Front.categories.categories');
-    });
-    /*---------------Rooms------------------*/
-    // Route::get('/room', function () {
-    //     return view('Front.rooms.categories');
-    // });
-    Route::get('/rooms', 'Front\RoomsController@index')->name('rooms');
-    Route::get('/rooms/{roomsType}', 'Front\RoomsController@show');
-    Route::get('/room/{roomId}', 'Front\RoomsController@showSingleProduct');
-    /*---------------brands------------------*/
-    Route::get('/brands', function () {
-        return view('Front.brands.brands');
-    });
-    /*---------------favourite------------------*/
-    Route::get('/favourite', function () {
-        return view('Front.favourite.favourite');
-    });
 
-    /*---------------feedback------------------*/
-    // Route::get('/feedback', function() {
-    //     return view('Front.feedback.feedback');
-    // });
+// Backend section start
 
-    /*---------------feedback------------------*/
-    Route::get('/feedback', [FeedbackController::class, 'index']);
-    Route::post('/feedback', 'FeedbackController@store')->name('feedback');
+Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
+    Route::get('/','AdminController@index')->name('admin');
+    Route::get('/file-manager',function(){
+        return view('backend.layouts.file-manager');
+    })->name('file-manager');
+    // user route
+    Route::resource('users','UsersController');
+    // Banner
+    Route::resource('banner','BannerController');
+    // Brand
+    Route::resource('brand','BrandController');
+    // Profile
+    Route::get('/profile','AdminController@profile')->name('admin-profile');
+    Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
+    // Category
+    Route::resource('/category','CategoryController');
+    // Product
+    Route::resource('/product','ProductController');
+    // Ajax for sub category
+    Route::post('/category/{id}/child','CategoryController@getChildByParent');
+    // POST category
+    Route::resource('/post-category','PostCategoryController');
+    // Post tag
+    Route::resource('/post-tag','PostTagController');
+    // Post
+    Route::resource('/post','PostController');
+    // Message
+    Route::resource('/message','MessageController');
+    Route::get('/message/five','MessageController@messageFive')->name('messages.five');
 
-    /*---------------single category------------------*/
-    Route::get('/category', function () {
-        return view('Front.categories.singleCategory');
-    });
-    /*---------------CHECKOUT------------------*/
-    Route::get('/inter-checkout', 'Front\checkOutController@interCheckOut')->name('front.inter.checkout');
-    Route::get('/checkout', 'Front\checkOutController@index')->name('front.checkout');
-    Route::post('/checkout', 'Front\checkOutController@store')->name('front.checkout.store');
-    Route::post('/checkout/address', 'Front\checkOutController@saveAddress')->name('front.address.store');
-    Route::post('/checkout/orderStatus', 'Front\checkOutController@saveOrderStatus')->name('front.order.saveStatus');
+    // Order
+    Route::resource('/order','OrderController');
+    // Shipping
+    Route::resource('/shipping','ShippingController');
+    // Coupon
+    Route::resource('/coupon','CouponController');
+    // Settings
+    Route::get('settings','AdminController@settings')->name('settings');
+    Route::post('setting/update','AdminController@settingsUpdate')->name('settings.update');
 
-    /*---------------PAY-PAL------------------*/
-    Route::get('/payment', 'Front\PayPalController@payment')->name('payment');
-    Route::get('/cancel', 'Front\PayPalController@cancel')->name('payment.cancel');
-    Route::get('/payment/success', 'Front\PayPalController@success')->name('payment.success');
-    Route::post('/paypal/notify', 'Front\PaypalController@notify')->name('paypal.notify');
-
-    /*---------------LISTS------------------*/
-    Route::match(['get', 'post'], '/products', 'Front\homeController@productsList')->name('front.productsList');
-    Route::match(['get', 'post'], '/products/{list}/{slug}', 'Front\homeController@list')
-        ->where([
-            'list' => '[A-za-z]+',
-            'slug' => '[-A-Za-z0-9]+',
-        ])
-        ->name('front.lists');
-
-    /*---------------CART------------------*/
-    Route::resource('/cart', 'Front\cartController')->except(['create', 'edit', 'update']);
-    Route::post('/cart/edit', 'Front\cartController@update')->name('cart.update');
-    Route::get('/carts/clear', 'Front\cartController@clear')->name('cart.clear');
-    Route::view('/empty-shopping-cart', 'Front.check-out.empty-cart')->name('cart.empty');
-
-    /*---------------SEARCh------------------*/
-    Route::get('/search', 'Front\homeController@search')->name('front.search');
-    Route::get('/auto-complete', 'Front\homeController@autoComplete')->name('front.search.autoComplete');
-
-    /*---------------TRACK ORDER------------------*/
-    Route::post('/track-order', 'Front\homeController@trackOrder')->name('front.trackCode');
-
-    /*---------------COMPARE------------------*/
-    Route::get('/compare', 'Front\homeController@compare')->name('front.compare');
-    Route::post('/compare-product', 'Front\homeController@compareProduct')->name('front.productsCompare');
-    Route::delete('/compare/{name}', 'Front\homeController@removeCompare')->name('front.removeCompare');
-
-    /*---------------AUTH------------------*/
-    Auth::routes();
-
-    /*---------------GOOGLE------------------*/
-    Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('auth.google');
-    Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+    // Notification
+    Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
+    Route::get('/notifications','NotificationController@index')->name('all.notification');
+    Route::delete('/notification/{id}','NotificationController@delete')->name('notification.delete');
+    // Password Change
+    Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
+    Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
 });
 
-/*------------------------------FRONT AUTH ROUTES------------------*/
-Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
-    /*---------------ACCOUNT------------------*/
-    Route::get('/profile', 'Front\accountController@profile')->name('front.profile');
-    Route::get('/my-orders', 'Front\accountController@myOrders')->name('front.myOrders');
-    Route::get('/my-order/{id}', 'Front\accountController@showOrder')->name('front.myOrders.show');
-    Route::put('/my-orders', 'Front\accountController@cancelOrder')->name('front.cancel.order');
-    Route::get('/edit-address', 'Front\accountController@editAddress')->name('front.address.edit');
-    Route::put('/edit-address', 'Front\accountController@updateAddress')->name('front.address.update');
-    Route::get('/edit-order-address/{id}', 'Front\accountController@editOrderAddress')->name('front.order.address.edit');
 
-    /*---------------COMMENTS------------------*/
-    Route::post('comments', 'Admin\myCommentController@store')->name('comment.store');
-    Route::match(['put', 'post'], 'comments/{comment}', '\Laravelista\Comments\CommentController@update');
-    //    Route::post('comments/{comment}', '\Laravelista\Comments\CommentController@reply');
 
-    /*---------------FAVORITES------------------*/
-    Route::post('/favorite', 'Front\accountController@favoritePost')->name('favorite');
-    Route::post('/un-favorite', 'Front\accountController@unFavoritePost')->name('unfavorite');
-    Route::get('/my-wish-list', 'Front\accountController@myFavorites')->name('my_favorites');
 
-    /*---------------GIFT CARD------------------*/
-    Route::post('/checkout/check-discount', 'Front\checkOutController@checkDiscount')->name('front.checkout.checkDiscount');
-});
 
-/*---------------***************ADMIN ROUTES******************------------------*/
-Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
-    /*---------------USERS------------------*/
-    Route::resource('/user', 'Admin\userController');
-    Route::get('/user-address/{id}', 'Admin\userController@editAddress')->name('admin.address.edit');
-    Route::put('/user-address/{id}', 'Admin\userController@updateAddress')->name('admin.address.update');
 
-    /*---------------ROLES------------------*/
-    Route::resource('roles', 'Admin\roleController');
 
-    /*---------------SEARCH------------------*/
-    Route::post('/search', 'Admin\dashboardController@search')->name('admin.search');
 
-    /*---------------DASHBOARD------------------*/
-    Route::get('/dashboard', 'Admin\dashboardController@index')->name('admin.dashboard');
 
-    /*---------------Products Routes------------------*/
-    Route::resource('product', 'Admin\productController');
-     /*---------------Products Routes------------------*/
-     Route::resource('rooms', Admin\RoomsController::class);
 
-    // create 3dModel
-    Route::resource('/product3d', 'Admin\create3DModel');
+// User section start
+Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
+    Route::get('/','HomeController@index')->name('user');
+     // Profile
+     Route::get('/profile','HomeController@profile')->name('user-profile');
+     Route::post('/profile/{id}','HomeController@profileUpdate')->name('user-profile-update');
+    //  Order
+    Route::get('/order',"HomeController@orderIndex")->name('user.order.index');
+    Route::get('/order/show/{id}',"HomeController@orderShow")->name('user.order.show');
+    Route::delete('/order/delete/{id}','HomeController@userOrderDelete')->name('user.order.delete');
+    // Product Review
+    Route::get('/user-review','HomeController@productReviewIndex')->name('user.productreview.index');
+    Route::delete('/user-review/delete/{id}','HomeController@productReviewDelete')->name('user.productreview.delete');
+    Route::get('/user-review/edit/{id}','HomeController@productReviewEdit')->name('user.productreview.edit');
+    Route::patch('/user-review/update/{id}','HomeController@productReviewUpdate')->name('user.productreview.update');
 
-    Route::get('/product/create/second-step', 'Admin\productController@createSecondStep')->name('product.create2');
-    Route::post('/product/create/second-step', 'Admin\productController@storeSecondStep')->name('product.store2');
+    // Post comment
+    Route::get('user-post/comment','HomeController@userComment')->name('user.post-comment.index');
+    Route::delete('user-post/comment/delete/{id}','HomeController@userCommentDelete')->name('user.post-comment.delete');
+    Route::get('user-post/comment/edit/{id}','HomeController@userCommentEdit')->name('user.post-comment.edit');
+    Route::patch('user-post/comment/udpate/{id}','HomeController@userCommentUpdate')->name('user.post-comment.update');
 
-    Route::post('product/sort', 'Admin\productController@sort')->name('product.index.sort');
-    Route::get('product/index/trash', 'Admin\productController@withTrash')->name('product.index.trash');
-    Route::get('product/index/restore/{id}', 'Admin\productController@restore')->name('product.restore');
-    Route::get('product/tags/{tag}', 'Admin\productController@productTags')->name('products.tags');
-
-    // Route::put('/product/{id}', [productController::class, 'productUpdate'])->name('products.update');
-    // Route::put('product/{id}', 'Admin\productController@productUpdate')->name('products.update');
-
-    Route::delete('/product/index/{id}', 'Admin\productController@destroy')->name('product.destroy');
-
-    /*---------------ATTRIBUTES ROUTES------------------*/
-    Route::resource('/attribute', 'Admin\attributeController')->except(['index', 'show']);
-    Route::delete('attribute/value/{id}', 'Admin\attributeController@deleteValue')->name('attribute.deleteValue');
-    //when create new attribute calling from show product
-    Route::get('/attribute/createNew/{id}', 'Admin\attributeController@createNew')->name('attribute.createNew');
-
-    /*---------------PHOTOS Routes------------------*/
-    Route::resource('photo', 'Admin\PhotoController');
-
-    /*---------------CATEGORIES ROUTE------------------*/
-    Route::resource('category', 'Admin\categoryController')->except(['show', 'edit', 'update']);
-
-    /*---------------BRAND ROUT------------------*/
-    Route::resource('brand', 'Admin\brandController')->except(['show']);
-
-    /*---------------GIFT CARD------------------*/
-    Route::resource('giftCard', 'Admin\giftCardController')->except(['show']);
-
-    /*---------------****ORDERS****------------------*/
-    Route::get('orders', 'Admin\orderController@index')->name('order.index');
-    Route::get('not-sent-orders', 'Admin\orderController@notSent')->name('order.not_sent');
-    Route::get('orders/{id}', 'Admin\orderController@show')->name('order.show');
-    Route::delete('orders/{id}', 'Admin\orderController@destroy')->name('order.destroy');
-    Route::delete('orders/orders-status/{id}', 'Admin\orderController@detailDestroy')->name('order.detail.destroy');
-    Route::get('orders/status/{id}/{status}', 'Admin\orderController@status')->name('order.status');
-    //    Route::post('orders','Admin\orderController@sent')->name('order.sent');
-    Route::get('/Admin/createNewProduct', 'Admin\orderController@create')->name('order.create');
-    Route::post('/Admin/createNewProduct', 'Admin\orderController@storeorder')->name('order.store');
-
-    /*---------------****COMMENTS****------------------*/
-    Route::get('/comments', 'Admin\myCommentController@index')->name('comments.index');
-    Route::get('/comments/new', 'Admin\myCommentController@newComments')->name('comments.new');
-    Route::post('/comments/{id}', 'Admin\myCommentController@approve')->name('comment.approve');
-    Route::delete('/comments/{id}', 'Admin\myCommentController@destroy');
-    //    Route::delete('/comments/{comment}', '\Laravelista\Comments\CommentController@destroy');
-
-    /*---------------****Feedback****------------------*/
-    Route::get('/feedback', 'FeedbackController@showinAdminSide')->name('feedback.show');
-    Route::get('/aprovedFeedback', 'FeedbackController@aproved')->name('feedback.aproved');
-    Route::delete('/feedback/{id}', 'FeedbackController@destroy')->name('feedback.destroy');
-    Route::get('/feedback/{id}', 'FeedbackController@updateStatus')->name('feedback.updateStatus');
-
-    /*---------------PAYMENTS------------------*/
-    Route::resource('/payment', 'Admin\PaymentController')->except(['edit', 'update', 'create', 'store']);
-    Route::get('/failed-payments', 'Admin\PaymentController@failed')->name('payment.failed');
-
-    /*---------------SITE SETTINGS------------------*/
-    Route::resource('/settings', 'Admin\settingController')->except(['create', 'show', 'edit', 'destroy']);
-
-    /*---------------Room type------------------*/
-    Route::resource('room-type', Admin\RoomsTypeController::class);
+    // Password Change
+    Route::get('change-password', 'HomeController@changePassword')->name('user.change.password.form');
+    Route::post('change-password', 'HomeController@changPasswordStore')->name('change.password');
 
 });
 
-Route::get('/rakad', function () {
-    return view('rakad');
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use http\Env\Request;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Socialite;
+use App\User;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -22,59 +24,50 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
+    public function credentials(Request $request){
+        return ['email'=>$request->email,'password'=>$request->password,'status'=>'active','role'=>'admin'];
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * The user has been authenticated.
-     * if user had role redirect to user index in admin panel
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    public function redirect($provider)
     {
-        if (auth()->user()->getRoleNames()->count()) {
-            return redirect()->route('user.index');
-        }
-        if ($request->has('before_checkout_form')){
-           return redirect()->route('front.checkout');
-        }
+        // dd($provider);
+     return Socialite::driver($provider)->redirect();
     }
-
-    /**
-     * Validate the user login request.
-     * if a bot filed input then return false
-     * @param  \Illuminate\Http\Request  $request
-     * @return bool
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-
-    protected function validateLogin(\Illuminate\Http\Request $request)
+ 
+    public function Callback($provider)
     {
-        if ($request->input('input')){
-            return false;
+        $userSocial =   Socialite::driver($provider)->stateless()->user();
+        $users      =   User::where(['email' => $userSocial->getEmail()])->first();
+        // dd($users);
+        if($users){
+            Auth::login($users);
+            return redirect('/')->with('success','You are login from '.$provider);
+        }else{
+            $user = User::create([
+                'name'          => $userSocial->getName(),
+                'email'         => $userSocial->getEmail(),
+                'image'         => $userSocial->getAvatar(),
+                'provider_id'   => $userSocial->getId(),
+                'provider'      => $provider,
+            ]);
+         return redirect()->route('home');
         }
-        $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required|string',
-        ]);
     }
 }
