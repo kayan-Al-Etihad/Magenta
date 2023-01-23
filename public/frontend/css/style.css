@@ -630,8 +630,12 @@ Version:1.0
 	float: left;
 }
 .header.shop .topbar {
+	background-image: url("/images/HeaderBackground.png");
 	background-color: #fff;
 	border: none;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .header.shop.v3 .topbar{
 	padding:0;
