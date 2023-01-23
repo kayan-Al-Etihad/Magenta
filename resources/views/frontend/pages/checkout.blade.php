@@ -185,7 +185,7 @@
                                                 <option value="JM">Jamaica</option>
                                                 <option value="JP">Japan</option>
                                                 <option value="JE">Jersey</option>
-                                                <option value="JO">Jordan</option>
+                                                <option value="JO"  selected="selected">Jordan</option>
                                                 <option value="KZ">Kazakhstan</option>
                                                 <option value="KE">Kenya</option>
                                                 <option value="KI">Kiribati</option>
@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP" selected="selected">Nepal</option>
+                                                <option value="NP">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -322,109 +322,68 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
                                         <div class="form-group">
                                             <label>Address Line 1<span>*</span></label>
-                                            <input type="text" name="address1" placeholder="" value="{{old('address1')}}">
+                                            <input type="text" name="address1" placeholder="" value="-">
                                             @error('address1')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
                                         <div class="form-group">
                                             <label>Address Line 2</label>
-                                            <input type="text" name="address2" placeholder="" value="{{old('address2')}}">
+                                            <input type="text" name="address2" placeholder="" value="-">
                                             @error('address2')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
                                         <div class="form-group">
                                             <label>Postal Code</label>
-                                            <input type="text" name="post_code" placeholder="" value="{{old('post_code')}}">
+                                            <input type="text" name="post_code" placeholder="" value="-">
                                             @error('post_code')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
 
+                                    <div class="col-lg-12 col-md-6 col-12">
+                                            <div class="content">
+                                                <div class="button">
+                                                    <button type="submit" class="btn">Submit Your Order</button>
+                                                </div>
+                                            </div>
+                                    </div>
                                 </div>
+                                
                                 <!--/ End Form -->
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
-                            <div class="order-details">
-                                <!-- Order Widget -->
-                                <div class="single-widget">
-                                    <h2>CART  TOTALS</h2>
-                                    <div class="content">
-                                        <ul>
-										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
-                                            <li class="shipping">
-                                                Shipping Cost
-                                                @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
-                                                    <select name="shipping" class="nice-select">
-                                                        <option value="">Select your address</option>
-                                                        @foreach(Helper::shipping() as $shipping)
-                                                        <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                @else
-                                                    <span>Free</span>
-                                                @endif
-                                            </li>
-
-                                            @if(session('coupon'))
-                                            <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
-                                            @endif
-                                            @php
-                                                $total_amount=Helper::totalCartPrice();
-                                                if(session('coupon')){
-                                                    $total_amount=$total_amount-session('coupon')['value'];
-                                                }
-                                            @endphp
-                                            @if(session('coupon'))
-                                                <li class="last"  id="order_total_price">Total<span>${{number_format($total_amount,2)}}</span></li>
-                                            @else
-                                                <li class="last"  id="order_total_price">Total<span>${{number_format($total_amount,2)}}</span></li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class="order-details" style="display: none">
                                 <!--/ End Order Widget -->
                                 <!-- Order Widget -->
-                                <div class="single-widget">
+                                <div class="single-widget" >
                                     <h2>Payments</h2>
                                     <div class="content">
                                         <div class="checkbox">
                                             {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label> --}}
                                             <form-group>
-                                                <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
+                                                <input name="payment_method" checked  type="radio" value="cod"> <label> Cash On Delivery</label><br>
                                             </form-group>
 
                                         </div>
                                     </div>
                                 </div>
-                                <!--/ End Order Widget -->
-                                <!-- Button Widget -->
-                                <div class="single-widget get-button">
-                                    <div class="content">
-                                        <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ End Button Widget -->
                             </div>
                         </div>
                     </div>
                 </form>
         </div>
     </section>
-    <!--/ End Checkout -->
-
     <!-- Start Shop Services Area  -->
     <section class="shop-services section home">
         <div class="container">

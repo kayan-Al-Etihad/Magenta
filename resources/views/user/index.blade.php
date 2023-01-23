@@ -101,7 +101,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Total Amount</th>
+              {{-- <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -113,7 +113,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Total Amount</th>
+              {{-- <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
               </tr>
@@ -127,7 +127,7 @@
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{number_format($order->total_amount,2)}}</td>
+                    {{-- <td>${{number_format($order->total_amount,2)}}</td> --}}
                     <td>
                         @if($order->status=='new')
                           <span class="badge badge-primary">{{$order->status}}</span>

@@ -80,10 +80,10 @@
 													</ul>
 													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
                                                 </div>
-                                                @php
+                                                {{-- @php
                                                     $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
                                                 @endphp
-												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
+												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p> --}}
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
 
@@ -114,7 +114,7 @@
 											<div class="product-buy">
 												<form action="{{route('single-add-to-cart')}}" method="POST">
 													@csrf
-													<div class="quantity">
+													{{-- <div class="quantity">
 														<h6>Quantity :</h6>
 														<!-- Input Order -->
 														<div class="input-group">
@@ -132,7 +132,7 @@
 															</div>
 														</div>
 													<!--/ End Input Order -->
-													</div>
+													</div> --}}
 													<div class="add-to-cart mt-4">
 														<button type="submit" class="btn">Add to cart</button>
 														<a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>

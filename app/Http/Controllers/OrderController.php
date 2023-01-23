@@ -47,7 +47,7 @@ class OrderController extends Controller
         $this->validate($request,[
             'first_name'=>'string|required',
             'last_name'=>'string|required',
-            'address1'=>'string|required',
+            'address1'=>'string|nullable',
             'address2'=>'string|nullable',
             'coupon'=>'nullable|numeric',
             'phone'=>'numeric|required',
@@ -60,33 +60,6 @@ class OrderController extends Controller
             request()->session()->flash('error','Cart is Empty !');
             return back();
         }
-        // $cart=Cart::get();
-        // // return $cart;
-        // $cart_index='ORD-'.strtoupper(uniqid());
-        // $sub_total=0;
-        // foreach($cart as $cart_item){
-        //     $sub_total+=$cart_item['amount'];
-        //     $data=array(
-        //         'cart_id'=>$cart_index,
-        //         'user_id'=>$request->user()->id,
-        //         'product_id'=>$cart_item['id'],
-        //         'quantity'=>$cart_item['quantity'],
-        //         'amount'=>$cart_item['amount'],
-        //         'status'=>'new',
-        //         'price'=>$cart_item['price'],
-        //     );
-
-        //     $cart=new Cart();
-        //     $cart->fill($data);
-        //     $cart->save();
-        // }
-
-        // $total_prod=0;
-        // if(session('cart')){
-        //         foreach(session('cart') as $cart_items){
-        //             $total_prod+=$cart_items['quantity'];
-        //         }
-        // }
 
         $order=new Order();
         $order_data=$request->all();
