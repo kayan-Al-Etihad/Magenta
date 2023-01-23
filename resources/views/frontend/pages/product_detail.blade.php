@@ -40,113 +40,22 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="row">
-									<div class="col-lg-9 col-12">
+									<div class="col-lg-12 col-12">
 										<!-- Product Slider -->
 										<div class="product-gallery">
 											<!-- Images slider -->
 											<div class="flexslider-thumbnails">
 												<ul class="slides" style="width:100px !important;">
-													{!! $product_detail->embeded_code !!}
-													{{-- @php
-														$photo=explode(',',$product_detail->photo);
-													@endphp
-													@foreach($photo as $data)
-														<li data-thumb="{{$data}}" rel="adjustX:10, adjustY:">
-															<img src="{{$data}}" alt="{{$data}}">
-														</li>
-													@endforeach --}}
+													@if ($product_detail->embeded_code != null && $product_detail->photo !=null)
+														{!! $product_detail->embeded_code !!}
+													 @else
+													 	<img src="{{$product_detail->photo}}" alt="">
+													 @endif
 												</ul>
 											</div>
 											<!-- End Images slider -->
 										</div>
 										<!-- End Product slider -->
-									</div>
-									<div class="col-lg-3 col-12">
-										<div class="product-des">
-											<div class="short">
-												<h4>{{$product_detail->title}}</h4>
-												<div class="rating-main">
-													<ul class="rating">
-														@php
-															$rate=ceil($product_detail->getReview->avg('rate'))
-														@endphp
-															@for($i=1; $i<=5; $i++)
-																@if($rate>=$i)
-																	<li><i class="fa fa-star"></i></li>
-																@else
-																	<li><i class="fa fa-star-o"></i></li>
-																@endif
-															@endfor
-													</ul>
-													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
-                                                </div>
-                                                {{-- @php
-                                                    $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
-                                                @endphp
-												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p> --}}
-												<p class="description">{!!($product_detail->summary)!!}</p>
-											</div>
-
-											{{-- <div class="color">
-												<h4>Available Options <span>Color</span></h4>
-												<ul>
-													<li><a href="#" class="one"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="two"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="three"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="four"><i class="ti-check"></i></a></li>
-												</ul>
-											</div> --}}
-											{{-- @if($product_detail->size)
-												<div class="size mt-4">
-													<h4>Size</h4>
-													<ul>
-														@php
-															$sizes=explode(',',$product_detail->size);
-														@endphp
-														@foreach($sizes as $size)
-														<li><a href="#" class="one">{{$size}}</a></li>
-														@endforeach
-													</ul>
-												</div>
-											@endif --}}
-											<!--/ End Size -->
-											<!-- Product Buy -->
-											<div class="product-buy">
-												<form action="{{route('single-add-to-cart')}}" method="POST">
-													@csrf
-													{{-- <div class="quantity">
-														<h6>Quantity :</h6>
-														<!-- Input Order -->
-														<div class="input-group">
-															<div class="button minus">
-																<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-																	<i class="ti-minus"></i>
-																</button>
-															</div>
-															<input type="hidden" name="slug" value="{{$product_detail->slug}}">
-															<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1" id="quantity">
-															<div class="button plus">
-																<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-																	<i class="ti-plus"></i>
-																</button>
-															</div>
-														</div>
-													<!--/ End Input Order -->
-													</div> --}}
-													<div class="add-to-cart mt-4">
-														<button type="submit" class="btn">Add to cart</button>
-														<a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
-													</div>
-												</form>
-
-												<p class="cat">Category :<a href="{{route('product-cat',$product_detail->cat_info['slug'])}}">{{$product_detail->cat_info['title']}}</a></p>
-												@if($product_detail->sub_cat_info)
-												<p class="cat mt-1">Sub Category :<a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a></p>
-												@endif
-												<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
-											</div>
-											<!--/ End Product Buy -->
-										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -171,6 +80,40 @@
 																</div>
 															</div>
 														</div>
+													</div>
+													<div class="short">
+														<h4>{{$product_detail->title}}</h4>
+														<div class="rating-main">
+															<ul class="rating" style="display: flex;">
+																@php
+																	$rate=ceil($product_detail->getReview->avg('rate'))
+																@endphp
+																	@for($i=1; $i<=5; $i++)
+																		@if($rate>=$i)
+																			<li><i class="fa fa-star"></i></li>
+																		@else
+																			<li><i class="fa fa-star-o"></i></li>
+																		@endif
+																	@endfor
+															</ul>
+															<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
+														</div>
+														<p class="description">{!!($product_detail->summary)!!}</p>
+													</div>
+													<div class="product-buy">
+														<form action="{{route('single-add-to-cart')}}" method="POST">
+															@csrf
+															<div class="add-to-cart mt-4">
+																<button type="submit" class="btn">Add to cart</button>
+																<a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
+															</div>
+														</form>
+		
+														<p class="cat">Category :<a href="{{route('product-cat',$product_detail->cat_info['slug'])}}">{{$product_detail->cat_info['title']}}</a></p>
+														@if($product_detail->sub_cat_info)
+														<p class="cat mt-1">Sub Category :<a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a></p>
+														@endif
+														<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
 													</div>
 												</div>
 												<!--/ End Description Tab -->

@@ -4970,3 +4970,7 @@ ul.slides {
 /*=============================
 	End Footer CSS
 ===============================*/
+#panorama-360-view {
+    width: 100vw;
+    height: 65vh;
+}
