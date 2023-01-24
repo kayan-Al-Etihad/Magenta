@@ -6,28 +6,51 @@
     <h5 class="card-header">Edit Product</h5>
     <div class="card-body">
       <form method="post" action="{{route('product.update',$product->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$product->title}}" class="form-control">
+          <input required id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$product->title}}" class="form-control">
           @error('title')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        <div class="form-group">
+          <label for="inputTitleArabic" class="col-form-label">Arabic Title <span class="text-danger">*</span></label>
+          <input required id="inputTitleArabic" type="text" name="title_ar" value="{{$product->title_ar}}" class="form-control text-right">
+          @error('title_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
           <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="summary" name="summary">{{$product->summary}}</textarea>
+          <textarea required class="form-control" id="summary" name="summary">{{$product->summary}}</textarea>
           @error('summary')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
+          <label for="summary_ar" class="col-form-label">Arabic Summary <span class="text-danger">*</span></label>
+          <textarea required class="form-control" id="summary_ar" name="summary_ar">{{$product->summary_ar}}</textarea>
+          @error('summary_ar')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{$product->description}}</textarea>
+          <textarea required class="form-control" id="description" name="description">{{$product->description}}</textarea>
           @error('description')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="description_ar" class="col-form-label">Arabic Description</label>
+          <textarea required class="form-control" id="description_ar" name="description_ar">{{$product->description_ar}}</textarea>
+          @error('description_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -35,20 +58,20 @@
 
         <div class="form-group">
           <label for="is_featured">Is Featured</label><br>
-          <input type="checkbox" name='is_featured' id='is_featured' value='{{$product->is_featured}}' {{(($product->is_featured) ? 'checked' : '')}}> Yes                        
+          <input  type="checkbox" name='is_featured' id='is_featured' value='{{$product->is_featured}}' {{(($product->is_featured) ? 'checked' : '')}}> Yes
         </div>
               {{-- {{$categories}} --}}
 
         <div class="form-group">
           <label for="cat_id">Category <span class="text-danger">*</span></label>
-          <select name="cat_id" id="cat_id" class="form-control">
+          <select required name="cat_id" id="cat_id" class="form-control">
               <option value="">--Select any category--</option>
               @foreach($categories as $key=>$cat_data)
                   <option value='{{$cat_data->id}}' {{(($product->cat_id==$cat_data->id)? 'selected' : '')}}>{{$cat_data->title}}</option>
               @endforeach
           </select>
         </div>
-        @php 
+        @php
           $sub_cat_info=DB::table('categories')->select('title')->where('id',$product->child_cat_id)->get();
         // dd($sub_cat_info);
 
@@ -58,13 +81,13 @@
           <label for="child_cat_id">Sub Category</label>
           <select name="child_cat_id" id="child_cat_id" class="form-control">
               <option value="">--Select any sub category--</option>
-              
+
           </select>
         </div>
 
         <div class="form-group">
           <label for="price" class="col-form-label">Price(NRS) <span class="text-danger">*</span></label>
-          <input id="price" type="number" name="price" placeholder="Enter price"  value="{{$product->price}}" class="form-control">
+          <input required id="price" type="number" name="price" placeholder="Enter price"  value="{{$product->price}}" class="form-control">
           @error('price')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -72,17 +95,17 @@
 
         <div class="form-group">
           <label for="discount" class="col-form-label">Discount(%)</label>
-          <input id="discount" type="number" name="discount" min="0" max="100" placeholder="Enter discount"  value="{{$product->discount}}" class="form-control">
+          <input required id="discount" type="number" name="discount" min="0" max="100" placeholder="Enter discount"  value="{{$product->discount}}" class="form-control">
           @error('discount')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
           <label for="size">Size</label>
-          <select name="size[]" class="form-control selectpicker"  multiple data-live-search="true">
+          <select required name="size[]" class="form-control selectpicker"  multiple data-live-search="true">
               <option value="">--Select any size--</option>
-              @foreach($items as $item)              
-                @php 
+              @foreach($items as $item)
+                @php
                 $data=explode(',',$item->size);
                 // dd($data);
                 @endphp
@@ -95,7 +118,7 @@
         </div>
         <div class="form-group">
           <label for="brand_id">Brand</label>
-          <select name="brand_id" class="form-control">
+          <select required name="brand_id" class="form-control">
               <option value="">--Select Brand--</option>
              @foreach($brands as $brand)
               <option value="{{$brand->id}}" {{(($product->brand_id==$brand->id)? 'selected':'')}}>{{$brand->title}}</option>
@@ -105,7 +128,7 @@
 
         <div class="form-group">
           <label for="condition">Condition</label>
-          <select name="condition" class="form-control">
+          <select required name="condition" class="form-control">
               <option value="">--Select Condition--</option>
               <option value="default" {{(($product->condition=='default')? 'selected':'')}}>Default</option>
               <option value="new" {{(($product->condition=='new')? 'selected':'')}}>New</option>
@@ -115,7 +138,7 @@
 
         <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
-          <input id="quantity" type="number" name="stock" min="0" placeholder="Enter quantity"  value="{{$product->stock}}" class="form-control">
+          <input required id="quantity" type="number" name="stock" min="0" placeholder="Enter quantity"  value="{{$product->stock}}" class="form-control">
           @error('stock')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -128,7 +151,7 @@
                   <i class="fas fa-image"></i> Choose
                   </a>
               </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
+          <input required id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
           @error('photo')
@@ -143,7 +166,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -182,9 +205,19 @@
         tabsize: 2,
         height: 150
     });
+    $('#summary_ar').summernote({
+      placeholder: "Write short description.....",
+        tabsize: 2,
+        height: 150
+    });
     });
     $(document).ready(function() {
       $('#description').summernote({
+        placeholder: "Write detail Description.....",
+          tabsize: 2,
+          height: 150
+      });
+      $('#description_ar').summernote({
         placeholder: "Write detail Description.....",
           tabsize: 2,
           height: 150

@@ -20,7 +20,9 @@
             <tr>
               <th>S.N.</th>
               <th>Title</th>
+              <th>Arabic Title</th>
               <th>Category</th>
+              <th>Arabic Category</th>
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
@@ -37,7 +39,9 @@
             <tr>
               <th>S.N.</th>
               <th>Title</th>
+              <th>Arabic Title</th>
               <th>Category</th>
+              <th>Arabic Category</th>
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
@@ -61,17 +65,23 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->title}}</td>
+                    <td>{{$product->title_ar}}</td>
                     <td>{{$product->cat_info['title']}}
                       <sub>
                           {{$product->sub_cat_info->title ?? ''}}
                       </sub>
                     </td>
+                    <td>{{$product->cat_info['title_ar']}}
+                        <sub>
+                            {{$product->sub_cat_info->title_ar ?? ''}}
+                        </sub>
+                      </td>
                     <td>{{(($product->is_featured==1)? 'Yes': 'No')}}</td>
                     <td>Rs. {{$product->price}} /-</td>
                     <td>  {{$product->discount}}% OFF</td>
                     <td>{{$product->size}}</td>
                     <td>{{$product->condition}}</td>
-                    <td> {{ucfirst($product->brand->title)}}</td>
+                    <td> {{$product->brand->title}}</td>
                     <td>
                       @if($product->stock>0)
                       <span class="badge badge-primary">{{$product->stock}}</span>

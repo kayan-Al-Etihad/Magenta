@@ -47,8 +47,11 @@ class ProductController extends Controller
         // return $request->all();
         $this->validate($request,[
             'title'=>'string|required',
+            'title_ar'=>'string|required',
             'summary'=>'string|required',
+            'summary_ar'=>'string|required',
             'description'=>'string|nullable',
+            'description_ar'=>'string|nullable',
             'photo'=>'string|required',
             'embeded_code'=>'string|nullable',
             'size'=>'nullable',
@@ -147,7 +150,6 @@ class ProductController extends Controller
             'price'=>'required|numeric',
             'discount'=>'nullable|numeric'
         ]);
-
         $data=$request->all();
         $data['is_featured']=$request->input('is_featured',0);
         $size=$request->input('size');
@@ -178,7 +180,7 @@ class ProductController extends Controller
     {
         $product=Product::findOrFail($id);
         $status=$product->delete();
-        
+
         if($status){
             request()->session()->flash('success','Product successfully deleted');
         }

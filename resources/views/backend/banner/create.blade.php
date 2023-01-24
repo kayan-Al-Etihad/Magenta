@@ -11,16 +11,31 @@
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-        <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
+        <input required id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
         @error('title')
+        <span class="text-danger">{{$message}}</span>
+        @enderror
+        </div>
+        <div class="form-group">
+          <label for="inputTitleArabic" class="col-form-label">Arabic Title <span class="text-danger">*</span></label>
+        <input required id="inputTitleArabic" type="text" name="title_ar" placeholder="Enter Arabic title"  value="{{old('title_ar')}}" class="form-control text-right">
+        @error('title_ar')
         <span class="text-danger">{{$message}}</span>
         @enderror
         </div>
 
         <div class="form-group">
           <label for="inputDesc" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
+          <textarea required class="form-control" id="description" name="description">{{old('description')}}</textarea>
           @error('description')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="inputDescArabic" class="col-form-label">Arabic Description</label>
+          <textarea required class="form-control" id="description_ar" name="description_ar">{{old('description_ar')}}</textarea>
+          @error('description_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -33,14 +48,14 @@
                 <i class="fa fa-picture-o"></i> Choose
                 </a>
             </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
+          <input required id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
           @error('photo')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -72,6 +87,11 @@
 
     $(document).ready(function() {
     $('#description').summernote({
+      placeholder: "Write short description.....",
+        tabsize: 2,
+        height: 150
+    });
+    $('#description_ar').summernote({
       placeholder: "Write short description.....",
         tabsize: 2,
         height: 150

@@ -55,10 +55,13 @@ class AdminController extends Controller
         // return $request->all();
         $this->validate($request,[
             'short_des'=>'required|string',
+            'short_des_ar'=>'required|string',
             'description'=>'required|string',
+            'description_ar'=>'required|string',
             'photo'=>'required',
             'logo'=>'required',
             'address'=>'required|string',
+            'address_ar'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
         ]);
@@ -86,9 +89,9 @@ class AdminController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
 
