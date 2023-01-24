@@ -14,11 +14,26 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+        <div class="form-group">
+          <label for="inputTitleArabic" class="col-form-label">Title <span class="text-danger">*</span></label>
+          <input id="inputTitleArabic" type="text" name="title_ar" placeholder="Enter Arabic title"  value="{{old('title_ar')}}" class="form-control text-right">
+          @error('title_ar')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
 
         <div class="form-group">
           <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
           <textarea class="form-control" id="summary" name="summary">{{old('summary')}}</textarea>
           @error('summary')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="summary_ar" class="col-form-label">Arabic Summary <span class="text-danger">*</span></label>
+          <textarea class="form-control" id="summary_ar" name="summary_ar">{{old('summary_ar')}}</textarea>
+          @error('summary_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -31,10 +46,18 @@
           @enderror
         </div>
 
+        <div class="form-group">
+          <label for="description_ar" class="col-form-label">Arabic Description</label>
+          <textarea class="form-control" id="description_ar" name="description_ar">{{old('description_ar')}}</textarea>
+          @error('description_ar')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
 
         <div class="form-group">
           <label for="is_featured">Is Featured</label><br>
-          <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes                        
+          <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes
         </div>
               {{-- {{$categories}} --}}
 
@@ -136,7 +159,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -175,10 +198,20 @@
           tabsize: 2,
           height: 100
       });
+      $('#summary_ar').summernote({
+        placeholder: "Write short description.....",
+          tabsize: 2,
+          height: 100
+      });
     });
 
     $(document).ready(function() {
       $('#description').summernote({
+        placeholder: "Write detail description.....",
+          tabsize: 2,
+          height: 150
+      });
+      $('#description_ar').summernote({
         placeholder: "Write detail description.....",
           tabsize: 2,
           height: 150

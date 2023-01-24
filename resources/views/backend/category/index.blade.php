@@ -20,9 +20,11 @@
             <tr>
               <th>S.N.</th>
               <th>Title</th>
+              <th>Arabic Title</th>
               <th>Slug</th>
               <th>Is Parent</th>
               <th>Parent Category</th>
+              <th>Arabic Parent Category</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
@@ -32,9 +34,11 @@
             <tr>
               <th>S.N.</th>
               <th>Title</th>
+              <th>Arabic Title</th>
               <th>Slug</th>
               <th>Is Parent</th>
               <th>Parent Category</th>
+              <th>Arabic Parent Category</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
@@ -48,10 +52,14 @@
                 <tr>
                     <td>{{$category->id}}</td>
                     <td>{{$category->title}}</td>
+                    <td>{{$category->title_ar}}</td>
                     <td>{{$category->slug}}</td>
                     <td>{{(($category->is_parent==1)? 'Yes': 'No')}}</td>
                     <td>
                         {{$category->parent_info->title ?? ''}}
+                    </td>
+                    <td>
+                        {{$category->parent_info->title_ar ?? ''}}
                     </td>
                     <td>
                         @if($category->photo)

@@ -59,7 +59,30 @@
     .st-sticky-share-buttons.st-right.st-toggleable.st-has-labels.st-show-total{
         display: none !important;
     }
+    .sketchfab-embed-wrapper{
+        width: max-content;
+    }
+    .btn.btn-lg.ws-btn.wow.fadeInUpBig{
+        border-radius: 7.5px;
+    }
+    .shop-home-list .single-list .content a:hover{
+        color: #000 !important;
+    }
+    .nav.nav-tabs.filter-tope-group button{
+       border-radius: 7.5px;
+    }
 
+    @media screen and (max-width:992px){
+        .topbar .list-main{
+            display: block !important;
+        }
+        .topbar .col-lg-4.col-md-12.col-12{
+            display: block !important;
+        }
+        .topbar .list-main a{
+            margin-right: 0 !important;
+        }
+    }
     /*
 </style>
 @stack('styles')

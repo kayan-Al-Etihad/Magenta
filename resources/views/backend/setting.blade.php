@@ -6,20 +6,34 @@
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
     <form method="post" action="{{route('settings.update')}}">
-        @csrf 
+        @csrf
         {{-- @method('PATCH') --}}
         {{-- {{dd($data)}} --}}
         <div class="form-group">
           <label for="short_des" class="col-form-label">Short Description <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="quote" name="short_des">{{$data->short_des}}</textarea>
+          <textarea required class="form-control" id="quote" name="short_des">{{$data->short_des}}</textarea>
           @error('short_des')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
+          <label for="short_des_ar" class="col-form-label">Arabic Short Description <span class="text-danger">*</span></label>
+          <textarea required class="form-control" id="short_des_ar" name="short_des_ar">{{$data->short_des_ar}}</textarea>
+          @error('short_des_ar')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        <div class="form-group">
           <label for="description" class="col-form-label">Description <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="description" name="description">{{$data->description}}</textarea>
+          <textarea required class="form-control" id="description" name="description">{{$data->description}}</textarea>
           @error('description')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        <div class="form-group">
+          <label for="description_ar" class="col-form-label">Arabic Description <span class="text-danger">*</span></label>
+          <textarea required class="form-control" id="description_ar" name="description_ar">{{$data->description_ar}}</textarea>
+          @error('description_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -32,7 +46,7 @@
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>
-          <input id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
+          <input required id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
         </div>
         <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
 
@@ -49,7 +63,7 @@
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$data->photo}}">
+          <input required id="thumbnail" class="form-control" type="text" name="photo" value="{{$data->photo}}">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
 
@@ -60,21 +74,29 @@
 
         <div class="form-group">
           <label for="address" class="col-form-label">Address <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="address" required value="{{$data->address}}">
+          <input required type="text" class="form-control" name="address" required value="{{$data->address}}">
           @error('address')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="address_ar" class="col-form-label">Arabic Address<span class="text-danger">*</span></label>
+          <input required type="text" class="form-control" name="address_ar" required value="{{$data->address_ar}}">
+          @error('address_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
           <label for="email" class="col-form-label">Email <span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" required value="{{$data->email}}">
+          <input required type="email" class="form-control" name="email" required value="{{$data->email}}">
           @error('email')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
           <label for="phone" class="col-form-label">Phone Number <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="phone" required value="{{$data->phone}}">
+          <input required type="text" class="form-control" name="phone" required value="{{$data->phone}}">
           @error('phone')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -108,6 +130,11 @@
         tabsize: 2,
         height: 150
     });
+    $('#short_des_ar').summernote({
+      placeholder: "Write short description.....",
+        tabsize: 2,
+        height: 150
+    });
     });
 
     $(document).ready(function() {
@@ -119,6 +146,11 @@
     });
     $(document).ready(function() {
       $('#description').summernote({
+        placeholder: "Write detail description.....",
+          tabsize: 2,
+          height: 150
+      });
+      $('#description_ar').summernote({
         placeholder: "Write detail description.....",
           tabsize: 2,
           height: 150

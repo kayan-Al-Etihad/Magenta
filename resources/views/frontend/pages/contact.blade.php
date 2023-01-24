@@ -5,14 +5,23 @@
 	<div class="breadcrumbs">
 		<div class="container">
 			<div class="row">
-				<div class="col-12">
-					<div class="bread-inner">
-						<ul class="bread-list">
-							<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="javascript:void(0);">Contact</a></li>
-						</ul>
-					</div>
-				</div>
+                <div class="col-12">
+                    @if (app()->getLocale() == "ar")
+                        <div class="bread-inner text-right" dir="rtl">
+                            <ul class="bread-list">
+                                <li><a href="{{ route('home') }}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
+                                <li class="active"><a href="{{ route('contact.home') }}">@lang('auth.contact')</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <div class="bread-inner">
+                            <ul class="bread-list">
+                                <li><a href="{{ route('home') }}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="{{ route('contact.home') }}">@lang('auth.contact')</a></li>
+                            </ul>
+                        </div>
+                    @endif
+                </div>
 			</div>
 		</div>
 	</div>
@@ -22,99 +31,195 @@
 	<section id="contact-us" class="contact-us section">
 		<div class="container">
 				<div class="contact-head">
-					<div class="row">
-						<div class="col-lg-8 col-12">
-							<div class="form-main">
-								<div class="title">
-									@php
-										$settings=DB::table('settings')->get();
-									@endphp
-									<h4>Get in touch</h4>
-									<h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger">[You need to login first]</span>@endauth</h3>
-								</div>
-                                <form method="post" class="form border p-5" action="{{route('contactForm.store')}}" id="joinForm" novalidate="novalidate">
-									@csrf
-									<div class="row">
-										<div class="col-lg-6 col-12">
-											<div class="form-group">
-												<label>Your Name<span>*</span></label>
-												<input class="w-100" required name="name" id="name" type="text" value="{{old('name')}}" placeholder="Enter your name">
-                                                @error('name')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-											</div>
-										</div>
-										<div class="col-lg-6 col-12">
-											<div class="form-group">
-												<label>Your Email<span>*</span></label>
-												<input class="w-100" required name="email" type="email" value="{{old('email')}}" id="email" placeholder="Enter email address">
-                                                @error('email')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-											</div>
-										</div>
-										<div class="col-lg-6 col-12">
-											<div class="form-group">
-												<label>Your Phone<span>*</span></label>
-												<input class="w-100" required id="phone" name="phone" value="{{old('phone')}}" type="number" placeholder="Enter your phone">
-                                                @error('phone')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-											</div>
-										</div>
-										<div class="col-lg-6 col-12">
-											<div class="form-group">
-												<label>Your Subjects<span>*</span></label>
-												<input required name="subject" value="{{old('subject')}}" type="text" id="subject" placeholder="Enter Subject">
-                                                @error('subject')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="form-group message">
-												<label>your message<span>*</span></label>
-												<textarea required name="message" value="{{old('message')}}" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
-                                                @error('message')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="form-group button">
-												<input type="submit" class="btn" name="submit" id="" value="Send">
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="col-lg-4 col-12">
-							<div class="single-head">
-								<div class="single-info">
-									<i class="fa fa-phone"></i>
-									<h4 class="title">Call us Now:</h4>
-									<ul>
-										<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-									</ul>
-								</div>
-								<div class="single-info">
-									<i class="fa fa-envelope-open"></i>
-									<h4 class="title">Email:</h4>
-									<ul>
-										<li><a href="mailto:info@yourwebsite.com">@foreach($settings as $data) {{$data->email}} @endforeach</a></li>
-									</ul>
-								</div>
-								<div class="single-info">
-									<i class="fa fa-location-arrow"></i>
-									<h4 class="title">Our Address:</h4>
-									<ul>
-										<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+                    @if (app()->getLocale() == "ar")
+                        <div class="row" dir="rtl">
+                            <div class="col-lg-8 col-12 text-right">
+                                <div class="form-main">
+                                    <div class="title">
+                                        @php
+                                            $settings=DB::table('settings')->get();
+                                        @endphp
+                                        <h4>@lang('auth.get_in_touch')</h4>
+                                        <h3>@lang('auth.write_us_a_message') @auth @else<span style="font-size:12px;" class="text-danger">[@lang('auth.login_first')]</span>@endauth</h3>
+                                    </div>
+                                    <form method="post" class="form border p-5" action="{{route('contactForm.store')}}" id="joinForm" novalidate="novalidate">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>@lang('auth.name')<span>*</span></label>
+                                                    <input class="w-100" required name="name" id="name" type="text" value="{{old('name')}}" placeholder="@lang('auth.name')">
+                                                    @error('name')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>@lang('auth.email')<span>*</span></label>
+                                                    <input class="w-100" required name="email" type="email" value="{{old('email')}}" id="email" placeholder="@lang('auth.email')">
+                                                    @error('email')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>@lang('auth.phone')<span>*</span></label>
+                                                    <input class="w-100" required id="phone" name="phone" value="{{old('phone')}}" type="number" placeholder="@lang('auth.phone')">
+                                                    @error('phone')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>@lang('auth.subject')<span>*</span></label>
+                                                    <input required name="subject" value="{{old('subject')}}" type="text" id="subject" placeholder="@lang('auth.subject')">
+                                                    @error('subject')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group message">
+                                                    <label>@lang('auth.message')<span>*</span></label>
+                                                    <textarea required name="message" value="{{old('message')}}" id="message" cols="30" rows="9" placeholder="@lang('auth.message')"></textarea>
+                                                    @error('message')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group button">
+                                                    <input type="submit" class="btn" name="submit" id="" value="@lang('auth.send')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <div class="single-head">
+                                    <div class="single-info">
+                                        <i class="fa fa-phone"></i>
+                                        <h4 class="title text-right">@lang('auth.call_us_now')</h4>
+                                        <ul class=" text-right">
+                                            <li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
+                                        </ul>
+                                    </div>
+                                    <div class="single-info">
+                                        <i class="fa fa-envelope-open"></i>
+                                        <h4 class="title text-right">@lang('auth.our_email'):</h4>
+                                        <ul class=" text-right">
+                                            <li><a href="mailto:info@yourwebsite.com">@foreach($settings as $data) {{$data->email}} @endforeach</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="single-info">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <h4 class="title text-right">@lang('auth.our_address')</h4>
+                                        <ul class=" text-right">
+                                            <li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col-lg-8 col-12">
+                                <div class="form-main">
+                                    <div class="title">
+                                        @php
+                                            $settings=DB::table('settings')->get();
+                                        @endphp
+                                        <h4>Get in touch</h4>
+                                        <h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger">[You need to login first]</span>@endauth</h3>
+                                    </div>
+                                    <form method="post" class="form border p-5" action="{{route('contactForm.store')}}" id="joinForm" novalidate="novalidate">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>Your Name<span>*</span></label>
+                                                    <input class="w-100" required name="name" id="name" type="text" value="{{old('name')}}" placeholder="Enter your name">
+                                                    @error('name')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>Your Email<span>*</span></label>
+                                                    <input class="w-100" required name="email" type="email" value="{{old('email')}}" id="email" placeholder="Enter email address">
+                                                    @error('email')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>Your Phone<span>*</span></label>
+                                                    <input class="w-100" required id="phone" name="phone" value="{{old('phone')}}" type="number" placeholder="Enter your phone">
+                                                    @error('phone')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <label>Your Subjects<span>*</span></label>
+                                                    <input required name="subject" value="{{old('subject')}}" type="text" id="subject" placeholder="Enter Subject">
+                                                    @error('subject')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group message">
+                                                    <label>your message<span>*</span></label>
+                                                    <textarea required name="message" value="{{old('message')}}" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
+                                                    @error('message')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group button">
+                                                    <input type="submit" class="btn" name="submit" id="" value="Send">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <div class="single-head">
+                                    <div class="single-info">
+                                        <i class="fa fa-phone"></i>
+                                        <h4 class="title">Call us Now:</h4>
+                                        <ul>
+                                            <li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
+                                        </ul>
+                                    </div>
+                                    <div class="single-info">
+                                        <i class="fa fa-envelope-open"></i>
+                                        <h4 class="title">Email:</h4>
+                                        <ul>
+                                            <li><a href="mailto:info@yourwebsite.com">@foreach($settings as $data) {{$data->email}} @endforeach</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="single-info">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <h4 class="title">Our Address:</h4>
+                                        <ul>
+                                            <li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 				</div>
 			</div>
 	</section>
@@ -128,9 +233,6 @@
 	</div>
 	<!--/ End Map Section -->
 
-	<!-- Start Shop Newsletter  -->
-	@include('frontend.layouts.newsletter')
-	<!-- End Shop Newsletter -->
 	{{-- <!--================Contact Success  =================-->
 	<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">

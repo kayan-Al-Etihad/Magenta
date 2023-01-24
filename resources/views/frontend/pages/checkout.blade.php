@@ -9,12 +9,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="bread-inner">
-                        <ul class="bread-list">
-                            <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0)">Checkout</a></li>
-                        </ul>
-                    </div>
+                    @if (app()->getLocale() == "ar")
+                        <div class="bread-inner text-right" dir="rtl">
+                            <ul class="bread-list">
+                                <li><a href="{{ route('home') }}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
+                                <li class="active"><a href="{{ route('checkout') }}">@lang('auth.checkout')</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <div class="bread-inner">
+                            <ul class="bread-list">
+                                <li><a href="{{ route('home') }}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="{{ route('checkout') }}">@lang('auth.checkout')</a></li>
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -24,19 +33,25 @@
     <!-- Start Checkout -->
     <section class="shop checkout section">
         <div class="container">
+            @if (app()->getLocale() == "ar")
+            <style>
+                .shop.checkout .single-widget h2:before {
+                    left: auto;
+                    right: 30px;
+                }
+            </style>
                 <form class="form" method="POST" action="{{route('cart.order')}}">
                     @csrf
-                    <div class="row">
-
+                    <div class="row" dir="rtl">
                         <div class="col-lg-8 col-12">
-                            <div class="checkout-form">
-                                <h2>Make Your Checkout Here</h2>
-                                <p>Please register in order to checkout more quickly</p>
+                            <div class="checkout-form text-right">
+                                <h2>@lang('auth.checkout_here')</h2>
+                                <p>@lang('auth.please_register')</p>
                                 <!-- Form -->
-                                <div class="row">
+                                <div class="row text-right">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>First Name<span>*</span></label>
+                                            <label>@lang('auth.first_name')<span>*</span></label>
                                             <input type="text" name="first_name" placeholder="" value="{{old('first_name')}}" value="{{old('first_name')}}">
                                             @error('first_name')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -45,7 +60,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Last Name<span>*</span></label>
+                                            <label>@lang('auth.last_name')<span>*</span></label>
                                             <input type="text" name="last_name" placeholder="" value="{{old('lat_name')}}">
                                             @error('last_name')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -54,7 +69,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Email Address<span>*</span></label>
+                                            <label>@lang('auth.email')<span>*</span></label>
                                             <input type="email" name="email" placeholder="" value="{{old('email')}}">
                                             @error('email')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -63,7 +78,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Phone Number <span>*</span></label>
+                                            <label>@lang('auth.phone') <span>*</span></label>
                                             <input type="number" name="phone" placeholder="" required value="{{old('phone')}}">
                                             @error('phone')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -72,8 +87,9 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Country<span>*</span></label>
-                                            <select name="country" id="country">
+                                            <label>@lang('auth.country')<span>*</span></label>
+                                            <input type="text" disabled name="country" placeholder="" required value="@lang('auth.Egypt')">
+                                            {{-- <select name="country" id="country">
                                                 <option value="AF">Afghanistan</option>
                                                 <option value="AX">Åland Islands</option>
                                                 <option value="AL">Albania</option>
@@ -185,7 +201,7 @@
                                                 <option value="JM">Jamaica</option>
                                                 <option value="JP">Japan</option>
                                                 <option value="JE">Jersey</option>
-                                                <option value="JO"  selected="selected">Jordan</option>
+                                                <option value="JO">Jordan</option>
                                                 <option value="KZ">Kazakhstan</option>
                                                 <option value="KE">Kenya</option>
                                                 <option value="KI">Kiribati</option>
@@ -225,7 +241,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP">Nepal</option>
+                                                <option value="NP" selected="selected">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -319,138 +335,159 @@
                                                 <option value="YE">Yemen</option>
                                                 <option value="ZM">Zambia</option>
                                                 <option value="ZW">Zimbabwe</option>
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
+                                    <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Address Line 1<span>*</span></label>
-                                            <input type="text" name="address1" placeholder="" value="-">
+                                            <label>@lang('auth.address_line1')<span>*</span></label>
+                                            <input type="text" name="address1" placeholder="" value="{{old('address1')}}">
                                             @error('address1')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
+                                    <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Address Line 2</label>
-                                            <input type="text" name="address2" placeholder="" value="-">
+                                            <label>@lang('auth.address_line2')</label>
+                                            <input type="text" name="address2" placeholder="" value="{{old('address2')}}">
                                             @error('address2')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12" style="display: none">
+                                    <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Postal Code</label>
-                                            <input type="text" name="post_code" placeholder="" value="-">
+                                            <label>@lang('auth.postal_code')</label>
+                                            <input type="text" name="post_code" placeholder="" value="{{old('post_code')}}">
                                             @error('post_code')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-6 col-12">
-                                            <div class="content">
-                                                <div class="button">
-                                                    <button type="submit" class="btn">Submit Your Order</button>
-                                                </div>
-                                            </div>
-                                    </div>
                                 </div>
-                                
                                 <!--/ End Form -->
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
-                            <div class="order-details" style="display: none">
+                            <div class="order-details text-right">
+                                <!-- Order Widget -->
+                                <div class="single-widget">
+                                    <h2>@lang('auth.cart_total')</h2>
+                                    <div class="content">
+                                        <ul>
+										    <li class="order_subtotal d-flex justify-content-between" data-price="{{Helper::totalCartPrice()}}">@lang('auth.cart_subtotal')<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+                                            <li class="shipping d-flex justify-content-between">
+                                                @lang('auth.shipping_cost')
+                                                @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
+                                                    <select name="shipping" class="nice-select">
+                                                        <option value="">Select your address</option>
+                                                        @foreach(Helper::shipping() as $shipping)
+                                                        <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <span>@lang('auth.free')</span>
+                                                @endif
+                                            </li>
+
+                                            @if(session('coupon'))
+                                            <li class="coupon_price" data-price="{{session('coupon')['value']}}">@lang('auth.you_save')<span>${{number_format(session('coupon')['value'],2)}}</span></li>
+                                            @endif
+                                            @php
+                                                $total_amount=Helper::totalCartPrice();
+                                                if(session('coupon')){
+                                                    $total_amount=$total_amount-session('coupon')['value'];
+                                                }
+                                            @endphp
+                                            @if(session('coupon'))
+                                                <li class="last d-flex justify-content-between"  id="order_total_price">@lang('auth.total')<span>${{number_format($total_amount,2)}}</span></li>
+                                            @else
+                                                <li class="last d-flex justify-content-between"  id="order_total_price">@lang('auth.total')<span>${{number_format($total_amount,2)}}</span></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
                                 <!--/ End Order Widget -->
                                 <!-- Order Widget -->
-                                <div class="single-widget" >
-                                    <h2>Payments</h2>
+                                <div class="single-widget">
+                                    <h2>@lang('auth.payments')</h2>
                                     <div class="content">
                                         <div class="checkbox">
                                             {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label> --}}
-                                            <form-group>
-                                                <input name="payment_method" checked  type="radio" value="cod"> <label> Cash On Delivery</label><br>
+                                            <form-group class=" d-flex justify-content-between">
+                                                 <label> @lang('auth.cash_on_delivery')</label>
+                                                <input name="payment_method"  type="radio" value="cod">
                                             </form-group>
 
                                         </div>
                                     </div>
                                 </div>
+                                <!--/ End Order Widget -->
+                                <!-- Button Widget -->
+                                <div class="single-widget get-button">
+                                    <div class="content">
+                                        <div class="button">
+                                            <button type="submit" class="btn">@lang('auth.proceed_to_checjout')</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ End Button Widget -->
                             </div>
                         </div>
                     </div>
                 </form>
+            @endif
         </div>
     </section>
-    <!-- Start Shop Services Area  -->
-    <section class="shop-services section home">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-reload"></i>
-                        <h4>Free Return</h4>
-                        <p>Within 30 days returns</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-lock"></i>
-                        <h4>Sucure Payment</h4>
-                        <p>100% secure payment</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-tag"></i>
-                        <h4>Best Peice</h4>
-                        <p>Guaranteed price</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Shop Services -->
+    <!--/ End Checkout -->
 
-    <!-- Start Shop Newsletter  -->
-    <section class="shop-newsletter section">
-        <div class="container">
-            <div class="inner-top">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2 col-12">
-                        <!-- Start Newsletter Inner -->
-                        <div class="inner">
-                            <h4>Newsletter</h4>
-                            <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-                            <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                <input name="EMAIL" placeholder="Your email address" required="" type="email">
-                                <button class="btn">Subscribe</button>
-                            </form>
-                        </div>
-                        <!-- End Newsletter Inner -->
-                    </div>
+<!-- Start Shop Services Area -->
+<section class="shop-services section home">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-rocket"></i>
+                    <h4>@lang('auth.shiping')</h4>
+                    <p>@lang('auth.shiping_sub')</p>
                 </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-reload"></i>
+                    <h4>@lang('auth.return')</h4>
+                    <p>@lang('auth.return_sub')</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-lock"></i>
+                    <h4>@lang('auth.payment')</h4>
+                    <p>@lang('auth.payment_sub')</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-tag"></i>
+                    <h4>@lang('auth.price')</h4>
+                    <p>@lang('auth.price_sub')</p>
+                </div>
+                <!-- End Single Service -->
             </div>
         </div>
-    </section>
-    <!-- End Shop Newsletter -->
+    </div>
+</section>
+<!-- End Shop Services Area -->
+
 @endsection
 @push('styles')
 	<style>
@@ -487,7 +524,7 @@
 			margin-bottom:0 !important;
 		}
 		.list li:hover{
-			background:#c8a165 !important;
+			background:#f40011  !important;
 			color:white !important;
 		}
 		.form-select .nice-select::after {

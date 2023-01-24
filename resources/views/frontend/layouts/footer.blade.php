@@ -4,54 +4,86 @@
 		<!-- Footer Top -->
 		<div class="footer-top section">
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-5 col-md-6 col-12">
+                @if (app()->getLocale() == "ar")
+				<div class="row text-right" dir="rtl">
+					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Single Widget -->
-						<div class="single-footer about">
+							@php
+                            $settings=DB::table('settings')->get();
+                        @endphp
+						<div class="single-footer about text-right p-0 m-0">
 							<div class="logo">
-								@php
-								$settings=DB::table('settings')->get();
-							@endphp
-								<a href="index.html"><img style="height: 60px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
-							</div>	
-							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+								<a href="index.html"><img width="100" height="100" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
+							</div>
+							<p class="text">@foreach($settings as $data) {{$data->short_des_ar}} @endforeach</p>
+							<p class="call">@lang('auth.qot_question')<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
-					<div class="col-lg-2 col-md-6 col-12">
+					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer links">
-							<h4>Information</h4>
+							<h4>@lang('auth.information')</h4>
 							<ul>
-								<li><a href="{{route('about-us')}}">About Us</a></li>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="{{route('contact.home')}}">Contact Us</a></li>
-								<li><a href="{{route('join.home')}}">Join Us</a></li>
-								<li><a href="#">Help</a></li>
+								<li><a href="{{route('home')}}">@lang('auth.home')</a></li>
+								<li><a href="{{route('about-us')}}">@lang('auth.about')</a></li>
+								<li><a href="{{route('product-grids')}}">@lang('auth.product')</a></li>
+								<li><a href="{{route('contact.home')}}">@lang('auth.contact')</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
 					</div>
-					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer links">
-							<h4>Customer Service</h4>
-							<ul>
-								<li><a href="#">Payment Methods</a></li>
-								<li><a href="#">Money-back</a></li>
-								<li><a href="#">Returns</a></li>
-								<li><a href="#">Shipping</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
+					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
+							<h4>@lang('auth.get_in_touch')</h4>
+							<!-- Single Widget -->
+							<div class="contact p-0 m-0">
+								<ul>
+									<li class="p-0 m-0">@foreach($settings as $data) {{$data->address_ar}} @endforeach</li>
+									<li class="p-0 m-0">@foreach($settings as $data) {{$data->email}} @endforeach</li>
+									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
+								</ul>
+							</div>
+							<!-- End Single Widget -->
+							<div class="sharethis-inline-follow-buttons text-right"></div>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+				</div>
+                @else
+                <div class="row">
+					<div class="col-lg-4 col-md-6 col-12">
+						<!-- Single Widget -->
+							@php
+                            $settings=DB::table('settings')->get();
+                        @endphp
+						<div class="single-footer about">
+							<div class="logo">
+								<a href="index.html"><img width="100" height="100" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
+							</div>
+							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
+							<p class="call">@lang('auth.qot_question')<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-4 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>@lang('auth.information')</h4>
+							<ul>
+								<li><a href="{{route('home')}}">@lang('auth.home')</a></li>
+								<li><a href="{{route('about-us')}}">@lang('auth.about')</a></li>
+								<li><a href="{{route('product-grids')}}">@lang('auth.product')</a></li>
+								<li><a href="{{route('contact.home')}}">@lang('auth.contact')</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-4 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer social">
+							<h4>@lang('auth.get_in_touch')</h4>
 							<!-- Single Widget -->
 							<div class="contact">
 								<ul>
@@ -66,6 +98,7 @@
 						<!-- End Single Widget -->
 					</div>
 				</div>
+                @endif
 			</div>
 		</div>
 		<!-- End Footer Top -->
@@ -74,9 +107,15 @@
 				<div class="inner">
 					<div class="row">
 						<div class="col-lg-12 col-12">
+                            @if (app()->getLocale() == "ar")
+							<div class="centr text-center" dir="rtl">
+                                <p>@lang('auth.copyright') © {{date('Y')}} <a href='https://kayanaletihad.com/' target='_blank'>@lang('auth.company_name')</a>  -  @lang('auth.right')</p>
+                            </div>
+                            @else
 							<div class="centr text-center">
-								<p>Copyright © {{date('Y')}} - <a href="https://kayanaletihad.com/" target="_blank">Kayan Al Etihad</a> - All Rights Reserved.</p>
-							</div>
+                                <p>@lang('auth.copyright') © {{date('Y')}} <a href='https://kayanaletihad.com/' target='_blank'>@lang('auth.company_name')</a>  -  @lang('auth.right')</p>
+                            </div>
+                            @endif
 						</div>
 					</div>
 				</div>
@@ -121,7 +160,7 @@
 	<!-- Active JS -->
 	<script src="{{asset('frontend/js/active.js')}}"></script>
 
-    
+
 
 
 	@stack('scripts')
