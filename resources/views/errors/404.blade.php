@@ -4,11 +4,12 @@
 <head>
 
   @include('backend.layouts.head')
+  @section('title','Magenta')
 
 </head>
 
 <body>
-  
+
   <div class="container-fluid">
 
     <div class="row" style="margin-top:10%">

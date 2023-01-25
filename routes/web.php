@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JoinFormController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +96,10 @@ Route::group(['middleware' => 'lang'], function(){
 
     // NewsLetter
     Route::post('/subscribe','FrontendController@subscribe')->name('subscribe');
+
+    // front categories
+    Route::get('/category-grids', 'CategoryController@frontIndexGrid')->name('front-categoriesGrid');
+    Route::get('/category-lists', 'CategoryController@frontIndexList')->name('front-categoriesList');
 
     // Product Review
     Route::resource('/review','ProductReviewController');

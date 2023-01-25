@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+@section('title','Magenta')
 
 @section('main-content')
 
@@ -6,7 +7,7 @@
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
       <form method="post" action="{{route('post.update',$post->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
@@ -50,7 +51,7 @@
           </select>
         </div>
         {{-- {{$post->tags}} --}}
-        @php 
+        @php
                 $post_tags=explode(',',$post->tags);
                 // dd($tags);
               @endphp
@@ -59,7 +60,7 @@
           <select name="tags[]" multiple  data-live-search="true" class="form-control selectpicker">
               <option value="">--Select any tag--</option>
               @foreach($tags as $key=>$data)
-              
+
               <option value="{{$data->title}}"  {{(( in_array( "$data->title",$post_tags ) ) ? 'selected' : '')}}>{{$data->title}}</option>
               @endforeach
           </select>
@@ -89,7 +90,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">

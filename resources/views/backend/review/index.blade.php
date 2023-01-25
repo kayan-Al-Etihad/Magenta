@@ -1,3 +1,4 @@
+@section('title','Magenta')
 @extends('backend.layouts.master')
 
 @section('main-content')

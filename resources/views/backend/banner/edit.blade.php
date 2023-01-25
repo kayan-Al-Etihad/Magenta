@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','E-SHOP || Banner Edit')
+@section('title','Magenta')
 @section('main-content')
 
 <div class="card">
@@ -8,7 +8,7 @@
       <form method="post" action="{{route('banner.update',$banner->id)}}">
         @csrf
         @method('PATCH')
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
         <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$banner->title}}" class="form-control">
         @error('title')
@@ -37,6 +37,13 @@
           @error('description_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
+        </div> --}}
+
+        <div class="form-group">
+            <input type="hidden" name="description_ar" value="Arabic description">
+            <input type="hidden" name="description" value="description">
+            <input type="hidden" name="title_ar" value="Arabic title">
+            <input type="hidden" name="title" value="title">
         </div>
 
         <div class="form-group">

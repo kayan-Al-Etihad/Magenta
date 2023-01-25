@@ -14,7 +14,7 @@
 <meta property="og:image" content="{{$product_detail->photo}}">
 <meta property="og:description" content="{{$product_detail->description}}">
 @endsection
-@section('title','E-SHOP || PRODUCT DETAIL')
+@section('title','Magenta')
 @section('main-content')
 
 <!-- Breadcrumbs -->
@@ -108,8 +108,8 @@
                                                 <input type="hidden" name="slug" value="{{ $product_detail->slug }}">
                                                 <input type="hidden" name="quant[1]" value="1">
                                                 <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
-                                                {{-- <a href="{{route('add-to-wishlist',$product_detail->slug)}}"
-                                                    class="btn min"><i class="ti-heart"></i></a> --}}
+                                                <a href="{{route('add-to-wishlist',$product_detail->slug)}}"
+                                                    class="btn min"><i class="ti-heart"></i></a>
                                             </div>
                                         </form>
 
@@ -197,7 +197,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12 col-12">
                                                                     <div class="form-group">
-                                                                        <label>@</label>
+                                                                        <label>@lang('auth.write_a_review')</label>
                                                                         <textarea name="review" rows="6"
                                                                             placeholder=""></textarea>
                                                                     </div>
@@ -212,10 +212,10 @@
                                                         </form>
                                                         @else
                                                         <p class="text-center p-5">
-                                                            You need to <a href="{{route('login.form')}}"
-                                                                style="color:rgb(54, 54, 204)">Login</a> OR <a
+                                                            @lang('auth.you_need_to') <a href="{{route('login.form')}}"
+                                                                style="color:rgb(54, 54, 204)">@lang('auth.login')</a> @lang('auth.or') <a
                                                                 style="color:blue"
-                                                                href="{{route('register.form')}}">Register</a>
+                                                                href="{{route('register.form')}}">@lang('auth.register')</a>
 
                                                         </p>
                                                         <!--/ End Form -->
@@ -232,9 +232,9 @@
                                                         }
                                                         @endphp --}}
                                                         <h4>{{ceil($product_detail->getReview->avg('rate'))}}
-                                                            <span>(Overall)</span></h4>
-                                                        <span>Based on {{$product_detail->getReview->count()}}
-                                                            Comments</span>
+                                                            <span>(@lang('auth.Overall'))</span></h4>
+                                                        <span>@lang('auth.based_on') {{$product_detail->getReview->count()}}
+                                                            @lang('auth.Comments')</span>
                                                     </div>
                                                     @foreach($product_detail['getReview'] as $data)
                                                     <!-- Single Rating -->
@@ -322,7 +322,7 @@
                                                     @endfor
                                             </ul>
                                             <a href="#" class="total-review">({{$product_detail['getReview']->count()}})
-                                                Review</a>
+                                                @lang('auth.Reviews')</a>
                                         </div>
                                         <p class="description">{!!($product_detail->summary)!!}</p>
                                     </div>
@@ -420,7 +420,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12 col-12">
                                                                     <div class="form-group">
-                                                                        <label>@</label>
+                                                                        <label>@lang('auth.write_a_review')</label>
                                                                         <textarea name="review" rows="6"
                                                                             placeholder=""></textarea>
                                                                     </div>
@@ -435,10 +435,10 @@
                                                         </form>
                                                         @else
                                                         <p class="text-center p-5">
-                                                            You need to <a href="{{route('login.form')}}"
-                                                                style="color:rgb(54, 54, 204)">Login</a> OR <a
+                                                            @lang('auth.you_need_to') <a href="{{route('login.form')}}"
+                                                                style="color:rgb(54, 54, 204)">@lang('auth.login')</a> @lang('auth.or') <a
                                                                 style="color:blue"
-                                                                href="{{route('register.form')}}">Register</a>
+                                                                href="{{route('register.form')}}">@lang('auth.register')</a>
 
                                                         </p>
                                                         <!--/ End Form -->
@@ -455,9 +455,9 @@
                                                         }
                                                         @endphp --}}
                                                         <h4>{{ceil($product_detail->getReview->avg('rate'))}}
-                                                            <span>(Overall)</span></h4>
-                                                        <span>Based on {{$product_detail->getReview->count()}}
-                                                            Comments</span>
+                                                            <span>(@lang('auth.Overall'))</span></h4>
+                                                        <span>@lang('auth.based_on') {{$product_detail->getReview->count()}}
+                                                            @lang('auth.Comments')</span>
                                                     </div>
                                                     @foreach($product_detail['getReview'] as $data)
                                                     <!-- Single Rating -->
@@ -536,7 +536,7 @@
                                 @endphp
                                 <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                 <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                <span class="price-dec">{{$data->discount}} % Off</span>
+                                {{-- <span class="price-dec">{{$data->discount}} % Off</span> --}}
                                 {{-- <span class="out-of-stock">Hot</span> --}}
                             </a>
                             <div class="button-head">
@@ -566,24 +566,24 @@
                         @if (app()->getLocale() == "ar")
                         <div class="product-content text-right">
                             <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title_ar}}</a></h3>
-                            <div class="product-price">
+                            {{-- <div class="product-price">
                                 @php
                                 $after_discount=($data->price-(($data->discount*$data->price)/100));
                                 @endphp
                                 <span class="old">${{number_format($data->price,2)}}</span>
                                 <span>${{number_format($after_discount,2)}}</span>
-                            </div>
+                            </div> --}}
                         </div>
                         @else
                         <div class="product-content">
                             <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
-                            <div class="product-price">
+                            {{-- <div class="product-price">
                                 @php
                                 $after_discount=($data->price-(($data->discount*$data->price)/100));
                                 @endphp
                                 <span class="old">${{number_format($data->price,2)}}</span>
                                 <span>${{number_format($after_discount,2)}}</span>
-                            </div>
+                            </div> --}}
                         </div>
                         @endif
                     </div>
@@ -635,31 +635,44 @@
                                     @endif
                                 </div>
                             </div>
-                            @php
+                            {{-- @php
                             $after_discount=($data->price-($data->price*$data->discount)/100);
                             @endphp
                             <h3><small><del class="text-muted">${{number_format($data->price,2)}}</del></small>
-                                ${{number_format($after_discount,2)}} </h3>
+                                ${{number_format($after_discount,2)}} </h3> --}}
                             <div class="quickview-peragraph">
                                 <p>{{ $data->description_ar }}.</p>
                             </div>
                             @if($data->size)
-                            <div class="size" style="display: flex;align-items:center;gap:15px">
-                                <h4>@lang('auth.Size')</h4>
-                                <ul style="display: flex;align-items:center;gap:15px">
-                                    @php
-                                    $sizes=explode(',',$data->size);
-                                    // dd($sizes);
-                                    @endphp
-                                    @foreach($sizes as $size)
-                                    <li><a href="#" class="one">{{$size}}</a></li>
-                                    @endforeach
-                                </ul>
+                            <div class="size">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <h5 class="title">Size</h5>
+                                        <select>
+                                            @php
+                                            $sizes=explode(',',$data->size);
+                                            // dd($sizes);
+                                            @endphp
+                                            @foreach($sizes as $size)
+                                                <option>{{$size}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- <div class="col-lg-6 col-12">
+                                        <h5 class="title">Color</h5>
+                                        <select>
+                                            <option selected="selected">orange</option>
+                                            <option>purple</option>
+                                            <option>black</option>
+                                            <option>pink</option>
+                                        </select>
+                                    </div> --}}
+                                </div>
                             </div>
                             @endif
                             <form action="{{route('single-add-to-cart')}}" method="POST">
                                 @csrf
-                                <div class="quantity">
+                                {{-- <div class="quantity">
                                     <!-- Input Order -->
                                     <div class="input-group">
                                         <div class="button minus">
@@ -679,7 +692,8 @@
                                         </div>
                                     </div>
                                     <!--/ End Input Order -->
-                                </div>
+                                </div> --}}
+                                <input type="hidden" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
                                 <div class="add-to-cart">
                                     <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
                                     <a href="{{route('add-to-wishlist',$data->slug)}}" class="btn min"><i
@@ -710,38 +724,50 @@
                             <div class="quickview-ratting-review">
                                 <div class="">
                                     @if($data->stock >0)
-                                    <span><i class="fa fa-check-circle-o"></i> {{$data->stock}} في المخزن</span>
+                                    <span><i class="fa fa-check-circle-o"></i> {{$data->stock}} @lang('auth.Stock') </span>
                                     @else
-                                    <span><i class="fa fa-times-circle-o text-danger"></i> {{$data->stock}} من
-                                        المخزون</span>
+                                    <span><i class="fa fa-times-circle-o text-danger"></i> {{$data->stock}} @lang('auth.out_stock')</span>
                                     @endif
                                 </div>
                             </div>
-                            @php
+                            {{-- @php
                             $after_discount=($data->price-($data->price*$data->discount)/100);
                             @endphp
                             <h3><small><del class="text-muted">${{number_format($data->price,2)}}</del></small>
-                                ${{number_format($after_discount,2)}} </h3>
+                                ${{number_format($after_discount,2)}} </h3> --}}
                             <div class="quickview-peragraph">
                                 <p>{{ $data->description }}.</p>
                             </div>
                             @if($data->size)
-                            <div class="size" style="display: flex;align-items:center;gap:15px">
-                                <h4>@lang('auth.Size')</h4>
-                                <ul style="display: flex;align-items:center;gap:15px">
-                                    @php
-                                    $sizes=explode(',',$data->size);
-                                    // dd($sizes);
-                                    @endphp
-                                    @foreach($sizes as $size)
-                                    <li><a href="#" class="one">{{$size}}</a></li>
-                                    @endforeach
-                                </ul>
+                            <div class="size">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <h5 class="title">@lang('auth.Size')</h5>
+                                        <select>
+                                            @php
+                                            $sizes=explode(',',$data->size);
+                                            // dd($sizes);
+                                            @endphp
+                                            @foreach($sizes as $size)
+                                                <option>{{$size}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- <div class="col-lg-6 col-12">
+                                        <h5 class="title">Color</h5>
+                                        <select>
+                                            <option selected="selected">orange</option>
+                                            <option>purple</option>
+                                            <option>black</option>
+                                            <option>pink</option>
+                                        </select>
+                                    </div> --}}
+                                </div>
                             </div>
                             @endif
                             <form action="{{route('single-add-to-cart')}}" method="POST">
                                 @csrf
-                                <div class="quantity">
+                                {{-- <div class="quantity">
                                     <!-- Input Order -->
                                     <div class="input-group">
                                         <div class="button minus">
@@ -761,7 +787,8 @@
                                         </div>
                                     </div>
                                     <!--/ End Input Order -->
-                                </div>
+                                </div> --}}
+                                <input type="hidden" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
                                 <div class="add-to-cart">
                                     <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
                                     <a href="{{route('add-to-wishlist',$data->slug)}}" class="btn min"><i

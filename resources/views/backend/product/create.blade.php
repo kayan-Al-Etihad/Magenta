@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+@section('title','Magenta')
 
 @section('main-content')
 
@@ -15,7 +16,7 @@
           @enderror
         </div>
         <div class="form-group">
-          <label for="inputTitleArabic" class="col-form-label">Title <span class="text-danger">*</span></label>
+          <label for="inputTitleArabic" class="col-form-label">Arabic Title <span class="text-danger">*</span></label>
           <input id="inputTitleArabic" type="text" name="title_ar" placeholder="Enter Arabic title"  value="{{old('title_ar')}}" class="form-control text-right">
           @error('title_ar')
           <span class="text-danger">{{$message}}</span>
@@ -82,20 +83,17 @@
         </div>
 
         <div class="form-group">
-          <label for="price" class="col-form-label">Price(NRS) <span class="text-danger">*</span></label>
-          <input id="price" type="number" name="price" placeholder="Enter price"  value="{{old('price')}}" class="form-control">
-          @error('price')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+          <input id="price" type="hidden" name="price" placeholder="Enter price"  value="200" class="form-control">
+          <input id="discount" type="hidden" name="discount" placeholder="Enter price"  value="3" class="form-control">
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="discount" class="col-form-label">Discount(%)</label>
           <input id="discount" type="number" name="discount" min="0" max="100" placeholder="Enter discount"  value="{{old('discount')}}" class="form-control">
           @error('discount')
           <span class="text-danger">{{$message}}</span>
           @enderror
-        </div>
+        </div> --}}
         <div class="form-group">
           <label for="size">Size</label>
           <select name="size[]" class="form-control selectpicker"  multiple data-live-search="true">
