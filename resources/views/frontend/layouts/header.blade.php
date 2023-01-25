@@ -13,7 +13,7 @@
                                 @endphp
                                 <a style="margin-right: auto" href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
                                 <li style="border:none;" class="{{Request::path()=='home' ? 'active' : ''}}"><a href="{{route('home')}}">@lang('auth.home')</a></li>
-                                <li style="border:none;" class="{{Request::path()=='category' ? 'active' : ''}}"><a href="{{route('category.index')}}">@lang('auth.category')</a></li>
+                                <li class="{{Request::path()=='category' ? 'active' : ''}}"><a href="{{route('front-categoriesGrid')}}">@lang('auth.category')</a></li>
                                 <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">@lang('auth.about')</a></li>
                                 <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">@lang('auth.products')</a></li>
 
@@ -59,10 +59,10 @@
                                                     @endforeach
                                             </ul>
                                             <div class="bottom">
-                                                <div class="total">
+                                                {{-- <div class="total">
                                                     <span>@lang('auth.total')</span>
                                                     <span class="total-amount">${{number_format(Helper::totalWishlistPrice(),2)}}</span>
-                                                </div>
+                                                </div> --}}
                                                 <a href="{{route('cart')}}" class="btn animate">@lang('auth.cart')</a>
                                             </div>
                                         </div>
@@ -90,10 +90,10 @@
                                                     @endforeach
                                             </ul>
                                             <div class="bottom">
-                                                <div class="total">
+                                                {{-- <div class="total">
                                                     <span>Total</span>
                                                     <span class="total-amount">${{number_format(Helper::totalCartPrice(),2)}}</span>
-                                                </div>
+                                                </div> --}}
                                                 <a href="{{route('checkout')}}" class="btn animate">@lang('auth.checkout')</a>
                                             </div>
                                         </div>
@@ -146,7 +146,7 @@
                                 @endphp
                                 <a style="margin-right: auto" href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
                                 <li class="{{Request::path()=='home' ? 'active' : ''}}"><a href="{{route('home')}}">@lang('auth.home')</a></li>
-                                <li style="border:none;" class="{{Request::path()=='category' ? 'active' : ''}}"><a href="{{route('category.index')}}">@lang('auth.category')</a></li>
+                                <li class="{{Request::path()=='category' ? 'active' : ''}}"><a href="{{route('front-categoriesGrid')}}">@lang('auth.category')</a></li>
                                 <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">@lang('auth.about')</a></li>
                                 <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">@lang('auth.products')</a></li>
 
@@ -192,10 +192,10 @@
                                                     @endforeach
                                             </ul>
                                             <div class="bottom">
-                                                <div class="total">
+                                                {{-- <div class="total">
                                                     <span>@lang('auth.total')</span>
                                                     <span class="total-amount">${{number_format(Helper::totalWishlistPrice(),2)}}</span>
-                                                </div>
+                                                </div> --}}
                                                 <a href="{{route('cart')}}" class="btn animate">@lang('auth.cart')</a>
                                             </div>
                                         </div>
@@ -223,10 +223,10 @@
                                                     @endforeach
                                             </ul>
                                             <div class="bottom">
-                                                <div class="total">
+                                                {{-- <div class="total">
                                                     <span>Total</span>
                                                     <span class="total-amount">${{number_format(Helper::totalCartPrice(),2)}}</span>
-                                                </div>
+                                                </div> --}}
                                                 <a href="{{route('checkout')}}" class="btn animate">@lang('auth.checkout')</a>
                                             </div>
                                         </div>

@@ -21,6 +21,20 @@ class CategoryController extends Controller
         return view('backend.category.index')->with('categories',$category);
     }
 
+    public function frontIndexGrid()
+    {
+        $categories = Category::paginate(8);
+        // return $category;
+        return view('frontend.pages.category-grids', compact('categories'));
+    }
+
+    public function frontIndexList()
+    {
+        $categories = Category::paginate(5);
+        // return $category;
+        return view('frontend.pages.category-lists', compact('categories'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

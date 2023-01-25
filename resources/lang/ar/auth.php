@@ -40,7 +40,7 @@ return [
     'total' => 'المجموع',
 
     // home page localization
-    'shop_now' => 'تسوق الان',
+    'shop_now' => 'الق نظرة',
     'featured' => 'المنتجات المميزة',
     'all_products' => 'جميع المنتجات',
     'discount' => 'خصم لغاية',

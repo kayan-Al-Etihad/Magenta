@@ -21,7 +21,7 @@
               <th>Order No.</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Quantity</th>
+              {{-- <th>Quantity</th> --}}
               {{-- <th>Charge</th>
               <th>Total Amount</th> --}}
               <th>Status</th>
@@ -34,7 +34,7 @@
               <th>Order No.</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Quantity</th>
+              {{-- <th>Quantity</th> --}}
               {{-- <th>Charge</th>
               <th>Total Amount</th> --}}
               <th>Status</th>
@@ -48,7 +48,7 @@
                     <td>{{$order->order_number}}</td>
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
-                    <td>{{$order->quantity}}</td>
+                    {{-- <td>{{$order->quantity}}</td> --}}
                     {{-- <td>${{$order->shipping->price}}</td> --}}
                     {{-- <td>${{number_format($order->total_amount,2)}}</td> --}}
                     <td>

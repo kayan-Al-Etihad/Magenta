@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','E-SHOP || HOME PAGE')
+@section('title','Magenta')
 @section('main-content')
 <!-- Slider Area -->
 @if(count($banners)>0)
@@ -15,7 +15,7 @@
                 @if (app()->getLocale() == "ar")
                 <div class="carousel-item {{(($key==0)? 'active' : '')}}">
                     <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
-                    <div class="carousel-caption d-none d-md-block text-center">
+                    <div class="carousel-caption d-none d-md-block text-right">
                         {{-- <h1 class="wow fadeInDown">{{$banner->title_ar}}</h1>
                         <p>{!! html_entity_decode($banner->description_ar) !!}</p> --}}
                         <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">@lang('auth.shop_now')<i class="far fa-arrow-alt-circle-right"></i></i></a>
@@ -23,7 +23,7 @@
                 </div>
                 @else<div class="carousel-item {{(($key==0)? 'active' : '')}}">
                     <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
-                    <div class="carousel-caption d-none d-md-block  text-center">
+                    <div class="carousel-caption d-none d-md-block  text-left">
                         {{-- <h1 class="wow fadeInDown">{{$banner->title}}</h1>
                         <p>{!! html_entity_decode($banner->description) !!}</p> --}}
                         <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">@lang('auth.shop_now')<i class="far fa-arrow-alt-circle-right"></i></i></a>
@@ -70,12 +70,17 @@
                                 <button class="btn" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
-                                    @foreach($categories as $key=>$cat)
+                                    @foreach($categories->take(4) as $key=>$cat)
 
                                     <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
                                         {{$cat->title_ar}}
                                     </button>
                                     @endforeach
+                                <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
+                                    <a href="{{ route('front-categoriesGrid') }}">
+                                        @lang('auth.see_more')
+                                    </a>
+                                </button>
                                 @endif
                             </ul>
                             @else
@@ -88,12 +93,17 @@
                                 <button class="btn" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
-                                    @foreach($categories as $key=>$cat)
+                                    @foreach($categories->take(4) as $key=>$cat)
 
                                     <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
                                         {{$cat->title}}
                                     </button>
                                     @endforeach
+                                    <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
+                                        <a href="{{ route('front-categoriesGrid') }}">
+                                            @lang('auth.see_more')
+                                        </a>
+                                    </button>
                                 @endif
                             </ul>
                             @endif
@@ -102,7 +112,7 @@
                         <div class="tab-content isotope-grid" id="myTabContent">
                              <!-- Start Single Tab -->
                             @if($product_lists)
-                                @foreach($product_lists as $key=>$product)
+                                @foreach($product_lists->take(8) as $key=>$product)
                                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$product->cat_id}}">
                                     <div class="single-product">
                                         <div class="product-img">
@@ -199,13 +209,17 @@
                     @if (app()->getLocale() == "ar")
                         <div class="col-lg-6 col-md-6 col-12" dir="rtl">
                             <div class="single-banner">
-                                @php
-                                    $photo=explode(',',$data->photo);
-                                    @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                @if ($data->embeded_code != null && $data->photo !=null)
+                                    {!! $data->embeded_code !!}
+                                    @else
+                                    @php
+                                        $photo=explode(',',$data->photo);
+                                        @endphp
+                                    <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                @endif
                                 <div class="content text-right" style="left: auto;right:0">
-                                    <p>{{$data->cat_info['title_ar']}}</p>
-                                    <h3>{{$data->title_ar}}
+                                    <p style="font-size: 30px !important">{{$data->cat_info['title_ar']}}</p>
+                                    <h3 class="text-white">{{$data->title_ar}}
                                         {{-- <br>@lang('auth.discount')<span> {{$data->discount}}%</span></h3>
                                     <a href="{{route('product-detail',$data->slug)}}">@lang('auth.shop_now')</a> --}}
                                 </div>
@@ -214,10 +228,14 @@
                         @else
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="single-banner">
-                                @php
-                                    $photo=explode(',',$data->photo);
-                                    @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                @if ($data->embeded_code != null && $data->photo !=null)
+                                    {!! $data->embeded_code !!}
+                                    @else
+                                    @php
+                                        $photo=explode(',',$data->photo);
+                                        @endphp
+                                    <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                @endif
                                 <div class="content">
                                     <p>{{$data->cat_info['title']}}</p>
                                     <h3>{{$data->title}}
@@ -506,10 +524,10 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        @php
+                                        {{-- @php
                                             $after_discount=($product->price-($product->price*$product->discount)/100);
                                         @endphp
-                                        <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
+                                        <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3> --}}
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary_ar) !!}</p>
                                         </div>
@@ -542,7 +560,7 @@
                                         @endif
                                         <form action="{{route('single-add-to-cart')}}" method="POST" class="mt-4">
                                             @csrf
-                                            <div class="quantity">
+                                            {{-- <div class="quantity">
                                                 <!-- Input Order -->
                                                 <div class="input-group">
                                                     <div class="button minus">
@@ -559,7 +577,8 @@
                                                     </div>
                                                 </div>
                                                 <!--/ End Input Order -->
-                                            </div>
+                                            </div> --}}
+                                            <input type="hidden" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
                                             <div class="add-to-cart">
                                                 <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
                                                 <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
@@ -598,27 +617,6 @@
                                     <div class="quickview-content">
                                         <h2>{{$product->title}}</h2>
                                         <div class="quickview-ratting-review">
-                                            <div class="quickview-ratting-wrap">
-                                                <div class="quickview-ratting">
-                                                    {{-- <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="fa fa-star"></i> --}}
-                                                    @php
-                                                        $rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
-                                                        $rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
-                                                    @endphp
-                                                    @for($i=1; $i<=5; $i++)
-                                                        @if($rate>=$i)
-                                                            <i class="yellow fa fa-star"></i>
-                                                        @else
-                                                        <i class="fa fa-star"></i>
-                                                        @endif
-                                                    @endfor
-                                                </div>
-                                                <a href="#"> ({{$rate_count}} customer review)</a>
-                                            </div>
                                             <div class="quickview-stock">
                                                 @if($product->stock >0)
                                                 <span><i class="fa fa-check-circle-o"></i> {{$product->stock}} in stock</span>
@@ -627,10 +625,10 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        @php
+                                        {{-- @php
                                             $after_discount=($product->price-($product->price*$product->discount)/100);
-                                        @endphp
-                                        <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
+                                        @endphp --}}
+                                        {{-- <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3> --}}
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary) !!}</p>
                                         </div>
@@ -663,7 +661,7 @@
                                         @endif
                                         <form action="{{route('single-add-to-cart')}}" method="POST" class="mt-4">
                                             @csrf
-                                            <div class="quantity">
+                                            {{-- <div class="quantity">
                                                 <!-- Input Order -->
                                                 <div class="input-group">
                                                     <div class="button minus">
@@ -680,15 +678,15 @@
                                                     </div>
                                                 </div>
                                                 <!--/ End Input Order -->
-                                            </div>
+                                            </div> --}}
                                             <div class="add-to-cart">
                                                 <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
                                                 <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
                                             </div>
                                         </form>
-                                        <div class="default-social">
+                                        {{-- <div class="default-social">
                                         <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

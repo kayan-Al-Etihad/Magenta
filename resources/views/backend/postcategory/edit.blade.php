@@ -1,12 +1,13 @@
 @extends('backend.layouts.master')
 
+@section('title','Magenta')
 @section('main-content')
 
 <div class="card">
     <h5 class="card-header">Edit Post Category</h5>
     <div class="card-body">
       <form method="post" action="{{route('post-category.update',$postCategory->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title</label>

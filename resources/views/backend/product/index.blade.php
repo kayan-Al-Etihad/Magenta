@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+@section('title','Magenta')
 
 @section('main-content')
  <!-- DataTales Example -->
@@ -24,8 +25,6 @@
               <th>Category</th>
               <th>Arabic Category</th>
               <th>Is Featured</th>
-              <th>Price</th>
-              <th>Discount</th>
               <th>Size</th>
               <th>Condition</th>
               <th>Brand</th>
@@ -43,8 +42,6 @@
               <th>Category</th>
               <th>Arabic Category</th>
               <th>Is Featured</th>
-              <th>Price</th>
-              <th>Discount</th>
               <th>Size</th>
               <th>Condition</th>
               <th>Brand</th>
@@ -60,7 +57,8 @@
               @php
               $sub_cat_info=DB::table('categories')->select('title')->where('id',$product->child_cat_id)->get();
               // dd($sub_cat_info);
-              $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
+              $brands=DB::table('brands')->select('*')->where('id',$product->brand_id)->get();
+                // dd($brands)
               @endphp
                 <tr>
                     <td>{{$product->id}}</td>
@@ -77,11 +75,11 @@
                         </sub>
                       </td>
                     <td>{{(($product->is_featured==1)? 'Yes': 'No')}}</td>
-                    <td>Rs. {{$product->price}} /-</td>
-                    <td>  {{$product->discount}}% OFF</td>
+                    {{-- <td>Rs. {{$product->price}} /-</td>
+                    <td>  {{$product->discount}}% OFF</td> --}}
                     <td>{{$product->size}}</td>
                     <td>{{$product->condition}}</td>
-                    <td> {{$product->brand->title}}</td>
+                    <td>@foreach($brands as $brand) {{$brand->title}} @endforeach</td>
                     <td>
                       @if($product->stock>0)
                       <span class="badge badge-primary">{{$product->stock}}</span>

@@ -42,7 +42,7 @@ return [
 
 
     // home page localization
-    'shop_now' => 'Shop Now',
+    'shop_now' => 'Jaunt our workshop',
     'featured' => 'Featured Item',
     'all_products' => 'All Products',
     'discount' => 'Up to',

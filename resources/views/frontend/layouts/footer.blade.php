@@ -13,7 +13,7 @@
                         @endphp
 						<div class="single-footer about text-right p-0 m-0">
 							<div class="logo">
-								<a href="index.html"><img width="100" height="100" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
+								<a href="{{ route('home') }}"><img width="100" height="100" style="height: 45px !important;display:flex !important;width:fit-content" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
 							</div>
 							<p class="text">@foreach($settings as $data) {{$data->short_des_ar}} @endforeach</p>
 							<p class="call">@lang('auth.qot_question')<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
@@ -60,7 +60,7 @@
                         @endphp
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img width="100" height="100" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
+								<a href="{{ route('home') }}"><img width="100" height="100" style="height: 45px !important;display:flex !important;width:fit-content" src="@foreach($settings as $data) {{$data->logo}}@endforeach" alt="#"></a>
 							</div>
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
 							<p class="call">@lang('auth.qot_question')<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>

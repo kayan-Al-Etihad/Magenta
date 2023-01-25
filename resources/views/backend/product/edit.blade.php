@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+@section('title','Magenta')
 
 @section('main-content')
 
@@ -60,6 +61,11 @@
           <label for="is_featured">Is Featured</label><br>
           <input  type="checkbox" name='is_featured' id='is_featured' value='{{$product->is_featured}}' {{(($product->is_featured) ? 'checked' : '')}}> Yes
         </div>
+
+        <div class="form-group">
+          <input id="price" type="hidden" name="price" placeholder="Enter price"  value="200" class="form-control">
+          <input id="discount" type="hidden" name="discount" placeholder="Enter price"  value="3" class="form-control">
+        </div>
               {{-- {{$categories}} --}}
 
         <div class="form-group">
@@ -85,21 +91,21 @@
           </select>
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="price" class="col-form-label">Price(NRS) <span class="text-danger">*</span></label>
           <input required id="price" type="number" name="price" placeholder="Enter price"  value="{{$product->price}}" class="form-control">
           @error('price')
           <span class="text-danger">{{$message}}</span>
           @enderror
-        </div>
+        </div> --}}
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="discount" class="col-form-label">Discount(%)</label>
           <input required id="discount" type="number" name="discount" min="0" max="100" placeholder="Enter discount"  value="{{$product->discount}}" class="form-control">
           @error('discount')
           <span class="text-danger">{{$message}}</span>
           @enderror
-        </div>
+        </div> --}}
         <div class="form-group">
           <label for="size">Size</label>
           <select required name="size[]" class="form-control selectpicker"  multiple data-live-search="true">

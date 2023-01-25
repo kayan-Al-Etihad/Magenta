@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+@section('title','Magenta')
 
 @section('main-content')
 
@@ -46,7 +47,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        @php 
+        @php
         $roles=DB::table('users')->select('role')->get();
         @endphp
         <div class="form-group">

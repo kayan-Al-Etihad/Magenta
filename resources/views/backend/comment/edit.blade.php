@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Comment Edit')
+@section('title','Magenta')
 
 @section('main-content')
 <div class="card">
