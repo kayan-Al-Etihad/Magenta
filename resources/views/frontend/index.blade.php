@@ -66,11 +66,11 @@
                                     $categories=DB::table('categories')->where('status','active')->where('is_parent',1)->get();
                                     // dd($categories);
                                 @endphp
-                                @if($categories)
+                                @if($categories->count() > 0)
                                 <button class="btn" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
-                                    @foreach($categories->take(4) as $key=>$cat)
+                                    @foreach($categories as $key=>$cat)
 
                                     <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
                                         {{$cat->title_ar}}
@@ -89,11 +89,11 @@
                                     $categories=DB::table('categories')->where('status','active')->where('is_parent',1)->get();
                                     // dd($categories);
                                 @endphp
-                                @if($categories)
+                                @if($categories->count() > 0)
                                 <button class="btn" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
-                                    @foreach($categories->take(4) as $key=>$cat)
+                                    @foreach($categories as $key=>$cat)
 
                                     <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
                                         {{$cat->title}}

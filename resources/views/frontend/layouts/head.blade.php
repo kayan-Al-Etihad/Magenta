@@ -75,6 +75,10 @@ $settings=DB::table('settings')->get();
        border-radius: 7.5px;
     }
 
+    #Gslider .carousel-inner .carousel-caption {
+        bottom: 38% !important;
+    }
+
     @media screen and (max-width:992px){
         .topbar .list-main{
             display: block !important;

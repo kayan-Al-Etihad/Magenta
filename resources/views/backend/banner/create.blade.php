@@ -9,7 +9,7 @@
     <div class="card-body">
       <form method="post" action="{{route('banner.store')}}">
         {{csrf_field()}}
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
         <input required id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
         @error('title')
@@ -38,8 +38,13 @@
           @error('description_ar')
           <span class="text-danger">{{$message}}</span>
           @enderror
+        </div> --}}
+        <div class="form-group">
+            <input type="hidden" name="description_ar" value="Arabic description">
+            <input type="hidden" name="description" value="description">
+            <input type="hidden" name="title_ar" value="Arabic title">
+            <input type="hidden" name="title" value="title">
         </div>
-
         <div class="form-group">
         <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
         <div class="input-group">

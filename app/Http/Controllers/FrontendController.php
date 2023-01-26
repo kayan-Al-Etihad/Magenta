@@ -98,7 +98,6 @@ class FrontendController extends Controller
 
         $category = Category::all()->where("id", "==", 3)->first();
         // Sort by name , price, category
-
         return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products)->with('category',$category);
     }
     public function productLists(){
