@@ -26,51 +26,55 @@
                     @endif
                 @endif
 
-                @if (Request::path() == "product-grids/$category->slug")
-                @if (app()->getLocale() == "ar")
-                <div class="bread-inner text-right" dir="rtl">
-                    <ul class="bread-list">
-                        <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
-                        <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
-                                $category->title_ar}}</a></li>
-                    </ul>
-                </div>
-                @else
-                <div class="bread-inner text-left">
-                    <ul class="bread-list">
-                        <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
-                        <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
-                                $category->title}}</a></li>
-                    </ul>
-                </div>
-                @endif
+                @if ($category != null)
+                    @if (Request::path() == "product-grids/$category->slug")
+                        @if (app()->getLocale() == "ar")
+                        <div class="bread-inner text-right" dir="rtl">
+                            <ul class="bread-list">
+                                <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
+                                <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
+                                        $category->title_ar}}</a></li>
+                            </ul>
+                        </div>
+                        @else
+                        <div class="bread-inner text-left">
+                            <ul class="bread-list">
+                                <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
+                                        $category->title}}</a></li>
+                            </ul>
+                        </div>
+                        @endif
+                    @endif
                 @endif
 
                 @php
-                $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                if($category != null){
+                    $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                }
                 @endphp
-                @if ($sub != null)
-                @if (Request::path() == "product-sub-grid/$category->slug/$sub->slug")
-                @if (app()->getLocale() == "ar")
-                <div class="bread-inner text-right" dir="rtl">
-                    <ul class="bread-list">
-                        <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
-                        <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
-                                $category->title_ar}}<i class="ti-arrow-left"></i></a></li>
-                        <li class="active"><a href="#">{{ $sub->title_ar}}</a></li>
-                    </ul>
-                </div>
-                @else
-                <div class="bread-inner text-left">
-                    <ul class="bread-list">
-                        <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
-                        <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{ $category->title}}<i
-                                    class="ti-arrow-right"></i></a></li>
-                        <li class="active"><a href="#">{{ $sub->title}}</a></li>
-                    </ul>
-                </div>
-                @endif
-                @endif
+                @if ($category != null && $sub != null)
+                    @if (Request::path() == "product-sub-grid/$category->slug/$sub->slug")
+                        @if (app()->getLocale() == "ar")
+                        <div class="bread-inner text-right" dir="rtl">
+                            <ul class="bread-list">
+                                <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-left"></i></a></li>
+                                <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{
+                                        $category->title_ar}}<i class="ti-arrow-left"></i></a></li>
+                                <li class="active"><a href="#">{{ $sub->title_ar}}</a></li>
+                            </ul>
+                        </div>
+                        @else
+                        <div class="bread-inner text-left">
+                            <ul class="bread-list">
+                                <li><a href="{{route('home')}}">@lang('auth.home')<i class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="{{route('product-grid', $category->slug)}}">{{ $category->title}}<i
+                                            class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="#">{{ $sub->title}}</a></li>
+                            </ul>
+                        </div>
+                        @endif
+                    @endif
                 @endif
             </div>
         </div>
@@ -136,16 +140,20 @@
                                     <li class="active"><a href="/product-grids"><i class="fa fa-th-large"></i></a></li>
                                     <li><a href="/product-lists"><i class="fa fa-th-list"></i></a></li>
                                     @endif
-                                    @if (Request::path() == "product-grids/$category->slug")
-                                    <li class="active"><a href="{{ route('product-grid',$category->slug) }}"><i
-                                                class="fa fa-th-large"></i></a></li>
-                                    <li><a href="{{ route('product-list',$category->slug) }}"><i
-                                                class="fa fa-th-list"></i></a></li>
+                                    @if ($category != null)
+                                        @if (Request::path() == "product-grids/$category->slug")
+                                        <li class="active"><a href="{{ route('product-grid',$category->slug) }}"><i
+                                                    class="fa fa-th-large"></i></a></li>
+                                        <li><a href="{{ route('product-list',$category->slug) }}"><i
+                                                    class="fa fa-th-list"></i></a></li>
+                                        @endif
                                     @endif
                                     @php
-                                    $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                                    if($category != null){
+                                        $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                                    }
                                     @endphp
-                                    @if ($sub != null)
+                                    @if ($category != null && $sub != null)
                                     @if (Request::path() == "product-sub-grid/$category->slug/$sub->slug")
                                     <li class="active"><a
                                             href="{{ route('product-sub-grid',[$category->slug,$sub->slug]) }}"><i
@@ -402,16 +410,20 @@
                                     <li class="active"><a href="/product-grids"><i class="fa fa-th-large"></i></a></li>
                                     <li><a href="/product-lists"><i class="fa fa-th-list"></i></a></li>
                                     @endif
-                                    @if (Request::path() == "product-grids/$category->slug")
-                                    <li class="active"><a href="{{ route('product-grid',$category->slug) }}"><i
-                                                class="fa fa-th-large"></i></a></li>
-                                    <li><a href="{{ route('product-list',$category->slug) }}"><i
-                                                class="fa fa-th-list"></i></a></li>
+                                    @if ($category != null)
+                                        @if (Request::path() == "product-grids/$category->slug")
+                                        <li class="active"><a href="{{ route('product-grid',$category->slug) }}"><i
+                                                    class="fa fa-th-large"></i></a></li>
+                                        <li><a href="{{ route('product-list',$category->slug) }}"><i
+                                                    class="fa fa-th-list"></i></a></li>
+                                        @endif
                                     @endif
                                     @php
-                                    $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                                    if($category != null){
+                                        $sub = DB::table('categories')->where('parent_id', $category->id)->get()->first();
+                                    }
                                     @endphp
-                                    @if ($sub != null)
+                                    @if ($category != null && $sub != null)
                                     @if (Request::path() == "product-sub-grid/$category->slug/$sub->slug")
                                     <li class="active"><a
                                             href="{{ route('product-sub-grid',[$category->slug,$sub->slug]) }}"><i
