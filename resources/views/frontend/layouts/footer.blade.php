@@ -234,7 +234,7 @@
 
 		var cssmenu = $(this),
 			settings = $.extend({
-			title: `<a style="margin-right: auto" href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>`,
+			title: `<a href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>`,
 			format: "dropdown",
 			sticky: false
 			}, options);
@@ -369,7 +369,7 @@
 		$(document).ready(function() {
 
 		$("#cssmenu").menumaker({
-			title: `<a style="margin-right: auto" href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>`,
+			title: `<a href="{{route('home')}}"><img style="height: 45px;" src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>`,
 			format: "multitoggle"
 		});
 
