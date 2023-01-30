@@ -100,18 +100,18 @@
 <script>
     $('#lfm').filemanager('image');
 
-    $(document).ready(function() {
-      $('#summary').summernote({
-        placeholder: "Write short description.....",
-          tabsize: 2,
-          height: 120
-      });
-      $('#summary_ar').summernote({
-        placeholder: "Write short description.....",
-          tabsize: 2,
-          height: 120
-      });
-    });
+    // $(document).ready(function() {
+    //   $('#summary').summernote({
+    //     placeholder: "Write short description.....",
+    //       tabsize: 2,
+    //       height: 120
+    //   });
+    //   $('#summary_ar').summernote({
+    //     placeholder: "Write short description.....",
+    //       tabsize: 2,
+    //       height: 120
+    //   });
+    // });
 </script>
 
 <script>

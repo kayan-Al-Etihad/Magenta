@@ -18,7 +18,7 @@
                     <div class="carousel-caption d-none d-md-block text-right">
                         {{-- <h1 class="wow fadeInDown">{{$banner->title_ar}}</h1>
                         <p>{!! html_entity_decode($banner->description_ar) !!}</p> --}}
-                        <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">@lang('auth.shop_now')<i class="far fa-arrow-alt-circle-right"></i></i></a>
+                        <a class="btn btn-dark btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">@lang('auth.shop_now')<i class="far fa-arrow-alt-circle-right"></i></i></a>
                     </div>
                 </div>
                 @else<div class="carousel-item {{(($key==0)? 'active' : '')}}">
@@ -67,7 +67,7 @@
                                     // dd($categories);
                                 @endphp
                                 @if($categories->count() > 0)
-                                <button class="btn" style="background:black"data-filter="*">
+                                <button class="btn btn-dark" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
                                     @foreach($categories as $key=>$cat)
@@ -90,7 +90,7 @@
                                     // dd($categories);
                                 @endphp
                                 @if($categories->count() > 0)
-                                <button class="btn" style="background:black"data-filter="*">
+                                <button class="btn btn-dark" style="background:black"data-filter="*">
                                     @lang('auth.all_products')
                                 </button>
                                     @foreach($categories as $key=>$cat)
@@ -112,10 +112,11 @@
                         <div class="tab-content isotope-grid" id="myTabContent">
                              <!-- Start Single Tab -->
                             @if($product_lists)
-                                @foreach($product_lists->take(8) as $key=>$product)
-                                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$product->cat_id}}">
-                                    <div class="single-product">
-                                        <div class="product-img">
+                            <div class="row">
+                                @foreach($product_lists->take(6) as $key=>$product)
+                                <div class="col-sm-6 col-md-4 col-lg-4 p-b-35 product-home isotope-item {{$product->cat_id}}" style="border-radius: 20px !important">
+                                    <div class="single-product w-100">
+                                        <div class="product-img w-100">
                                             <a href="{{route('product-detail',$product->slug)}}">
                                                 @php
                                                     $photo=explode(',',$product->photo);
@@ -183,6 +184,7 @@
                                     </div>
                                 </div>
                                 @endforeach
+                            </div>
 
                              <!--/ End Single Tab -->
                             @endif
@@ -202,24 +204,20 @@
 <!-- Start Midium Banner  -->
 <section class="midium-banner">
     <div class="container">
-        <div class="row">
+        <div class="row Midium-Banner">
             @if($featured)
                 @foreach($featured as $data)
                     <!-- Single Banner  -->
                     @if (app()->getLocale() == "ar")
                         <div class="col-lg-6 col-md-6 col-12" dir="rtl">
                             <div class="single-banner">
-                                @if ($data->embeded_code != null && $data->photo !=null)
-                                    {!! $data->embeded_code !!}
-                                    @else
-                                    @php
-                                        $photo=explode(',',$data->photo);
-                                        @endphp
-                                    <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                @endif
+                                @php
+                                    $photo=explode(',',$data->photo);
+                                    @endphp
+                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                 <div class="content text-right" style="left: auto;right:0">
                                     <p style="font-size: 30px !important">{{$data->cat_info['title_ar']}}</p>
-                                    <h3 class="text-white">{{$data->title_ar}}
+                                    <h3 class="text-white">{{$data->summary_ar}}</h3>
                                         {{-- <br>@lang('auth.discount')<span> {{$data->discount}}%</span></h3>
                                     <a href="{{route('product-detail',$data->slug)}}">@lang('auth.shop_now')</a> --}}
                                 </div>
@@ -228,17 +226,13 @@
                         @else
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="single-banner">
-                                @if ($data->embeded_code != null && $data->photo !=null)
-                                    {!! $data->embeded_code !!}
-                                    @else
-                                    @php
-                                        $photo=explode(',',$data->photo);
-                                        @endphp
-                                    <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                @endif
+                                @php
+                                    $photo=explode(',',$data->photo);
+                                    @endphp
+                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                 <div class="content">
                                     <p>{{$data->cat_info['title']}}</p>
-                                    <h3>{{$data->title}}
+                                    <h3>{{$data->summary}}
                                          {{-- <br>@lang('auth.discount')<span> {{$data->discount}}%</span></h3>
                                     <a href="{{route('product-detail',$data->slug)}}">@lang('auth.shop_now')</a> --}}
                                 </div>
@@ -358,7 +352,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="row">
+                <div class="row shop-lists">
                     @php
                         $product_lists=DB::table('products')->where('status','active')->orderBy('id','DESC')->limit(6)->get();
                     @endphp
@@ -437,50 +431,7 @@
 <!-- End Shop Blog  --> --}}
 
 
-<!-- Start Shop Services Area -->
-<section class="shop-services section home">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-rocket"></i>
-                    <h4>@lang('auth.shiping')</h4>
-                    <p>@lang('auth.shiping_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-reload"></i>
-                    <h4>@lang('auth.return')</h4>
-                    <p>@lang('auth.return_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-lock"></i>
-                    <h4>@lang('auth.payment')</h4>
-                    <p>@lang('auth.payment_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-tag"></i>
-                    <h4>@lang('auth.price')</h4>
-                    <p>@lang('auth.price_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Shop Services Area -->
+
 
 
 <!-- Modal -->
@@ -489,11 +440,11 @@
         <div class="modal fade" id="{{$product->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     @if (app()->getLocale() == "ar")
-                    <div class="modal-content text-right" dir="rtl">
+                    <div class="modal-content text-right" dir="rtl" style="border-radius: 15px !important;overflow:hidden" >
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="max-height: 412px;overflow:hidden">
                             <div class="row no-gutters">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <!-- Product Slider -->
@@ -590,11 +541,11 @@
                         </div>
                     </div>
                     @else
-                    <div class="modal-content">
+                    <div class="modal-content" style="border-radius: 15px !important;overflow:hidden" >
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="max-height: 412px;overflow:hidden">
                             <div class="row no-gutters">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <!-- Product Slider -->

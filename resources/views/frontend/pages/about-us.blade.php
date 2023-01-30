@@ -70,7 +70,7 @@
 							<h3>@lang('auth.about_title')</h3>
 							<p>@foreach($settings as $data) {{$data->description}} @endforeach</p>
 							<div class="button">
-								<a href="{{route('contact.home')}}" class="btn primary">@lang('auth.about_contact')</a>
+								<a href="{{route('contact.home')}}" class="btn primary">@lang('auth.about_contsct')</a>
 							</div>
 						</div>
 					</div>
@@ -89,48 +89,5 @@
 	<!-- End About Us -->
 
 
-<!-- Start Shop Services Area -->
-<section class="shop-services section home">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-rocket"></i>
-                    <h4>@lang('auth.shiping')</h4>
-                    <p>@lang('auth.shiping_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-reload"></i>
-                    <h4>@lang('auth.return')</h4>
-                    <p>@lang('auth.return_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-lock"></i>
-                    <h4>@lang('auth.payment')</h4>
-                    <p>@lang('auth.payment_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-tag"></i>
-                    <h4>@lang('auth.price')</h4>
-                    <p>@lang('auth.price_sub')</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Shop Services Area -->
+
 @endsection
