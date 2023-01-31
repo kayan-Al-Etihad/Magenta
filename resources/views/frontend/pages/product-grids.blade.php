@@ -175,10 +175,10 @@
                                 <div class="product-img">
                                     <a href="{{route('product-detail',$product->slug)}}">
                                         @php
-                                        $photo=explode(',',$product->photo);
+                                        $cover=explode(',',$product->cover);
                                         @endphp
-                                        <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                        <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                        <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                         {{-- @if($product->discount)
                                         <span class="price-dec">{{$product->discount}} % Off</span>
                                         @endif --}}
@@ -291,11 +291,11 @@
                             @foreach($recent_products as $product)
                             <!-- Single Post -->
                             @php
-                            $photo=explode(',',$product->photo);
+                            $cover=explode(',',$product->cover);
                             @endphp
                             <div class="single-post first" style="margin: 50px 0">
                                 <div class="image">
-                                    <img style="top:-40px" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                    <img style="top:-40px" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 </div>
                                 <div class="content">
                                     <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
@@ -353,11 +353,11 @@
                             @foreach($recent_products as $product)
                             <!-- Single Post -->
                             @php
-                            $photo=explode(',',$product->photo);
+                            $cover=explode(',',$product->cover);
                             @endphp
                             <div class="single-post first" style="margin: 50px 0">
                                 <div class="image">
-                                    <img style="top:-40px" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                    <img style="top:-40px" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 </div>
                                 <div class="content">
                                     <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
@@ -446,10 +446,10 @@
                                 <div class="product-img">
                                     <a href="{{route('product-detail',$product->slug)}}">
                                         @php
-                                        $photo=explode(',',$product->photo);
+                                        $cover=explode(',',$product->cover);
                                         @endphp
-                                        <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                        <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                        <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                         {{-- @if($product->discount)
                                         <span class="price-dec">{{$product->discount}} % Off</span>
                                         @endif --}}
@@ -546,10 +546,10 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 @php
-                                $photo=explode(',',$product->photo);
-                                // dd($photo);
+                                $cover=explode(',',$product->cover);
+                                // dd($cover);
                                 @endphp
-                                @foreach($photo as $data)
+                                @foreach($cover as $data)
                                 <div class="single-slider" style="padding: 10px">
                                     <img src="{{$data}}" alt="{{$data}}">
                                 </div>
@@ -653,10 +653,10 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 @php
-                                $photo=explode(',',$product->photo);
-                                // dd($photo);
+                                $cover=explode(',',$product->cover);
+                                // dd($cover);
                                 @endphp
-                                @foreach($photo as $data)
+                                @foreach($cover as $data)
                                 <div class="single-slider" style="padding: 10px">
                                     <img src="{{$data}}" alt="{{$data}}">
                                 </div>

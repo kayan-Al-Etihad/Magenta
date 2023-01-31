@@ -49,9 +49,9 @@
                                     @foreach(Helper::getAllProductFromWishlist() as $key=>$wishlist)
                                         <tr>
                                             @php
-                                                $photo=explode(',',$wishlist->product['photo']);
+                                                $cover=explode(',',$wishlist->product['cover']);
                                             @endphp
-                                            <td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+                                            <td class="image" data-title="No"><img src="{{$cover[0]}}" alt="{{$cover[0]}}"></td>
                                             <td class="product-des" data-title="Description">
                                                 <p class="product-name"><a href="{{route('product-detail',$wishlist->product['slug'])}}">{{$wishlist->product['title_ar']}}</a></p>
                                                 <p class="product-des">{!!($wishlist['summary_ar']) !!}</p>
@@ -93,9 +93,9 @@
                                     @foreach(Helper::getAllProductFromWishlist() as $key=>$wishlist)
                                         <tr>
                                             @php
-                                                $photo=explode(',',$wishlist->product['photo']);
+                                                $cover=explode(',',$wishlist->product['cover']);
                                             @endphp
-                                            <td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+                                            <td class="image" data-title="No"><img src="{{$cover[0]}}" alt="{{$cover[0]}}"></td>
                                             <td class="product-des" data-title="Description">
                                                 <p class="product-name"><a href="{{route('product-detail',$wishlist->product['slug'])}}">{{$wishlist->product['title']}}</a></p>
                                                 <p class="product-des">{!!($wishlist['summary']) !!}</p>

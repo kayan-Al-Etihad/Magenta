@@ -125,7 +125,7 @@
               <option value="new">New</option>
               <option value="hot">Hot</option>
           </select>
-        </div>Cover
+        </div>
 
         <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
@@ -154,13 +154,13 @@
           <label for="inputCover" class="col-form-label">Cover <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                  <a id="ProductCover" data-input="inputCover" data-preview="input_Cover" class="btn btn-primary">
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>
-          <input id="thumbnail" class="form-control" type="text" name="cover" value="{{old('cover')}}">
+          <input id="inputCover" class="form-control" type="text" name="cover" value="{{old('cover')}}">
         </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+        <div id="input_Cover" style="margin-top:15px;max-height:100px;"></div>
           @error('cover')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -205,6 +205,7 @@
 
 <script>
     $('#lfm').filemanager('image');
+    $('#ProductCover').filemanager('image');
 
     // $(document).ready(function() {
     //   $('#summary').summernote({

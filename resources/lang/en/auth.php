@@ -28,7 +28,7 @@ return [
     'home' => 'home',
     'about' => 'about us',
     'products' => 'products',
-    'category' => 'category',
+    'Category' => 'categories',
     'blog' => 'blog',
     'contact' => 'contact us',
     'join' => 'join us',
@@ -37,7 +37,7 @@ return [
     'view_wishlist' => 'View Wishlist',
     'view_cart' => 'View cart',
     'cart' => 'cart',
-    'checkout' => 'checkout',
+    'checkout' => 'continue',
     'total' => 'total',
 
 

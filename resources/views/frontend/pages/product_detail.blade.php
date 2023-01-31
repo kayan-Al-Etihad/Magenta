@@ -77,10 +77,11 @@
                             <!-- Images slider -->
                             <div class="flexslider-thumbnails">
                                 <ul class="slides">
-                                    {{-- @if ($product_detail->embeded_code != null && $product_detail->photo !=null)
+                                    @if ($product_detail->embeded_code == null && $product_detail->photo ==null)
+                                    <img src="{{$product_detail->cover}}" alt="">
+                                    @elseif ($product_detail->embeded_code != null && $product_detail->photo ==null)
                                     {!! $product_detail->embeded_code !!}
-                                    @else --}}
-                                    {{-- <img src="{{$product_detail->photo}}" alt=""> --}}
+                                    @elseif ($product_detail->embeded_code == null && $product_detail->photo !=null)
                                     <div id="panorama-360-view"></div>
                                     <script>
                                         pannellum.viewer('panorama-360-view', {
@@ -89,6 +90,7 @@
                                             "autoLoad": true
                                         })
                                     </script>
+                                    @endif
                                     {{-- @endif --}}
                                 </ul>
                             </div>
@@ -356,6 +358,8 @@
                                         <form action="{{route('single-add-to-cart')}}" method="POST">
                                             @csrf
                                             <div class="add-to-cart mt-4">
+                                                <input type="hidden" name="slug" value="{{ $product_detail->slug }}">
+                                                <input type="hidden" name="quant[1]" value="1">
                                                 <button type="submit" class="btn">@lang('auth.Add_to_cart')</button>
                                                 <a href="{{route('add-to-wishlist',$product_detail->slug)}}"
                                                     class="btn min"><i class="ti-heart"></i></a>
@@ -558,10 +562,10 @@
                         <div class="product-img">
                             <a href="{{route('product-detail',$data->slug)}}">
                                 @php
-                                $photo=explode(',',$data->photo);
+                                $cover=explode(',',$data->cover);
                                 @endphp
-                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 {{-- <span class="price-dec">{{$data->discount}} % Off</span> --}}
                                 {{-- <span class="out-of-stock">Hot</span> --}}
                             </a>
@@ -642,7 +646,7 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 <div class="single-slider">
-                                    <img src="{{$data->photo}}" alt="{{$data->photo}}">
+                                    <img src="{{$data->cover}}" alt="{{$data->cover}}">
                                 </div>
                             </div>
                         </div>
@@ -738,7 +742,7 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 <div class="single-slider" style="padding: 10px">
-                                    <img src="{{$data->photo}}" alt="{{$data->photo}}">
+                                    <img src="{{$data->cover}}" alt="{{$data->cover}}">
                                 </div>
                             </div>
                         </div>

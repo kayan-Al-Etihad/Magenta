@@ -27,7 +27,7 @@ return [
     'home' => 'الصفحة الرئيسية',
     'about' => 'من نحن',
     'products' => 'المتجر',
-    'category' => 'الاصناف',
+    'Category' => 'الاصناف',
     'blog' => 'مقالات',
     'contact' => 'تواصل معنا',
     'join' => 'انضم الينا',
@@ -36,7 +36,7 @@ return [
     'view_wishlist' => 'عرض قائمة الرغبات',
     'view_cart' => 'عرض اسلة',
     'cart' => 'السلة',
-    'checkout' => 'الدفع',
+    'checkout' => 'استمرار',
     'total' => 'المجموع',
 
     // home page localization
@@ -151,7 +151,7 @@ return [
     'update' => 'تحديث',
     'cart_subtotal' => 'المجموع الكلي',
     'you_pay' => 'انت دفعن',
-    'continue_shopping' => 'واصلة التسوق',
+    'continue_shopping' => 'واصل التسوق',
     'apply' => 'تطبيق',
     'enter_your_coupon' => 'أدخل الخصم',
 

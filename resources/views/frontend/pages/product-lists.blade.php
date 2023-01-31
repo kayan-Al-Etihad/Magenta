@@ -132,11 +132,11 @@
                             @foreach($recent_products as $product)
                             <!-- Single Post -->
                             @php
-                            $photo=explode(',',$product->photo);
+                            $cover=explode(',',$product->cover);
                             @endphp
                             <div class="single-post first" style="margin: 50px 0">
                                 <div class="image">
-                                    <img style="top:-40px" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                    <img style="top:-40px" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 </div>
                                 <div class="content">
                                     <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
@@ -233,16 +233,16 @@
                         {{-- {{$product}} --}}
                         <!-- Start Single List -->
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row small-screen-product-list">
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="single-product">
                                         <div class="product-img">
                                             <a href="{{route('product-detail',$product->slug)}}">
                                                 @php
-                                                $photo=explode(',',$product->photo);
+                                                $cover=explode(',',$product->cover);
                                                 @endphp
-                                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                                <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                             </a>
                                             <div class="button-head">
                                                 <div class="product-action" style="right: auto;left:60%">
@@ -264,7 +264,7 @@
                                 <div class="col-lg-8 col-md-6 col-12">
                                     <div class="list-content text-right">
                                         <div class="product-content">
-                                            <h3 class="title"><a
+                                            <h3 class="title text-right"><a
                                                     href="{{route('product-detail',$product->slug)}}">{{$product->title_ar}}</a>
                                             </h3>
                                             {{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
@@ -333,11 +333,11 @@
                             @foreach($recent_products as $product)
                             <!-- Single Post -->
                             @php
-                            $photo=explode(',',$product->photo);
+                            $cover=explode(',',$product->cover);
                             @endphp
                             <div class="single-post first" style="margin: 50px 0">
                                 <div class="image">
-                                    <img style="top:-40px" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                    <img style="top:-40px" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 </div>
                                 <div class="content">
                                     <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
@@ -423,16 +423,16 @@
                         {{-- {{$product}} --}}
                         <!-- Start Single List -->
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row small-screen-product-list">
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="single-product">
                                         <div class="product-img">
                                             <a href="{{route('product-detail',$product->slug)}}">
                                                 @php
-                                                $photo=explode(',',$product->photo);
+                                                $cover=explode(',',$product->cover);
                                                 @endphp
-                                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                                <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                             </a>
                                             <div class="button-head">
                                                 <div class="product-action">
@@ -455,7 +455,7 @@
                                 <div class="col-lg-8 col-md-6 col-12">
                                     <div class="list-content">
                                         <div class="product-content">
-                                            <h3 class="title"><a
+                                            <h3 class="title text-left"><a
                                                     href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                             </h3>
                                         </div>
@@ -499,10 +499,10 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 @php
-                                $photo=explode(',',$product->photo);
-                                // dd($photo);
+                                $cover=explode(',',$product->cover);
+                                // dd($cover);
                                 @endphp
-                                @foreach($photo as $data)
+                                @foreach($cover as $data)
                                 <div class="single-slider" style="padding: 10px">
                                     <img src="{{$data}}" alt="{{$data}}">
                                 </div>
@@ -606,10 +606,10 @@
                         <div class="product-gallery">
                             <div class="quickview-slider-active">
                                 @php
-                                $photo=explode(',',$product->photo);
-                                // dd($photo);
+                                $cover=explode(',',$product->cover);
+                                // dd($cover);
                                 @endphp
-                                @foreach($photo as $data)
+                                @foreach($cover as $data)
                                 <div class="single-slider" style="padding: 10px">
                                     <img src="{{$data}}" alt="{{$data}}">
                                 </div>

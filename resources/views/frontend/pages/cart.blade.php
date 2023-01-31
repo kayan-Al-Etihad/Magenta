@@ -37,12 +37,9 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>@lang('auth.product')</th>
-								<th>@lang('auth.name')</th>
-								<th class="text-center">@lang('auth.price')</th>
-								<th class="text-center">@lang('auth.quantity')</th>
-								<th class="text-center">@lang('auth.total')</th>
-								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+								<th style="width: 33.3%">@lang('auth.product')</th>
+								<th style="width: 33.3%">@lang('auth.name')</th>
+								<th style="width: 33.3%" class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
 						</thead>
 						<tbody id="cart_item_list">
@@ -52,46 +49,28 @@
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
 											@php
-											$photo=explode(',',$cart->product['photo']);
+											$cover=explode(',',$cart->product['cover']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
-											<td class="product-des" data-title="Description">
-												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
+											<td class="image text-center" data-title="No"><img src="{{$cover[0]}}" alt="{{$cover[0]}}"></td>
+											<td class="product-des text-center" data-title="Description">
+												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title_ar']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
-											<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
-											<td class="qty" data-title="Qty"><!-- Input Order -->
-												<div class="input-group">
-													<div class="button minus">
-														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$key}}]">
-															<i class="ti-minus"></i>
-														</button>
-													</div>
-													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
-													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
-													<div class="button plus">
-														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
-															<i class="ti-plus"></i>
-														</button>
-													</div>
-												</div>
-												<!--/ End Input Order -->
-											</td>
-											<td class="total-amount cart_single_price" data-title="Total"><span class="money">${{$cart['amount']}}</span></td>
 
-											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
+											<td class="action text-center" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
 									@endforeach
-									<track>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td class="float-right">
-											<button class="btn float-right" type="submit">@lang('auth.update')</button>
+									<tr class="d-flex align-items-center">
+										<td class="float-right" style="padding: 30px 5px">
+											<button style="padding: 17px 40px;" class="btn float-right" type="submit">@lang('auth.update')</button>
 										</td>
-									</track>
+										<td class="float-right" style="width:400px">
+											<div class="button5 d-flex align-items-center">
+												<a href="{{route('checkout')}}" class="btn">@lang('auth.checkout')</a>
+												<a style="margin-right: 35px" href="{{route('product-grids')}}" class="btn text-white">@lang('auth.continue_shopping')</a>
+											</div>
+										</td>
+									</tr>
 								@else
 										<tr>
 											<td class="text-center">
@@ -110,53 +89,7 @@
 			<div class="row">
 				<div class="col-12">
 					<!-- Total Amount -->
-					<div class="total-amount">
-						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
-								<div class="left">
-									<div class="coupon text-right">
-									<form action="{{route('coupon-store')}}" method="POST">
-											@csrf
-											<button class="btn">@lang('auth.apply')</button>
-											<input name="code" placeholder="@lang('auth.enter_your_coupon')">
-										</form>
-									</div>
-									{{-- <div class="checkbox">`
-										@php
-											$shipping=DB::table('shippings')->where('status','active')->limit(1)->get();
-										@endphp
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" onchange="showMe('shipping');"> Shipping</label>
-									</div> --}}
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-7 col-12">
-								<div class="right p-0">
-									<ul>
-										<li class="order_subtotal d-flex justify-content-between" data-price="{{Helper::totalCartPrice()}}">@lang('auth.cart_subtotal')<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
 
-										@if(session()->has('coupon'))
-										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">@lang('auth.you_save')<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
-										@endif
-										@php
-											$total_amount=Helper::totalCartPrice();
-											if(session()->has('coupon')){
-												$total_amount=$total_amount-Session::get('coupon')['value'];
-											}
-										@endphp
-										@if(session()->has('coupon'))
-											<li class="last d-flex justify-content-between" id="order_total_price">@lang('auth.you_pay')<span>${{number_format($total_amount,2)}}</span></li>
-										@else
-											<li class="last d-flex justify-content-between" id="order_total_price">@lang('auth.you_pay')<span>${{number_format($total_amount,2)}}</span></li>
-										@endif
-									</ul>
-									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">@lang('auth.checkout')</a>
-										<a href="{{route('product-grids')}}" class="btn">@lang('auth.continue_shopping')</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					<!--/ End Total Amount -->
 				</div>
 			</div>
@@ -169,12 +102,9 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>PRODUCT</th>
-								<th>NAME</th>
-								<th class="text-center">UNIT PRICE</th>
-								<th class="text-center">QUANTITY</th>
-								<th class="text-center">TOTAL</th>
-								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+								<th style="width: 33.3%">@lang('auth.product')</th>
+								<th style="width: 33.3%">@lang('auth.name')</th>
+								<th style="width: 33.3%" class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
 						</thead>
 						<tbody id="cart_item_list">
@@ -184,50 +114,32 @@
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
 											@php
-											$photo=explode(',',$cart->product['photo']);
+											$cover=explode(',',$cart->product['cover']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
-											<td class="product-des" data-title="Description">
+											<td class="image text-center" data-title="No"><img src="{{$cover[0]}}" alt="{{$cover[0]}}"></td>
+											<td class="product-des text-center" data-title="Description">
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
-											<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
-											<td class="qty" data-title="Qty"><!-- Input Order -->
-												<div class="input-group">
-													<div class="button minus">
-														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$key}}]">
-															<i class="ti-minus"></i>
-														</button>
-													</div>
-													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
-													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
-													<div class="button plus">
-														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
-															<i class="ti-plus"></i>
-														</button>
-													</div>
-												</div>
-												<!--/ End Input Order -->
-											</td>
-											<td class="total-amount cart_single_price" data-title="Total"><span class="money">${{$cart['amount']}}</span></td>
 
-											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
+											<td class="action text-center" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
 									@endforeach
-									<track>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td class="float-right">
-											<button class="btn float-right" type="submit">Update</button>
+									<tr class="d-flex align-items-center">
+										<td class="float-right" style="padding: 30px 5px">
+											<button style="padding: 17px 40px;" class="btn float-right" type="submit">@lang('auth.update')</button>
 										</td>
-									</track>
+										<td class="float-right" style="width:500px">
+											<div class="button5 d-flex align-items-center">
+												<a href="{{route('checkout')}}" class="btn">@lang('auth.checkout')</a>
+												<a style="margin-left: 35px" href="{{route('product-grids')}}" class="btn text-white">@lang('auth.continue_shopping')</a>
+											</div>
+										</td>
+									</tr>
 								@else
 										<tr>
 											<td class="text-center">
-												There are no any carts available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+												There are no any carts available. <a href="{{route('product-grids')}}" style="color:blue;">@lang('auth.continue_shopping')</a>
 
 											</td>
 										</tr>
@@ -237,59 +149,6 @@
 						</tbody>
 					</table>
 					<!--/ End Shopping Summery -->
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<!-- Total Amount -->
-					<div class="total-amount">
-						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
-								<div class="left">
-									<div class="coupon">
-									<form action="{{route('coupon-store')}}" method="POST">
-											@csrf
-											<input name="code" placeholder="Enter Your Coupon">
-											<button class="btn">Apply</button>
-										</form>
-									</div>
-									{{-- <div class="checkbox">`
-										@php
-											$shipping=DB::table('shippings')->where('status','active')->limit(1)->get();
-										@endphp
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" onchange="showMe('shipping');"> Shipping</label>
-									</div> --}}
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-7 col-12">
-								<div class="right">
-									<ul>
-										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
-
-										@if(session()->has('coupon'))
-										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
-										@endif
-										@php
-											$total_amount=Helper::totalCartPrice();
-											if(session()->has('coupon')){
-												$total_amount=$total_amount-Session::get('coupon')['value'];
-											}
-										@endphp
-										@if(session()->has('coupon'))
-											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
-										@else
-											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
-										@endif
-									</ul>
-									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">Checkout</a>
-										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--/ End Total Amount -->
 				</div>
 			</div>
 		</div>

@@ -119,10 +119,10 @@
                                         <div class="product-img w-100">
                                             <a href="{{route('product-detail',$product->slug)}}">
                                                 @php
-                                                    $photo=explode(',',$product->photo);
+                                                    $cover=explode(',',$product->cover);
                                                 @endphp
-                                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                                <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                             </a>
                                             @if (app()->getLocale() =="ar")
                                             <div class="button-head text-right" dir="rtl">
@@ -200,9 +200,9 @@
                         <div class="col-lg-6 col-md-6 col-12" dir="rtl">
                             <div class="single-banner">
                                 @php
-                                    $photo=explode(',',$data->photo);
+                                    $cover=explode(',',$data->cover);
                                     @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 <div class="content text-right" style="left: auto;right:0">
                                     <p style="font-size: 30px !important">{{$data->cat_info['title_ar']}}</p>
                                     <h3 class="text-white">{{$data->summary_ar}}</h3>
@@ -215,9 +215,9 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="single-banner">
                                 @php
-                                    $photo=explode(',',$data->photo);
+                                    $cover=explode(',',$data->cover);
                                     @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                 <div class="content">
                                     <p>{{$data->cat_info['title']}}</p>
                                     <h3>{{$data->summary}}
@@ -255,11 +255,11 @@
                             <div class="product-img">
                                 <a href="{{route('product-detail',$product->slug)}}">
                                     @php
-                                        $photo=explode(',',$product->photo);
-                                    // dd($photo);
+                                        $cover=explode(',',$product->cover);
+                                    // dd($cover);
                                     @endphp
-                                    <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                    <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                    <img class="default-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
+                                    <img class="hover-img" src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                     {{-- <span class="out-of-stock">Hot</span> --}}
                                 </a>
                                 <div class="button-head">
@@ -348,14 +348,14 @@
                         <div class="col-md-4">
                             <!-- Start Single List  -->
                             <div class="single-list">
-                                <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="list-image overlay">
+                                <div class="row align-items-center">
+                                <div class="col-lg-6 col-md-6 col-12 p-0" style="height: 106px">
+                                    <div class="list-image overlay h-100">
                                         @php
-                                            $photo=explode(',',$product->photo);
-                                            // dd($photo);
+                                            $cover=explode(',',$product->cover);
+                                            // dd($cover);
                                         @endphp
-                                        <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img src="{{$cover[0]}}" alt="{{$cover[0]}}">
                                         <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
@@ -540,10 +540,10 @@
                                         <div class="product-gallery">
                                             <div class="quickview-slider-active">
                                                 @php
-                                                    $photo=explode(',',$product->photo);
-                                                // dd($photo);
+                                                    $cover=explode(',',$product->cover);
+                                                // dd($cover);
                                                 @endphp
-                                                @foreach($photo as $data)
+                                                @foreach($cover as $data)
                                                     <div class="single-slider">
                                                         <img src="{{$data}}" alt="{{$data}}">
                                                     </div>

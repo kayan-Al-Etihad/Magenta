@@ -138,7 +138,6 @@ class ProductController extends Controller
             'title'=>'string|required',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
             'cover'=>'string|required',
             'embeded_code'=>'string|nullable',
             'size'=>'nullable',

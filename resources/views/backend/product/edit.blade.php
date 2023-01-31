@@ -157,7 +157,7 @@
                   <i class="fas fa-image"></i> Choose
                   </a>
               </span>
-          <input required id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
+          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
           @error('photo')
@@ -166,16 +166,16 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Cover <span class="text-danger">*</span></label>
+          <label for="inputCover" class="col-form-label">Cover <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+                  <a id="ProductCover" data-input="inputCover" data-preview="Product_Cover" class="btn btn-primary text-white">
                   <i class="fas fa-image"></i> Choose
                   </a>
               </span>
-          <input required id="thumbnail" class="form-control" type="text" name="cover" value="{{$product->cover}}">
+          <input required id="inputCover" class="form-control" type="text" name="cover" value="{{$product->cover}}">
         </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+        <div id="Product_Cover" style="margin-top:15px;max-height:100px;"></div>
           @error('cover')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -220,6 +220,7 @@
 
 <script>
     $('#lfm').filemanager('image');
+    $('#ProductCover').filemanager('image');
 
     // $(document).ready(function() {
     // $('#summary').summernote({

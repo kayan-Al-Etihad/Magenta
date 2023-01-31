@@ -411,7 +411,7 @@ Version:1.0
 	position: relative;
 	top: 1px;
 }
-.header.shop .list-main li:last-child{
+.header.shop .list-main li{
 	padding-right:0;
 	border:none;
 }
@@ -1960,9 +1960,9 @@ Version:1.0
 	-o-transition: opacity .6s, margin .3s;
 	transition: opacity .6s, margin .3s;
 	font-size: 11px;
-	right: 0;
+	right: 20px;
 	line-height: 14px;
-	top: -12px;
+	top:  20px;
 	margin-top: -5px;
 	margin-right: 0;
 	display: inline-block;
@@ -2025,22 +2025,22 @@ Version:1.0
   color:#c8a165;
 }
 .single-product .button-head {
-	background: #fff;
-	display: inline-block;
-	height: 40px;
-	width: 100%;
-	position: absolute;
-	left: 0;
-	bottom: -50px;
-	z-index: 9;
-	height: 50px;
-	line-height: 50px;
-	-webkit-transition:all 0.4s ease;
-	-moz-transition:all 0.4s ease;
-	transition:all 0.4s ease;
+	background: #fff !important;
+	display: inline-block !important;
+	height: 40px !important;
+	width: 100% !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: -50px !important;
+	z-index: 9 !important;
+	height: 50px !important;
+	line-height: 50px !important;
+	-webkit-transition:all 0.4s ease !important;
+	-moz-transition:all 0.4s ease !important;
+	transition:all 0.4s ease !important;
 }
 .single-product:hover .button-head{
-	bottom:0;
+	top:0 !important;
 }
 .single-product .product-img .shop-list-quickview {
   position: absolute;
@@ -5149,7 +5149,7 @@ float: right;
 }
 #cssmenu > ul > li > a {
 padding: 17px;
-font-size: 20px;
+font-size: 15px;
 letter-spacing: 1px;
 text-decoration: none;
 color: #000;
