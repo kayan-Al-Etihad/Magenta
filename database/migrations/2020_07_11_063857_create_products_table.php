@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('description_ar')->nullable();
             $table->text('photo');
+            $table->text('cover');
             $table->text('embeded_code')->nullable();
             $table->integer('stock')->default(1);
             $table->string('size')->default('M')->nullable();

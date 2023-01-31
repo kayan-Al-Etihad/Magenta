@@ -125,7 +125,7 @@
               <option value="new">New</option>
               <option value="hot">Hot</option>
           </select>
-        </div>
+        </div>Cover
 
         <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
@@ -146,6 +146,22 @@
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
           @error('photo')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="inputCover" class="col-form-label">Cover <span class="text-danger">*</span></label>
+          <div class="input-group">
+              <span class="input-group-btn">
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                  <i class="fa fa-picture-o"></i> Choose
+                  </a>
+              </span>
+          <input id="thumbnail" class="form-control" type="text" name="cover" value="{{old('cover')}}">
+        </div>
+        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+          @error('cover')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>

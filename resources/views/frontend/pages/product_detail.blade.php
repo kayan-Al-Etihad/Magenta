@@ -77,11 +77,19 @@
                             <!-- Images slider -->
                             <div class="flexslider-thumbnails">
                                 <ul class="slides">
-                                    @if ($product_detail->embeded_code != null && $product_detail->photo !=null)
+                                    {{-- @if ($product_detail->embeded_code != null && $product_detail->photo !=null)
                                     {!! $product_detail->embeded_code !!}
-                                    @else
-                                    <img src="{{$product_detail->photo}}" alt="">
-                                    @endif
+                                    @else --}}
+                                    {{-- <img src="{{$product_detail->photo}}" alt=""> --}}
+                                    <div id="panorama-360-view"></div>
+                                    <script>
+                                        pannellum.viewer('panorama-360-view', {
+                                            "type": "equirectangular",
+                                            "panorama":{!! json_encode($product_detail->photo) !!},
+                                            "autoLoad": true
+                                        })
+                                    </script>
+                                    {{-- @endif --}}
                                 </ul>
                             </div>
                             <!-- End Images slider -->

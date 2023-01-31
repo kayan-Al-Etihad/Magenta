@@ -120,21 +120,9 @@
                                             <a href="{{route('product-detail',$product->slug)}}">
                                                 @php
                                                     $photo=explode(',',$product->photo);
-                                                // dd($photo);
                                                 @endphp
                                                 <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                 <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                {{-- @if($product->stock<=0)
-                                                    <span class="out-of-stock">Sale out</span>
-                                                @elseif($product->condition=='new')
-                                                    <span class="new">@lang('auth.new')</span
-                                                @elseif($product->condition=='hot')
-                                                    <span class="hot">@lang('auth.hot')</span>
-                                                @else
-                                                    <span class="price-dec">{{$product->discount}}@lang('auth.off')</span>
-                                                @endif --}}
-
-
                                             </a>
                                             @if (app()->getLocale() =="ar")
                                             <div class="button-head text-right" dir="rtl">

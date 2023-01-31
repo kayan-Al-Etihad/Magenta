@@ -166,6 +166,22 @@
         </div>
 
         <div class="form-group">
+          <label for="inputPhoto" class="col-form-label">Cover <span class="text-danger">*</span></label>
+          <div class="input-group">
+              <span class="input-group-btn">
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+                  <i class="fas fa-image"></i> Choose
+                  </a>
+              </span>
+          <input required id="thumbnail" class="form-control" type="text" name="cover" value="{{$product->cover}}">
+        </div>
+        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+          @error('cover')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
           <label for="embeded_code" class="col-form-label">Embeded Code</label>
           <textarea class="form-control" id="embeded_code" name="embeded_code">{{$product->embeded_code}}</textarea>
           @error('embeded_code')
