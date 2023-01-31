@@ -95,7 +95,7 @@
                             <!--/ End Shop Top -->
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row small-screen-category">
                         {{-- {{$products}} --}}
                         @if (count($categories) > 0)
                         @foreach ($categories as $category)
@@ -195,7 +195,7 @@
                             <!--/ End Shop Top -->
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row small-screen-category">
                         {{-- {{$products}} --}}
                         @if (count($categories) > 0)
                         @foreach ($categories as $category)

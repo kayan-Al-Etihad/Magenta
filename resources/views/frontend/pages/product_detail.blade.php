@@ -13,6 +13,24 @@
 <meta property="og:title" content="{{$product_detail->title}}">
 <meta property="og:image" content="{{$product_detail->photo}}">
 <meta property="og:description" content="{{$product_detail->description}}">
+<style>
+    @media screen and (max-width: 995px){
+    .fixed-nav li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px !important;
+        font-size: 13px !important;
+    }
+    #cssmenu{
+        display: block !important;
+        padding: 0 !important;
+    }
+    .breadcrumbs {
+        margin-top: 75px !important;
+    }
+}
+</style>
 @endsection
 @section('title','Magenta')
 @section('main-content')

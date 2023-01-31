@@ -87,7 +87,7 @@
                         {{-- {{$category}} --}}
                         <!-- Start Single List -->
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row small-screen-category-list">
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="single-product">
                                         <div class="product-img">
@@ -187,7 +187,7 @@
                         {{-- {{$category}} --}}
                         <!-- Start Single List -->
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row small-screen-category-list">
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="single-product">
                                         <div class="product-img">
